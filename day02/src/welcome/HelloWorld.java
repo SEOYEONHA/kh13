@@ -5,5 +5,4 @@ public class HelloWorld {
 		System.out.println("Hello Java");
 		//System.out.println("안녕 자바");
 	}
-
 }
