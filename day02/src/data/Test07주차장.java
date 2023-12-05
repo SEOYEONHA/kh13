@@ -14,9 +14,9 @@ public class Test07주차장 {
 		int outHour = 17 , outMinute = 25;
 		
 		
-		int inTIME = inHour*60 + 50 , outTime = outHour*60 + 25;
+		int inTIME = inHour*60 + inMinute , outTime = outHour*60 + outMinute;
 		int parkTime = outTime - inTIME; 
-		//System.out.println(parkHour); //총 주차 시간(분)
+		//System.out.println(parkTime); //총 주차 시간(분)
 		int totalPrice = Price * (parkTime/ 10);
 
 
