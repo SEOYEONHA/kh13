@@ -1,7 +1,6 @@
 package data;
 
 public class Test02분식집 {
-
 	public static void main(String[] args) {
 		//Test02 를 만들어서 다음 금액 계산 결과를 출력
 
@@ -32,9 +31,11 @@ public class Test02분식집 {
 		int fried = 2000;//튀김 가격
 		int dderbokiCount = 4;//떡볶이 개수
 		int friedCount = 2;//튀김 개수
+		
 		int ddeokbokiTotal = ddeokboki * dderbokiCount;
 		int friedTotal = fried * friedCount;
 		int total = ddeokbokiTotal + friedTotal;
+		
 		System.out.println(ddeokbokiTotal);
 		System.out.println(friedTotal);
 		System.out.println(total);
