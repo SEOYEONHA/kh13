@@ -32,9 +32,12 @@ public class Test05PC방계산기 {
 		// pay = pay / 10 * 10
 		
 		//출력
-		System.out.println(hour);
-		System.out.println(minute);
-		System.out.println(pay);
+		//System.out.println(hour);
+		//System.out.println(minute);
+		//System.out.println(pay);
+		
+		System.out.println(hour + "시간" + minute +"분");
+		System.out.println("이용요금 : " + pay +"원");
 
 	}
 
