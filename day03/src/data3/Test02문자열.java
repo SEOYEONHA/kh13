@@ -26,7 +26,7 @@ public class Test02문자열 {
 		String e = "가격 : \\10000원";
 		System.out.println(e);
 		
-		// (특징) 덧셈은 가능하다 (연결해준다)
+		// (특징) 덧셈은 가능하다 (연결해준다) 
 		System.out.println("e=" + e);
 		
 	}
