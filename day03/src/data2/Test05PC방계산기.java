@@ -12,11 +12,13 @@ public class Test05PC방계산기 {
 		//예를 들어서 4분동안 게임을 했다면 66.6666원이 실제 요금이 되지만 60원만 받습니다.
 		//고객이 12시 20분부터 15시 30분까지 게임을 했을 때 예상 요금을 구하여 출력하세요.
 		
+		//입력
 		int price = 1000;
 		int startHour = 12 , startMinute = 20;
 		int finishHour = 15 , finishMinute = 30;
 		
-		double pricePerMinute = price / 60.0;
+		//계산
+		double pricePerMinute = price / 60.0; // double pricePerMinute = (double)price / 60;
 		int startTime = finishHour * 60 + finishMinute; //들어온시간 변환 값
 		int finishTime = startHour * 60 + startMinute; //나간시간 변환 값
 		int playTime = startTime - finishTime; //이용시간(분)
@@ -26,6 +28,10 @@ public class Test05PC방계산기 {
 		
 		int pay = (int)(playTime * pricePerMinute) - ((int)(playTime * pricePerMinute) % 10) ;
 		
+		// int pay = (int)(playTime * pricePerMinute)
+		// pay = pay / 10 * 10
+		
+		//출력
 		System.out.println(hour);
 		System.out.println(minute);
 		System.out.println(pay);
