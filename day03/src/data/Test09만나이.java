@@ -24,7 +24,6 @@ public class Test09만나이 {
 		int numberOfMonths = year * 12 + month;
 		int age = numberOfMonths / 12;
 		
-		System.out.println(currentMonth);
 		System.out.println(age);
 		
 		
