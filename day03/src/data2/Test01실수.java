@@ -14,7 +14,7 @@ public class Test01실수 {
 		float b = 123.4567f;
 		System.out.println(b);
 		
-		//- 실수가 하나라도 포함된 계산은 결과가 ㅣㄹ수
+		//- 실수가 하나라도 포함된 계산은 결과가 실수
 		int s1 = 50;
 		int s2 = 55;
 		int s3 = (s1 + s2) / 2;
