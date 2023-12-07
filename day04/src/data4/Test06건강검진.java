@@ -1,4 +1,4 @@
-package date4;
+package data4;
 
 public class Test06건강검진 {
 

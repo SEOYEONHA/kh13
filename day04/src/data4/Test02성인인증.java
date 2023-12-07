@@ -1,4 +1,4 @@
-package date4;
+package data4;
 
 public class Test02성인인증 {
 	public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package date4;
+package data4;
 
 public class Test05배수판정 {
 	public static void main(String[] args) {

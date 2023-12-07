@@ -1,4 +1,4 @@
-package date4;
+package data4;
 
 public class Test04숫자판정2 {
 	public static void main(String[] args) {
