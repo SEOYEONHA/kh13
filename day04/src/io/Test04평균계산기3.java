@@ -12,7 +12,7 @@ public class Test04평균계산기3 {
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.print("국어 점수 : "); // print만 하면 입력을 옆에 함.
-		double korean = sc.nextDouble());
+		double korean = sc.nextDouble();
 		System.out.print("영어 점수 : ");
 		double english = sc.nextDouble();
 		System.out.print("수학 점수 : ");
