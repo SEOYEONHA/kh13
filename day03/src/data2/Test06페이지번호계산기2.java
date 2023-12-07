@@ -23,7 +23,7 @@ public class Test06페이지번호계산기2 {
 		
 		
 		int currenPage = 275;
-		int nop = 10; // 페이지개수
+		int nop = 10; // 페이지개수654321
 		int firstPage = (currenPage - (nop - (nop - 1))) / nop * nop + 1;
 		int lastPage = (currenPage + (nop - (nop - (nop-1)))) / nop * nop; 
 		
