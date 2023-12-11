@@ -1,7 +1,7 @@
 package loop;
 
 import java.util.Scanner;
-public class Tset02 {
+public class Tset02이름출력 {
 	public static void main(String[] args) {
 		//사용자에게 5개의 이름을 입력받아 입력받은 이름 뒤에 "님 환영합니다!" 라는 문구를 붙여 출력할 수 있도록 구현하세요
 
