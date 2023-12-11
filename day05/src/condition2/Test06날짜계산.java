@@ -23,18 +23,18 @@ public class Test06날짜계산 {
 				
 		boolean leap = condition3 || (condition1 && condition2);
 		
-		String day;
+		String day; // int day;
 		if (month == 4 || month ==6 || month == 9 || month == 11) {
-			day = "30";
+			day = "30"; // day = 30;
 		}
 		else if (month == 2 && leap) {
-			day = "29";
+			day = "29"; // day= 29
 		}
 		else if (month == 2) {
-			day = "28";
+			day = "28"; // day = 28;
 		}
 		else {
-			day = "31";
+			day = "31"; // day = 31;
 		}
 	
 		System.out.println(year + "년 " + month + "월의 마지막 날짜는 "
