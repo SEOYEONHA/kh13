@@ -24,7 +24,7 @@ public class Test10구구단 {
 		System.out.print("단을 입력하세요 : ");
 		int table = sc.nextInt();
 		
-		
+		System.out.println(table + "단 시작!");
 		for(int i = 1 ; i <= 9 ; i ++) {
 			System.out.print(table + " x " + i + " = ");
 			int result = table * i;
