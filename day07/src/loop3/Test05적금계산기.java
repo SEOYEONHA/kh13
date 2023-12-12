@@ -33,11 +33,12 @@ public class Test05적금계산기 {
 		
 		int origin = 0;
 		int total = 0;
+		float rate = 3f; // 연복리율
 		
 		for(int i = 1 ; i <= period ; i ++) {
 			origin = total + (money * 12);
 			
-			int interest = origin * 3 / 100;
+			int interest = (int)(origin * rate / 100); 
 			total = origin + interest;
 			
 			System.out.println(i + "년차");
