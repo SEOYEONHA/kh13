@@ -19,9 +19,11 @@ public class Test01배열 {
 		//(A) 배열을 만들어서 저장 후 출력
 		int[] arr = new int[] {10, 20, 30};
 		
-		System.out.println(arr[0]);
-		System.out.println(arr[1]);
-		System.out.println(arr[2]);
+		System.out.println(arr); //리모컨
+		System.out.println(arr[0]); //리모컨이 쳐다보는 지점에서 +0칸 이동한 곳
+		System.out.println(arr[1]); //리모컨이 쳐다보는 지점에서 +1칸 이동한 곳
+		System.out.println(arr[2]); //리모컨이 쳐다보는 지점에서 + 2칸 이동한 곳
+		System.out.println(arr.length);
 	}
 
 }
