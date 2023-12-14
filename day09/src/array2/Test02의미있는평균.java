@@ -39,7 +39,7 @@ public class Test02의미있는평균 {
 		System.out.println("최소값 = " + numbers[min]);
 		System.out.println("총 합계 = " + total);
 		
-		double average = (total - numbers[max] - numbers[min]) / 3;
+		double average = (total - numbers[max] - numbers[min]) / (numbers.length - 2);
 		System.out.println("의미있는 평균 = " + average);
 	}
 }
