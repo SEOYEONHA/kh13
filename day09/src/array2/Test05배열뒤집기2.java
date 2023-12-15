@@ -16,7 +16,6 @@ public class Test05배열뒤집기2 {
 		int right = numbers.length - 1;
 		//for(int i = 0 ; i < numbers.length/2 ; i++){
 		for(int i = 1 ; i <= numbers.length/2 ; i++) {
-			
 			int backup = numbers[left];
 			numbers[left] = numbers[right];
 			numbers[right] = backup;
@@ -26,9 +25,6 @@ public class Test05배열뒤집기2 {
 			right --;
 			
 		}
-				
-				
-		
 		//출력
 		for(int i = 0 ; i < numbers.length ; i++) {
 			System.out.println(numbers[i]);
