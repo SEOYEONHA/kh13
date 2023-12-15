@@ -21,6 +21,7 @@ public class Test06배열섞기 {
 		for(int i = 0 ; i < numbers.length ; i ++) {
 			int ranNum = r.nextInt(numbers.length - 1);
 			//int ranNum2 = r.nextInt(numbers.length - 1);
+			//System.out.println("현재위치 : " + i + , "바꿀위치 : " + ranNum);
 			int backup = numbers[ranNum];
 			numbers[ranNum] = numbers[i];
 			numbers[i] = backup;
