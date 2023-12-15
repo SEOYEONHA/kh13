@@ -1,0 +1,22 @@
+package array3;
+
+public class Test02버블정렬2 {
+    public static void main(String[] args) {
+        // 배열 준비
+    	
+        int[] numbers = new int[] {30, 50, 20, 10, 40, 90, 60, 80};
+
+        for (int k = 0 ; k < numbers.length - 1; k++) {
+            for (int i = 0 ; i < numbers.length - 1 - k; i++) {
+                if (numbers[i] > numbers[i + 1]) {
+                    int backup = numbers[i];
+                    numbers[i] = numbers[i + 1];
+                    numbers[i + 1] = backup;
+                }
+            }
+        }  
+        for (int i = 0; i < numbers.length; i++) {
+            System.out.println(numbers[i]);
+        }
+    }
+}
