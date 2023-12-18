@@ -1,4 +1,4 @@
-package opp.method2;
+package oop.method2;
 
 public class Olympic {
 	
