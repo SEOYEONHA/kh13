@@ -1,4 +1,4 @@
-package opp.basic3;
+package oop.basic3;
 
 public class Test01객체생성 {
 	public static void main(String[] args) {
