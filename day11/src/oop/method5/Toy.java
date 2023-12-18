@@ -11,7 +11,7 @@ public class Toy {
 		//메소드 오버로딩(method overloading)
 		//-같은 이름으로 여러 개의 메소드를 만드는 것
 		//- 뭘 좋아할 지 몰라서 다 준비해봤어
-		//- 매개변수가 닭라서 구분이 가능한 경우만 인정한다
+		//- 매개변수가 달라서 구분이 가능한 경우만 인정한다
 		void data(String name, int price) {
 			this.name = name;
 			this.price = price;
