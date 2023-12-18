@@ -1,4 +1,4 @@
-package opp.method1;
+package oop.method1;
 
 public class Football {
 	int rank;

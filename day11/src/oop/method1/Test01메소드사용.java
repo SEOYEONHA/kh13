@@ -1,4 +1,4 @@
-package opp.method1;
+package oop.method1;
 
 public class Test01메소드사용 {
 	public static void main(String[] args) {
