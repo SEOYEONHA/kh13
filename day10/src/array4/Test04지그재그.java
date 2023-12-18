@@ -28,6 +28,9 @@ public class Test04지그재그 {
 				x += 1;
 				y ++;
 			}
+			if((x < 0 && y < 0) || (x > row && y > col)) {
+				break;
+			}
 		}
 		
 		
