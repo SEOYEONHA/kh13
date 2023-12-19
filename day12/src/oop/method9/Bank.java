@@ -1,4 +1,4 @@
-package opp.method9;
+package oop.method9;
 
 public class Bank {
 	//멤버 변수
