@@ -3,6 +3,7 @@ package oop.constructor1_1;
 public class Student {
 	private String name;
 	private int score;
+	
 	String getName() {
 		return name;
 	}
