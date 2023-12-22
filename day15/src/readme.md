@@ -25,9 +25,6 @@ for(int i = 0; i <10; i++){
 	System.out.println("Hello World");
 }
 ```
-
-
-
 #인용구
 
 다른 사람이 했던 말 또는 글귀를 옮겨 적을 때 사용
