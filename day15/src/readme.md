@@ -54,3 +54,12 @@ for(int i=0; i < 10; i++) {
 ```
 
 [구글에서 자바 검색한 결과 보러가기](https://www.google.com/search?q=%EC%9E%90%EB%B0%94&sca_esv=593038284&sxsrf=AM9HkKl25LH8bgs-Xu5FWcJqDFu_Hbhlgw%3A1703232716704&source=hp&ei=zESFZf7kKP3i2roPw_e-yA4&iflsig=AO6bgOgAAAAAZYVS3LACwmnLPpfPEFTUOomOT48lpLSa&ved=0ahUKEwj--q-ozKKDAxV9sVYBHcO7D-kQ4dUDCAw&uact=5&oq=%EC%9E%90%EB%B0%94&gs_lp=Egdnd3Mtd2l6IgbsnpDrsJQyCBAAGIAEGLEDMgsQABiABBixAxiDATIIEAAYgAQYsQMyCxAAGIAEGLEDGIMBMggQABiABBixAzIFEAAYgAQyCxAAGIAEGLEDGIMBMgUQABiABDIFEAAYgAQyBRAAGIAESKIJUABYkghwAngAkAEBmAG8AaABiAWqAQMwLjW4AQPIAQD4AQGoAgrCAgQQABgDwgILEC4YgAQYsQMYgwHCAhEQLhiABBixAxiDARjHARjRA8ICCxAuGIAEGMcBGK8BwgIHEAAYgAQYCsICDRAuGMcBGNEDGOoCGCfCAgcQIxjqAhgn&sclient=gws-wiz)
+
+
+
+# 목록 표시
+
+목록은 크게 두 가지로 나눠진다.
+
+- 순서가 없는 목록(unorder list)
+- 순서가 있는 목록(order list)
