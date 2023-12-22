@@ -1,6 +1,6 @@
 # Markdown 사용 설명서
 
-**markdown**이란 **markup**에 반대 개념으로 최소한의 기호로 문서를 꾸밀 수 있도록 고안된 문법 체계이다.
+**markdown**이란 **markup**의 반대 개념으로 최소한의 기호로 문서를 꾸밀 수 있도록 고안된 문법 체계이다.
 
 # 제목 작성법
 
@@ -44,3 +44,13 @@ for(int i=0; i < 10; i++) {
 ```
 
 ![KH로고](https://image.rocketpunch.com/company/105846/khjeongbogyoyugweon_logo_1572925088.png?s=400x400&t=inside)
+
+# 링크 삽입
+
+이 페이지가 아닌 외부로의 연결고리를 하이퍼링크(hyperlink)라고 부른다.
+
+```
+[보여줄글자](주소)
+```
+
+[구글에서 자바 검색한 결과 보러가기](https://www.google.com/search?q=%EC%9E%90%EB%B0%94&sca_esv=593038284&sxsrf=AM9HkKl25LH8bgs-Xu5FWcJqDFu_Hbhlgw%3A1703232716704&source=hp&ei=zESFZf7kKP3i2roPw_e-yA4&iflsig=AO6bgOgAAAAAZYVS3LACwmnLPpfPEFTUOomOT48lpLSa&ved=0ahUKEwj--q-ozKKDAxV9sVYBHcO7D-kQ4dUDCAw&uact=5&oq=%EC%9E%90%EB%B0%94&gs_lp=Egdnd3Mtd2l6IgbsnpDrsJQyCBAAGIAEGLEDMgsQABiABBixAxiDATIIEAAYgAQYsQMyCxAAGIAEGLEDGIMBMggQABiABBixAzIFEAAYgAQyCxAAGIAEGLEDGIMBMgUQABiABDIFEAAYgAQyBRAAGIAESKIJUABYkghwAngAkAEBmAG8AaABiAWqAQMwLjW4AQPIAQD4AQGoAgrCAgQQABgDwgILEC4YgAQYsQMYgwHCAhEQLhiABBixAxiDARjHARjRA8ICCxAuGIAEGMcBGK8BwgIHEAAYgAQYCsICDRAuGMcBGNEDGOoCGCfCAgcQIxjqAhgn&sclient=gws-wiz)
