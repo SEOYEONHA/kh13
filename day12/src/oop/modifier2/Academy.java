@@ -35,7 +35,7 @@ public class Academy {
 		}
 		this.price = price;
 	}
-	//(주의) 문자열과ㅑ 객체 등은 비교연산을 쓰지 않는다
+	//(주의) 문자열과 객체 등은 비교연산을 쓰지 않는다
 	//			(비교연산은 원시형을 위한 연산)
 	//(해결) 별도의 비교명령을 쓰거나 switch구문을 사용
 	void setType(String type) {
