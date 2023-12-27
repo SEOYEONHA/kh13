@@ -2,7 +2,7 @@ package api.lang.string;
 
 import java.util.Scanner;
 
-public class Test07욕설필터링 {
+public class Test07욕설필터링2 {
 	public static void main(String[] args) {
 //		사용자가 임의의 문자열을 입력했을 때 이 안에 포함된 욕설을 모두 마스킹 처리하세요
 //
@@ -19,7 +19,7 @@ public class Test07욕설필터링 {
 		for(int i = 0 ; i < swearWords.length ; i++) {
 			for(int k = 0 ; k < parts.length ; k++) {
 				if(parts[k].contains(swearWords[i])) {
-					input = "**";
+				input = input.replace(swearWords[i], "**");
 				}
 			}
 		}
