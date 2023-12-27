@@ -12,3 +12,5 @@ public class Test04둘중하나 {
 		System.out.println(greet.matches(regex));
 	}
 }
+
+	
