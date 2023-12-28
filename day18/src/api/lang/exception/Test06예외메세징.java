@@ -1,6 +1,5 @@
 package api.lang.exception;
 
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Test06예외메세징 {
