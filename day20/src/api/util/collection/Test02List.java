@@ -24,6 +24,15 @@ public class Test02List {
 		a.add("엘릭서");			//a[4] = "엘릭서";
 		//a.add(100); String이라고 지정해둬서 불가능
 		
+		//데이터 개수 확인
+		System.out.println("개수 = " + a.size());
+		
+		//데이터 검색
+		System.out.println("자바가 있나요? " + a.contains("자바"));
+		
+		//데이터 삭제
+		a.remove("파이썬");
+		
 		//출력
 		System.out.println(a);
 	}
