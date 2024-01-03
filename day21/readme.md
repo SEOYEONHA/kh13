@@ -7,4 +7,5 @@
 ### 선형구조에 비해 탐색에 특화된 구조(정리됨)
 - Set
 - Map
-!(https://postfiles.pstatic.net/MjAyNDAxMDNfNDUg/MDAxNzA0MjQ0OTIzNDEz.dGWd-gSDBPptLL6OPZ_fS6eU-QmetPxOw-3dwLNDomYg.d6Vb3WzktAa4FpShHLC1eCOu11JwN2wwR4tEDI913m8g.PNG.only3322/%ED%99%94%EB%A9%B4_%EC%BA%A1%EC%B2%98_2024-01-03_101958.png?type=w966)
+
+![TreeSet](https://postfiles.pstatic.net/MjAyNDAxMDNfNDUg/MDAxNzA0MjQ0OTIzNDEz.dGWd-gSDBPptLL6OPZ_fS6eU-QmetPxOw-3dwLNDomYg.d6Vb3WzktAa4FpShHLC1eCOu11JwN2wwR4tEDI913m8g.PNG.only3322/%ED%99%94%EB%A9%B4_%EC%BA%A1%EC%B2%98_2024-01-03_101958.png?type=w966)
