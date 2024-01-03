@@ -3,8 +3,4 @@
 ![구조설명](https://cdn.discordapp.com/attachments/1181056701537996810/1191916727177580605/image.png)
 
 # 정리
-| 데이터 1개 - Collection | 데이터 2개 - Map |
-| :--- | :---: | ---: | :---: |
-| List<E> (순서) | 90 | 1000000 | 온라인 |
-| 파이썬 기초 | 60 | 600000 | 온라인 |
-| 웹 개발자 단기완성 | 120 | 1200000 | 오프라인 |
+![정리](https://cdn.discordapp.com/attachments/1181056701537996810/1192029866783154186/image.png?ex=65a79753&is=65952253&hm=6d554e768c68bf7d65ccac6df02c027de8941948ac94d7b81acc9f095e04ac6c&)
