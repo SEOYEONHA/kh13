@@ -55,3 +55,52 @@ select
 	book_title 도서명,
 	substr(book_publication_date, 1, 4) 출간년도
 from book;
+
+-- 조건
+-- - 제시한 조건에 부합하는 데이터만 조회(필터링)
+-- - 조회구문 뒤에 'where 조건식'을 추가
+
+-- 10달러 미만인 도서만 조회
+select * from book where book_price < 10;
+
+-- 10~15 달러 사이의 도서만 조회
+select * from book where book_price >= 10 and book_price <= 15;
+select * from book where book_price between 10 and 15;
+
+-- 5번 도서 조회
+select * from book where book_id = 5;
+
+-- 5번 빼고 조회
+select * from book where book_id != 5;
+
+-- 문자 조건
+-- [1] 장르가 Fantasy인 도서를 조회 (오라클은 문자도 = 로 비교)
+select * from book where book_genre = 'Fantasy';
+select * from book where lower(book_genre) = 'fantasy';
+
+-- [2] T로 시작하는 도서 조회
+-- like 연산자는 패턴을 지정할 때 사용하며 %는 해당자리는 무관하다는 뜻
+-- instr 함수는 지정한 글자가 어느 위치에 있는지 알아내는 명령
+-- 시작검사 만큼은 like 연산자가 매우 빠르며 나머지는 전반적으로 instr 함수가 빠르다
+select * from book where book_title like 'T%';
+select * from book where lower(book_title) like 't%';
+select * from book where book_title like 'T%M%';
+select * from book where instr(book_title, 'T') = 1;
+
+-- (Q) 대소문자 상관 없이 h가 들어있는 도서를 조회
+select * from book where lower(book_title) like '%h%';
+select * from book where instr(lower(book_title), 'h') > 0; --추천
+
+-- (Q) 저자명이 J로 시작하는 도서를 조회
+select * from book where book_author like 'J%'; --추천
+select * from book where instr(book_author, 'J') = 1;
+
+-- (Q) 출판사명이 Company로 끝나는 도서를 조회
+select * from book where book_publisher like '%Company'; -- 편하게 이거 추천
+select * from book where instr(book_publisher, 'Company') = length(book_publisher) - length('Company') + 1;
+
+-- (Q) 도서명에 숫자가 들어간 도서를 조회
+select * from book where regexp_like(book_title, '[0-9]+');
+
+-- (Q) 숫자로만 이루어진 도서를 조회
+select * from book where regexp_like(book_title, '^[0-9]+$');
