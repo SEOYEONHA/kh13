@@ -26,4 +26,32 @@ INSERT INTO BOOK(book_id, book_title, book_author, book_publication_date, book_p
 INSERT INTO BOOK(book_id, book_title, book_author, book_publication_date, book_price, book_publisher, book_page_count, book_genre) VALUES(8, 'Lord of the Rings', 'J.R.R. Tolkien', '1954-07-29', 29.99, 'Allen & Unwin', 1178, 'Fantasy');
 INSERT INTO BOOK(book_id, book_title, book_author, book_publication_date, book_price, book_publisher, book_page_count, book_genre) VALUES(9, 'To the Lighthouse', 'Virginia Woolf', '1927-05-05', 13.99, 'Harcourt, Brace and Company', 209, 'Modernist');
 INSERT INTO BOOK(book_id, book_title, book_author, book_publication_date, book_price, book_publisher, book_page_count, book_genre) VALUES(10, 'The Alchemist', 'Paulo Coelho', '1988-06-01', 9.99, 'HarperOne', 208, 'Fiction');
+
+/*
+	조회(SELECT)
+	- 데이터베이스에 저장된 데이터들을 원하는 기준에 맞게 읽어내는 것
+	-SELECT 항목 FROM 테이블
+*/
+
+-- 전체 도서 조회
 select * from book;
+select book. * from book;
+
+-- 도서명만 조회
+select book_title from book;
+
+-- 도서명과 페이지 수만 조회
+select book_title, book_page_count from book;
+
+-- 항목을 계산하여 추가로 조회할 수 있다
+select book_title, length(book_title) from book;
+select book_title 도서제목, length(book_title) 제목글자수 from book;
+select book_title "도서 제목", length(book_title) "제목 글자수" from book;
+
+-- 도서명과 출간년도를 조회하고 싶은 경우
+-- select book_title 도서명, ???? 출간년도 from book;
+-- substr(항목, 시작위치, 글자수) : 오라클은 문자열 위치 시작이 1부터임
+select 
+	book_title 도서명,
+	substr(book_publication_date, 1, 4) 출간년도
+from book;
