@@ -4,6 +4,7 @@
 	- 번호 생성기
 	- 테이블과 세트로 사용하는 경우가 많으며 "기본키" 를 생성하는 목적으로 주로 사용함
 */
+
 drop sequence product_seq;
 create sequence product_seq;
 -- create sequence product_seq nocache;
