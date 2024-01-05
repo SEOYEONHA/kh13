@@ -24,3 +24,4 @@ select * from product;
 
 -- 시퀀스의 자세한 정보 확인
 select * from user_sequences;
+
