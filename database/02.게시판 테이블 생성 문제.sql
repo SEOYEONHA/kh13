@@ -19,8 +19,8 @@
 -- 테이블 생성
 create table board(
 board_no number primary key,
-board_title varchar2(300) not null 
-	check(regexp_like(board_title, '^[ㄱ-ㅎ가-힣 ]+$')),
+board_title varchar2(300) not null, 
+	--check(regexp_like(board_title, '^[ㄱ-ㅎ가-힣 ]+$')),
 board_content varchar2(4000) not null,
 board_writer varchar2(20) 
 	check(regexp_like(board_writer, '^[A-Za-z0-9]{8,20}$')),
