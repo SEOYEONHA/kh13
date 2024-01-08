@@ -33,6 +33,6 @@
 - 시퀀스 : 데이터에 고유 번호를 부여하기 위한 도구
 - 데이터 : CRUD(등록/조회/수정/삭제) 하는 작업을 위한 구문
 	- C : Insert Into 테이블(형식) values(값)
-	- R : Select 항목 from 테이블 [조건][정렬]
+	- R : Select 항목 from 테이블 [조건][정렬
 	- U : Update 테이블 set 변경구문 [조건]
 	- D : Delete 테이블 [조건]
