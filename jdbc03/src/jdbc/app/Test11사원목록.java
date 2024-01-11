@@ -11,9 +11,14 @@ public class Test11사원목록 {
 		EmpDao dao = new EmpDao();
 		List<EmpDto> list = dao.selectList();
 		
-		System.out.println("조회 결과 : 총 " + list.size() + "건");
-		for(EmpDto dto:list) {			
-			System.out.println("사원 이름 : " + dto.getEmpName() + " / 부서명 : " + dto.getEmpDept());
+		if(list.isEmpty()) {
+			System.out.println("등록된 사원 정보가 없습니다");
+		}
+		else {
+			System.out.println("조회 결과 : 총 " + list.size() + "건");
+			for(EmpDto dto:list) {			
+				System.out.println("사원 이름 : " + dto.getEmpName() + " / 부서명 : " + dto.getEmpDept());
+			}
 		}
 	}
 }
