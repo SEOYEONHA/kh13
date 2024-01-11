@@ -7,7 +7,7 @@ import jdbc.dto.EmpDto;
 
 public class Test12사원찾기 {
 	public static void main(String[] args) {
-		
+		//1명의 사원을 찾고싶다면... 반드시 사원번호(primary key - 기본키)를 알아야한다
 		
 		Scanner sc = new Scanner(System.in);
 		System.out.print("검색할 사원 번호를 입력하세요 : ");
@@ -16,6 +16,7 @@ public class Test12사원찾기 {
 		
 		EmpDao dao = new EmpDao();
 		EmpDto dto = dao.selectOne(empNo);
+		
 		
 		if(dto != null) {
 			System.out.println("<사원 정보>");

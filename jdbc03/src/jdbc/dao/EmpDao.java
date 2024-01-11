@@ -66,6 +66,9 @@ public class EmpDao {
 		EmpMapper mapper = new EmpMapper();
 		List<EmpDto> list = jdbcTemplate.query(sql, mapper, data);
 		
+		//RowMapper - 목록용 도구
+		//ResultSetExtractor - 상세용 도구
+		
 		return list.isEmpty() ? null : list.get(0);
 		
 //		if(list.isEmpty()) {
