@@ -69,6 +69,15 @@ public class PocketmonDao {
 //		return list;
 	}
 	
+	//항목 - 키워드검색 (결과가 1%라도 여러개 나올 가능성이 있다면 Lsit)
+	public List<PocketmonDto> selectList(String column, String keyword){
+		JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
+		String sql = "select * from pocketmon where instr(" + column + ", ?) > 0";
+		Object[] data = {keyword};
+		PocketmonMapper mapper = new PocketmonMapper();
+		return jdbcTemplate.query(sql, mapper, data);
+	}
+	
 	//상세 메소드
 	public PocketmonDto selectOne(int pocketmonNo) {
 		JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
@@ -84,6 +93,9 @@ public class PocketmonDao {
 //		else {
 //			return list.get(0);
 //		}
-	
+
 	}
 }
+
+
+
