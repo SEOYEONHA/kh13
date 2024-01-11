@@ -36,3 +36,4 @@
 	- R : Select 항목 from 테이블 [조건][정렬
 	- U : Update 테이블 set 변경구문 [조건]
 	- D : Delete 테이블 [조건]
+![CRUD](https://cdn.discordapp.com/attachments/1181056701537996810/1194137010974236702/image.png?ex=65af41c1&is=659cccc1&hm=72b488dc9924b68c9b684c7e5d8d57a277bfc837d5026f3ef1e54ebe1730630c&)
