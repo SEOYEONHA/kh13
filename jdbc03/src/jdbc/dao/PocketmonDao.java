@@ -85,8 +85,5 @@ public class PocketmonDao {
 //			return list.get(0);
 //		}
 	
-	
-}
-
-	
+	}
 }
