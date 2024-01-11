@@ -77,7 +77,7 @@ public class PocketmonDao {
 		PocketmonMapper mapper = new PocketmonMapper();
 		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, data);
 //		list에는 데이터가 없거나 1개있거나 둘 중 하나의 상태
-		return list.isEmpty() ? null : list.get(0);
+		return list.isEmpty() ? null : list.get(0); //조건 ? 참일때 : 거짓일때
 //		if(list.isEmpty()) {
 //			return null;
 //		}
