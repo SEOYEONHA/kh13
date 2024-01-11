@@ -28,13 +28,13 @@ public class Test04사원항목검색 {
 		//처리
 		JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
 //		String sql = "select * from emp where "+column+" like ? || '%'"
-		String sql = "select * from emp where instr("+column+", ?) > 0"
-										+ "order by "+column+" asc, emp_no asc";
+		String sql = "select * from emp where instr(" + column + ", ?) > 0"
+										+ "order by " + column + " asc, emp_no asc";
 		EmpMapper mapper = new EmpMapper();
 		Object[] data = {keyword};
 		
 		List<EmpDto> list = jdbcTemplate.query(sql, mapper, data);
-		System.out.println(column+" 항목에 대해 ["+keyword+"] 키워드로 검색한 결과");
+		System.out.println(column+" 항목에 대해 [" + keyword + "] 키워드로 검색한 결과");
 		if(list.isEmpty()) {
 			System.out.println("표시할 결과가 없습니다");
 		}

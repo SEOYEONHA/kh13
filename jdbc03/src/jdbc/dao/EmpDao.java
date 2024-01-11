@@ -78,5 +78,19 @@ public class EmpDao {
 //			return list.get(0);
 //		}
 	}
-	//...
+	//항목 키워드검색
+	public List<EmpDto> selectList(String column, String keyword){
+		JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
+		String sql = "select * from emp where instr(" + column + ", ?) > 0"
+							+ "order by " + column + " asc, emp_no asc";
+		Object[] data = {keyword};
+		EmpMapper mapper = new EmpMapper();
+		return jdbcTemplate.query(sql, mapper, data);
+	
+	}
 }
+
+
+
+
+
