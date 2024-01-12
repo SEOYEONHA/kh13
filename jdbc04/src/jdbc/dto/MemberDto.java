@@ -10,8 +10,8 @@ public class MemberDto {
 	private String memberContact;
 	private String memberEmail;
 	private String memberPost;
-	private String memberAdderess1;
-	private String memberAdderess2;
+	private String memberAddress1;
+	private String memberAddress2;
 	private String memberLevel;
 	private int memberPoint;
 	private Date memberJoin;
@@ -37,11 +37,21 @@ public class MemberDto {
 	public String getMemberBirth() {
 		return memberBirth;
 	}
+	public String getMemberBirthStr(){
+		if(memberBirth == null) 
+			return "";
+		else 
+			return memberBirth;
+	}
 	public void setMemberBirth(String memberBirth) {
 		this.memberBirth = memberBirth;
 	}
 	public String getMemberContact() {
 		return memberContact;
+	}
+	public String getMemberContactStr() {
+		if(memberContact == null) return "";
+		else return memberContact;
 	}
 	public void setMemberContact(String memberContact) {
 		this.memberContact = memberContact;
@@ -55,20 +65,36 @@ public class MemberDto {
 	public String getMemberPost() {
 		return memberPost;
 	}
+	public String getMemberPostStr() {
+		if(memberPost == null) return "";
+		else
+			return memberPost;
+	}
 	public void setMemberPost(String memberPost) {
 		this.memberPost = memberPost;
 	}
-	public String getMemberAdderess1() {
-		return memberAdderess1;
+	public String getMemberAddress1() {
+		return memberAddress1;
 	}
-	public void setMemberAdderess1(String memberAdderess1) {
-		this.memberAdderess1 = memberAdderess1;
+	public String getMemberAddress1Str() {
+		if(memberAddress1 == null) return "";
+		else
+			return memberAddress1;
 	}
-	public String getMemberAdderess2() {
-		return memberAdderess2;
+	public void setMemberAddress1(String memberAddress1) {
+		this.memberAddress1 = memberAddress1;
 	}
-	public void setMemberAdderess2(String memberAdderess2) {
-		this.memberAdderess2 = memberAdderess2;
+	public String getMemberAddress2() {
+		return memberAddress2;
+	}
+	public String getMemberAddress2Str() {
+		if(memberAddress2 == null) 
+			return "";
+		else
+			return memberAddress2;
+	}
+	public void setMemberAddress2(String memberAddress2) {
+		this.memberAddress2 = memberAddress2;
 	}
 	public String getMemberLevel() {
 		return memberLevel;

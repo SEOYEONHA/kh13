@@ -19,8 +19,8 @@ public class MemberMapper implements RowMapper<MemberDto>{
 		dto.setMemberContact(rs.getString("member_contact"));
 		dto.setMemberEmail(rs.getString("member_email"));
 		dto.setMemberPost(rs.getString("member_post"));
-		dto.setMemberAdderess1(rs.getString("member_address1"));
-		dto.setMemberAdderess2(rs.getString("member_address2"));
+		dto.setMemberAddress1(rs.getString("member_address1"));
+		dto.setMemberAddress2(rs.getString("member_address2"));
 		dto.setMemberLevel(rs.getString("member_level"));
 		dto.setMemberPoint(rs.getInt("member_point"));
 		dto.setMemberJoin(rs.getDate("member_join"));
