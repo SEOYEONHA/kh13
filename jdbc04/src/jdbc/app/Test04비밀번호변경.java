@@ -28,7 +28,7 @@ public class Test04비밀번호변경 {
 			//비밀번호 비교(find의 memberPw와 currentPw를 비교)
 			if(find.getMemberPw().equals(changePw)) {
 				//업데이트
-				dao.update(dto);
+				dao.updateMemberPw(dto);
 				System.out.println("비밀번호 변경 완료");
 			}
 		}

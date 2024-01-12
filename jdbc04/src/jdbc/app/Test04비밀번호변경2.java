@@ -25,7 +25,7 @@ public class Test04비밀번호변경2 {
 		MemberDao dao = new MemberDao();
 		MemberDto find = dao.selectOne(dto.getMemberId());
 		if(find != null && find.getMemberPw().equals(changePw)) {
-			dao.update(dto);
+			dao.updateMemberPw(dto);
 			System.out.println("비밀번호 변경 완료");
 		}
 		else {
