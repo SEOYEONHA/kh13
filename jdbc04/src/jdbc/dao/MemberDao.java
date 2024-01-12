@@ -34,16 +34,15 @@ public class MemberDao {
 		jdbcTemplate.update(sql, data);
 	}
 	
-	//수정
-	public boolean update(MemberDto dto, String memberPw) {
+	//비밀번호 변경(수정, Update)
+	public boolean update(MemberDto dto) {
 		//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
 		String sql = "update member "
 						+ "set member_pw = ? "
-						+ "where member_id = ? and member_pw = ?";
+						+ "where member_id = ?";
 		Object[] data = {
-				memberPw,
-				dto.getMemberId(),
-				dto.getMemberPw()
+				dto.getMemberPw(),
+				dto.getMemberId()
 		};
 		return jdbcTemplate.update(sql, data) > 0;
 	}

@@ -5,7 +5,7 @@ import java.util.Scanner;
 import jdbc.dao.MemberDao;
 import jdbc.dto.MemberDto;
 
-public class Test04비밀번호변경 {
+public class Test04비밀번호변경2 {
 	public static void main(String[] args) {
 		
 		Scanner sc = new Scanner(System.in);
@@ -24,16 +24,12 @@ public class Test04비밀번호변경 {
 		//데이터 처리
 		MemberDao dao = new MemberDao();
 		MemberDto find = dao.selectOne(dto.getMemberId());
-		if(find != null) {
-			//비밀번호 비교(find의 memberPw와 currentPw를 비교)
-			if(find.getMemberPw().equals(changePw)) {
-				//업데이트
-				dao.update(dto);
-				System.out.println("비밀번호 변경 완료");
-			}
+		if(find != null && find.getMemberPw().equals(changePw)) {
+			dao.update(dto);
+			System.out.println("비밀번호 변경 완료");
 		}
 		else {
-			System.out.println("존재하지않는 회원 아이디입니다.");
+			System.out.println("정보가 일치하지 않습니다.");
 		}
 		
 //		boolean result = dao.update(dto, memberPw);
