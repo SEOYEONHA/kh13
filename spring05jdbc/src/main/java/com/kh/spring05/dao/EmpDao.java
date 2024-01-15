@@ -23,7 +23,7 @@ public class EmpDao {
 		
 		Object[] data = {dto.getEmpName(), dto.getEmpDept(), 
 				dto.getEmpDate(), dto.getEmpSal()
-		};
+			};
 		jdbcTemplate.update(sql, data);
 	}
 
