@@ -60,7 +60,16 @@ public class PocketmonController {
 		return "포켓몬스터 등록 완료";
 	}
 	
-	
+	@RequestMapping("/edit")
+	public String edit(@ModelAttribute PocketmonDto dto) {
+		boolean result = dao.update(dto);
+		if(result) {
+			return "포켓몬스터 수정 완료";
+		}
+		else {
+			return "존재하지 않는 포켓몬스터 번호";
+		}
+	}
 	
 	
 }

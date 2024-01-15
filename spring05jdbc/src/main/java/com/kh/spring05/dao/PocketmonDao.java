@@ -29,4 +29,15 @@ public class PocketmonDao {
 		};
 		jdbcTemplate.update(sql, data);
 	}
+	
+	public boolean update(PocketmonDto dto) {
+		String sql = "update pocketmon "
+					+ "set pocketmon_name = ?, pocketmon_type = ? "
+					+ "where pocketmon_no = ?";
+		Object[] data = {
+				dto.getPocketmonName(), dto.getPocketmonType(), 
+				dto.getPocketmonNo()
+		};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
 }
