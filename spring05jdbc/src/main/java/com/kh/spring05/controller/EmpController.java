@@ -24,5 +24,16 @@ public class EmpController {
 		dao.insert(dto);
 		return "사원정보 등록 완료";
 	}
+	
+	@RequestMapping("/edit")
+	public String edit(@ModelAttribute EmpDto dto) {
+		boolean result = dao.update(dto);
+		if(result) {
+			return "사원정보 수정 완료";
+		}
+		else{
+			return "존재하지 않는 사원 번호입니다.";
+		}
+	}
 
 }
