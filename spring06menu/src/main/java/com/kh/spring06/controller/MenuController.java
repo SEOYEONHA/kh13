@@ -1,5 +1,8 @@
 package com.kh.spring06.controller;
 
+import java.text.DecimalFormat;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -48,6 +51,63 @@ public class MenuController {
 		}
 		else {
 			return "존재하지 않는 메뉴번호 입니다";
+		}
+	}
+	
+	@RequestMapping("/list")
+	//http://localhost:8080/menu/list?column=menu_name_kor&keyword=라떼
+	public String list(
+				@RequestParam(required = false) String column, 
+				@RequestParam(required = false) String keyword
+			) {
+		boolean isSearch = column != null && keyword != null;
+//		List<MenuDto> list;
+//		if(isSearch) {
+//			list = dao.selectList(column, keyword);
+//		}
+//		else {
+//			list = dao.selectList();
+//		}
+		List<MenuDto> list = isSearch ? dao.selectList(column, keyword) : dao.selectList();
+		
+		DecimalFormat fmt = new DecimalFormat("#,##0");
+				
+		StringBuffer buffer = new StringBuffer();
+		for(MenuDto dto:list) {
+			buffer.append("[");
+			buffer.append(dto.getMenuType());
+			buffer.append("] ");
+			buffer.append(dto.getMenuNameKor());
+			buffer.append(" (");
+			buffer.append(dto.getMenuNameEng());
+			buffer.append(") : ");
+			buffer.append(fmt.format(dto.getMenuPrice()));
+			buffer.append("원");
+			buffer.append("<br>"); //HTML의 엔터
+		}
+		return buffer.toString();
+	}
+	
+	@RequestMapping("/detail")
+	public String detail(@RequestParam int menuNo) {
+		MenuDto dto = dao.selectOne(menuNo);
+		if(dto != null) {
+			DecimalFormat fmt = new DecimalFormat("#,##0");
+			StringBuffer buffer = new StringBuffer();
+			buffer.append("[");
+			buffer.append(dto.getMenuType());
+			buffer.append("] ");
+			buffer.append(dto.getMenuNameKor());
+			buffer.append(" (");
+			buffer.append(dto.getMenuNameEng());
+			buffer.append(") : ");
+			buffer.append(fmt.format(dto.getMenuPrice()));
+			buffer.append("원");
+			buffer.append("<br>");
+			return buffer.toString();
+		}
+		else {
+			return "존재하지 않는 메뉴 번호입니다.";
 		}
 	}
 }

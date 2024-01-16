@@ -126,6 +126,7 @@ public class PocketmonController {
 	//목록 + 검색(최종)
 	//- column, keyword 파라미터 유무에 따라 검색/목록을 결정
 	@RequestMapping("/list3")
+	//http://localhost:8080/pocketmon/list3?column=pocketmon_name&keyword=%ED%85%8C
 	public String list3(
 						@RequestParam(required = false) String column,
 						@RequestParam(required = false) String keyword) {
@@ -148,6 +149,22 @@ public class PocketmonController {
 			buffer.append("<br>"); //HTML의 엔터
 		}
 		return buffer.toString();
+	}
+	
+	@RequestMapping("/detail")
+	public String detail(@RequestParam int pocketmonNo) {
+		PocketmonDto dto = dao.selectOne(pocketmonNo);
+		if(dto != null) {// 검색한 번호가 있는 번호인 경우
+			StringBuffer buffer = new StringBuffer();
+			buffer.append(dto.getPocketmonName());
+			buffer.append(" (");
+			buffer.append(dto.getPocketmonType());
+			buffer.append(")");
+			return buffer.toString();
+		}
+		else {// 없는 번호인 경우
+			return "존재하지 않는 몬스터 번호입니다.";
+		}
 	}
 	
 	
