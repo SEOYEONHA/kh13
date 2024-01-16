@@ -1,5 +1,7 @@
 package com.kh.spring05.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -82,5 +84,77 @@ public class PocketmonController {
 		}
 		
 	}
+	
+	@RequestMapping("/list")
+	public String list() {
+		List<PocketmonDto> list = dao.selectList();
+		
+		//list를 이용하여 화면에 출력할 문자열을 생성
+		StringBuffer buffer = new StringBuffer();
+		for(PocketmonDto dto:list) {
+			buffer.append(dto.getPocketmonNo());
+			buffer.append(" - ");
+			buffer.append(dto.getPocketmonName());
+			buffer.append(", ");
+			buffer.append(dto.getPocketmonType());
+			//buffer.append("\n"); //일반 텍스트의 엔터
+			buffer.append("<br>"); //HTML의 엔터
+		}
+		return buffer.toString();
+	}
+	
+	//항목 키워드 검색
+	@RequestMapping("/list2")
+	public String list2(
+								@RequestParam String column, 
+								@RequestParam String keyword) {
+		List<PocketmonDto> list = dao.selectList(column, keyword);
+		StringBuffer buffer = new StringBuffer();
+		for(PocketmonDto dto:list) {
+			buffer.append(dto.getPocketmonNo());
+			buffer.append(" - ");
+			buffer.append(dto.getPocketmonName());
+			buffer.append(", ");
+			buffer.append(dto.getPocketmonType());
+			//buffer.append("\n"); //일반 텍스트의 엔터
+			buffer.append("<br>"); //HTML의 엔터
+		}
+		return buffer.toString();
+		
+	}
+	
+	//목록 + 검색(최종)
+	//- column, keyword 파라미터 유무에 따라 검색/목록을 결정
+	@RequestMapping("/list3")
+	public String list3(
+						@RequestParam(required = false) String column,
+						@RequestParam(required = false) String keyword) {
+		boolean isSearch = column != null && keyword != null;
+		List<PocketmonDto> list;
+		if(isSearch) {
+			list = dao.selectList(column, keyword);
+		}
+		else {
+			list = dao.selectList();
+		}
+		StringBuffer buffer = new StringBuffer();
+		for(PocketmonDto dto:list) {
+			buffer.append(dto.getPocketmonNo());
+			buffer.append(" - ");
+			buffer.append(dto.getPocketmonName());
+			buffer.append(", ");
+			buffer.append(dto.getPocketmonType());
+			//buffer.append("\n"); //일반 텍스트의 엔터
+			buffer.append("<br>"); //HTML의 엔터
+		}
+		return buffer.toString();
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 }
