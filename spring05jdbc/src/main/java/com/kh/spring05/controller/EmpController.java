@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.spring05.dao.EmpDao;
@@ -35,5 +36,15 @@ public class EmpController {
 			return "존재하지 않는 사원 번호입니다.";
 		}
 	}
-
+	
+	@RequestMapping("/delete")
+	//http://localhost:8080/emp/delete?empNo=22
+	public String delete(@RequestParam int empNo) {
+		if(dao.delete(empNo)) {
+			return "사원정보 삭제 완료";
+			}
+		else {
+			return "존재하지 않는 사원 번호입니다.";
+		}
+	}
 }

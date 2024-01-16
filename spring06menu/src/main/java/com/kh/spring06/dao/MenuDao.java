@@ -3,6 +3,7 @@ package com.kh.spring06.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.kh.spring06.dto.MenuDto;
 import com.kh.spring06.mapper.MenuMapper;
@@ -32,6 +33,13 @@ public class MenuDao {
 						+ "menu_price = ? where menu_no = ?";
 		Object[] data = {dto.getMenuNameKor(), dto.getMenuNameEng(), dto.getMenuType(), 
 							dto.getMenuPrice(), dto.getMenuNo()};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+
+	@RequestMapping("/delete")
+	public boolean delete(int menuNo) {
+		String sql = "delete menu where menu_no = ?";
+		Object[] data = {menuNo};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 }

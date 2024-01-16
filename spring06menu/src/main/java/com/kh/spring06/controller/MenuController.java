@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.spring06.dao.MenuDao;
@@ -27,13 +28,26 @@ public class MenuController {
 	
 	@RequestMapping("/change")
 	public String change(@ModelAttribute MenuDto dto) {
-		boolean result = dao.update(dto);
-		if(result) {
+//		boolean result = dao.update(dto);
+//		if(result) {
+//			return "메뉴정보 수정 완료";
+//		}
+		if(dao.update(dto)) {
 			return "메뉴정보 수정 완료";
 		}
 		else {
 			return "존재하지 않는 메뉴 번호입니다.";
 		}
 	}
-	
+
+	@RequestMapping("/delete")
+	//http://localhost:8080/menu/delete?menuNo=21
+	public String delete(@RequestParam int menuNo) {
+		if(dao.delete(menuNo)) {
+			return "메뉴정보 삭제 완료";
+		}
+		else {
+			return "존재하지 않는 메뉴번호 입니다";
+		}
+	}
 }

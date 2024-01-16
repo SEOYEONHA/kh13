@@ -37,5 +37,10 @@ public class EmpDao {
 		};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
-
+	
+	public boolean delete(int empNo) {
+		String sql = "delete emp where emp_no = ?";
+		Object[] data = {empNo};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
 }

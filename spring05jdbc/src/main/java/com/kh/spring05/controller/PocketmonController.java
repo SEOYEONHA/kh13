@@ -71,5 +71,16 @@ public class PocketmonController {
 		}
 	}
 	
+	@RequestMapping("/delete")
+	//http://localhost:8080/pocketmon/delete?pocketmonNo=74
+	public String delete(@RequestParam int pocketmonNo) {
+		if(dao.delete(pocketmonNo)) {
+			return "포켓몬스터 삭제 완료";
+		}
+		else {
+			return "존재하지 않는 포켓몬스터 번호입니다.";
+		}
+		
+	}
 	
 }
