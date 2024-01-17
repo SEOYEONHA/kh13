@@ -20,4 +20,9 @@ public class HtmlController {
 	public String snsLogin() {
 		return "/WEB-INF/views/snsLogin.jsp";
 	}
+	
+	@RequestMapping("/dummy")
+	public String dummy() {
+		return "/WEB-INF/views/dummy.jsp";
+	}
 }
