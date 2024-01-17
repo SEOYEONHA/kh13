@@ -30,4 +30,9 @@ public class HtmlController {
 	public String link() {
 		return "/WEB-INF/views/link.jsp";
 	}
+	
+	@RequestMapping("/realtime")
+	public String realTime() {
+		return "/WEB-INF/views/realTime.jsp";
+	}
 }
