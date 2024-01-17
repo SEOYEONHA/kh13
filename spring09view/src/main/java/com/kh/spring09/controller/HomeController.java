@@ -10,4 +10,9 @@ public class HomeController {
 	public String welcome() {
 		return "/WEB-INF/views/home.jsp";
 	}
+	
+	@RequestMapping("/dummy")
+	public String dummy() {
+		return "/WEB-INF/views/dummy.jsp";
+	}
 }
