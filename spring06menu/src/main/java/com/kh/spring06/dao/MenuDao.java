@@ -44,7 +44,7 @@ public class MenuDao {
 	}
 	
 	public List<MenuDto> selectList(){
-		String sql = "select * from menu order by menu_no";
+		String sql = "select * from menu order by menu_no asc";
 		//Object[] data = {};
 		return jdbcTemplate.query(sql, mapper);
 	}

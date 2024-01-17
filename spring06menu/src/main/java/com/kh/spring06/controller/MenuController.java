@@ -50,7 +50,7 @@ public class MenuController {
 			return "메뉴정보 삭제 완료";
 		}
 		else {
-			return "존재하지 않는 메뉴번호 입니다";
+			return "존재하지 않는 메뉴번호 입니다.";
 		}
 	}
 	

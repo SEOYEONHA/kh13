@@ -47,7 +47,7 @@ public class EmpDao {
 	}
 	
 	public List<EmpDto> selectList(){
-		String sql ="select * from emp order by emp_no";
+		String sql ="select * from emp order by emp_no asc";
 		//Object[] data = {};
 		return jdbcTemplate.query(sql, mapper);
 	}
