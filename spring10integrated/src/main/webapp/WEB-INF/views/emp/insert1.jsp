@@ -15,5 +15,5 @@
 	부서명 <input name="empDept" type="text"><br><br>
 	입사일 <input name="empDate" type="date"><br><br>
 	급여액 <input name="empSal" type="text"><br><br>
-	<button>사원등록</button>
+	<button>사원 등록</button>
 </form>
