@@ -1,6 +1,11 @@
 package com.kh.spring10.dto;
 
 public class EmpDto {
+	@Override
+	public String toString() {
+		return "EmpDto [empNo=" + empNo + ", empName=" + empName + ", empDept=" + empDept + ", empDate=" + empDate
+				+ ", empSal=" + empSal + "]";
+	}
 	private int empNo;
 	private String empName;
 	private String empDept;
