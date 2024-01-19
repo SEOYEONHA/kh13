@@ -19,6 +19,7 @@ public class MenuController {
 	@Autowired
 	private MenuDao dao;
 	
+	//등록 페이지
 	@GetMapping("/insert")
 	public String insert() {
 		return "/WEB-INF/views/menu/insert.jsp";
@@ -35,20 +36,21 @@ public class MenuController {
 		return "/WEB-INF/views/menu/insertComplete.jsp";
 	}
 	
+	//수정 페이지
 	@GetMapping("/change")
 	public String change(@RequestParam int menuNo, Model model) {
 		MenuDto dto = dao.selectOne(menuNo);
 		model.addAttribute("dto", dto);
-		return "/WEB-INF/views/menu/change.jsp";
+		if(dto == null) {
+			return "redirect:changeFail";
+		}
+		else {
+			return "/WEB-INF/views/menu/change.jsp";
+		}
 	}
 	@PostMapping("/change")
 	public String change(@ModelAttribute MenuDto dto) {
-		if(dao.update(dto)) {
 			return "redirect:chageSuccess";
-		}
-		else {
-			return "redirect:chageFail";
-		}
 	}
 	
 	@RequestMapping("/changeSuccess")
