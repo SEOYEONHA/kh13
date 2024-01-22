@@ -81,6 +81,8 @@ public class EmpController {
 							Model model) {
 		boolean isSearch = column != null && keyword != null;
 		List<EmpDto> list = isSearch ? dao.selectList(column, keyword) : dao.selectList();
+		
+		model.addAttribute("isSearch", isSearch);
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/emp/list.jsp";
 	}
