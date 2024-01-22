@@ -2,7 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     
-<h1>포켓몬스터 목록</h1>
+<h1>
+	포켓몬스터 목록
+	<a href="insert1">신규 등록</a>	
+</h1>
 <%-- 검색창(form은 그냥 주소생성기라고 생각) --%>
 <form action="list" method="get">
 	<select name="column">
@@ -20,5 +23,6 @@
 		번호 = ${dto.pocketmonNo}, 
 		이름 = ${dto.pocketmonName}, 
 		속성 = ${dto.pocketmonType}
+		<a href="detail?pocketmonNo=${dto.pocketmonNo}">이동</a>
 		</h2>
 </c:forEach>

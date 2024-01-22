@@ -71,7 +71,8 @@ public class MenuController {
 							Model model) {
 		boolean isSearch = column != null& keyword != null;
 		List<MenuDto> list = isSearch ? dao.selectList(column, keyword) : dao.selectList();
+		model.addAttribute("isSearch", isSearch);
 		model.addAttribute("list", list);
-		return "/WEB-INF/views/menu/list.jsp";
+		return "/WEB-INF/views/menu/list2.jsp";
 	}
 }
