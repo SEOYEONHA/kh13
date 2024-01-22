@@ -84,7 +84,7 @@ public class EmpController {
 		
 		model.addAttribute("isSearch", isSearch);
 		model.addAttribute("list", list);
-		return "/WEB-INF/views/emp/list.jsp";
+		return "/WEB-INF/views/emp/list2.jsp";
 	}
 	
 	
