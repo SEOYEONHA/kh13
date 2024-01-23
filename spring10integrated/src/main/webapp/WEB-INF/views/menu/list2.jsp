@@ -3,7 +3,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<h1><a href="/menu/list">메뉴 목록</a></h1>
+<%-- 페이지 제목 --%>
+<c:choose>
+	<c:when test="${isSearch}">
+		<h1>메뉴 검색</h1>
+	</c:when>
+	<c:otherwise>
+		<h1>메뉴 목록</h1>
+	</c:otherwise>
+</c:choose>
+
 
 <%--검색창 --%>
 <form action="list" method="get">
@@ -18,7 +27,7 @@
 
 
 <%-- 목록 출력 --%>
-<table border="1">
+<table border="1" width="700">
 	<thead>
 		<tr>
 			<th>메뉴번호</th>
@@ -31,7 +40,7 @@
 		<c:forEach var="dto" items="${list}">
 		<tr>
 			<td>${dto.menuNo}</td>
-			<td>${dto.menuNameKor}(${dto.menuNameEng})</td>
+			<td><a href="detail?menuNo=${dto.menuNo}">${dto.menuNameKor}(${dto.menuNameEng})</a></td>
 			<td>${dto.menuType}</td>
 <%--			<td align="right">${dto.menuPrice}원</td> --%>
 			<td><fmt:formatNumber value="${dto.menuPrice}" pattern="#,##0"></fmt:formatNumber>
@@ -40,3 +49,5 @@
 		</c:forEach>
 	</tbody>
 </table>
+<br>
+<a href="list"><button>목록보기</button></a>

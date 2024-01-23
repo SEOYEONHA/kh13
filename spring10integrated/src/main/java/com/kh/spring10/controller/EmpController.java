@@ -57,7 +57,8 @@ public class EmpController {
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute EmpDto dto) {
 		if(dao.update(dto)) {
-			return "redirect:editSuccess";
+			//return "redirect:editSuccess";
+			return "redirect:detail?empNo=" + dto.getEmpNo();
 		}
 		else{
 			return "redirect:editFail";
@@ -87,7 +88,19 @@ public class EmpController {
 		return "/WEB-INF/views/emp/list2.jsp";
 	}
 	
+	//상세페이지
+	@RequestMapping("/detail")
+	public String detail(@RequestParam int empNo, Model model) {
+		EmpDto dto = dao.selectOne(empNo);
+		model.addAttribute("dto", dto);
+		return "/WEB-INF/views/emp/detail.jsp";
+	}
 	
-	
+	//@RequestMapping("/delete")
+	@GetMapping("/delete")
+	public String delete(@RequestParam int empNo) {
+		dao.delete(empNo);
+		return "redirect:list";
+	}
 	
 }

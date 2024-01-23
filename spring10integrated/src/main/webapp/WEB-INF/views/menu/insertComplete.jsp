@@ -3,6 +3,5 @@
     
 <h1>메뉴등록 완료</h1>
 
-<form action="insert">
-	<button>등록 페이지로 돌아가기</button>
-</form>
+<a href="list"><button>목록보기</button></a>
+<a href="insert"><button>다시 등록하기</button></a>

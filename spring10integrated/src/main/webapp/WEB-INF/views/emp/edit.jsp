@@ -14,5 +14,7 @@
 	부서명 <input type="text" name="empDept" required value="${dto.empDept}"> <br><br>
 	입사일 <input type="date" name="empDate" required value="${dto.empDate}"> <br><br>
 	급여액 <input type="number" name="empSal" required value="${dto.empSal}"> <br><br>
-	<button>정보 수정</button>
+	<button>수정하기</button>
 </form>
+<a href="list"><button>목록보기</button></a>
+

@@ -16,7 +16,7 @@
 	메뉴 타입
 	<select name= "menuType">
 		<option value="">선택하세요</option>
-		<option value="커피">커피</option>
+		<option value="음료">음료</option>
 		<option value="스무디">스무디</option>
 		<option value="에이드">에이드</option>
 		<option value="디저트">디저트</option>
@@ -24,3 +24,4 @@
 	메뉴 가격 <input name="menuPrice" type="number" required><br><br>
 	<button>메뉴 등록</button>
 </form>
+<a href="list"><button>목록보기</button></a>

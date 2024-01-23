@@ -75,4 +75,19 @@ public class MenuController {
 		model.addAttribute("list", list);
 		return "/WEB-INF/views/menu/list2.jsp";
 	}
+	
+	@RequestMapping("/detail")
+	public String detail(@RequestParam int menuNo, Model model) {
+		MenuDto dto = dao.selectOne(menuNo);
+		model.addAttribute("dto", dto);
+		return "/WEB-INF/views/menu/detail.jsp";		
+	}
+	
+	//@RequestMapping("/delete")
+	@GetMapping("/delete")
+	public String delete(@RequestParam int menuNo) {
+		dao.delete(menuNo);
+		return "redirect:list";
+	}
+	
 }

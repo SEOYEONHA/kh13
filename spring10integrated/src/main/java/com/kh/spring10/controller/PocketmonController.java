@@ -96,7 +96,7 @@ public class PocketmonController {
 	
 	//삭제 페이지
 	@RequestMapping("/delete")
-	public String delete(@RequestParam int pocketmonNo, Model model) {
+	public String delete(@RequestParam int pocketmonNo) {
 		dao.delete(pocketmonNo);
 		//return "redirect:/pocketmon/list"; //절대
 		return "redirect:list"; //상대

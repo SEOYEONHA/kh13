@@ -2,6 +2,5 @@
     pageEncoding="UTF-8"%>
 <h1>사원등록 완료</h1>
 
-<form action="insert">
-	<button>등록 페이지로 돌아가기</button>
-</form>
+	<a href="list"><button>목록보기</button></a>
+	<a href="insert"><button>신규등록</button></a> 

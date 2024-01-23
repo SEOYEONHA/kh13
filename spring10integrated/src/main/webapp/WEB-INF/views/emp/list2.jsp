@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%-- 페이지 제목 --%>
 <c:choose>
@@ -51,7 +52,7 @@
 
 
 <%-- 목록 출력 --%>
-<table border="1">
+<table border="1" width="500">
 	<thead>
 		<tr>
 			<th>사원번호</th>
@@ -65,11 +66,14 @@
 		<c:forEach var="dto" items="${list}">
 		<tr>
 			<td>${dto.empNo}</td>
-			<td>${dto.empName}</td>
+			<td><a href="detail?empNo=${dto.empNo}">${dto.empName}</a></td>
 			<td>${dto.empDept}</td>
 			<td>${dto.empDate}</td>
-			<td>${dto.empSal}원</td>
+			<td><fmt:formatNumber value="${dto.empSal}" pattern="#,##0"></fmt:formatNumber>원</td>
 		</tr>
 		</c:forEach>
 	</tbody>
 </table>
+<br>
+	<a href="list"><button>목록보기</button></a>
+	<a href="insert"><button>신규등록</button></a> 
