@@ -1,5 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+    
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 
 <h1>메뉴 정보 수정</h1>
 
@@ -18,3 +23,6 @@
 	메뉴 가격 <input name="menuPrice" type="number" required value="${dto.menuPrice}"><br><br>
 	<button>정보 수정</button>
 </form>
+
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

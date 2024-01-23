@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <%-- 페이지 제목 --%>
 <c:choose>
 	<c:when test="${isSearch}">
@@ -71,3 +74,6 @@
 	(이스케이프 문자 \ 랑 비슷한 느낌)
 	궁금하다면 인터넷에 HTML특수문자표 검색
 --%>
+
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

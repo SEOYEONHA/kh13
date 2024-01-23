@@ -2,6 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
+
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
+
 <h1>메뉴 목록</h1>
 <form action="list" method="get">
 	<select name="column">
@@ -19,3 +23,6 @@
 	[${dto.menuType}] - ${dto.menuPrice}원
 	</h3>
 </c:forEach>
+
+<%-- 템플릿 페이지를 불러오는 코드 --%>
+<jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
