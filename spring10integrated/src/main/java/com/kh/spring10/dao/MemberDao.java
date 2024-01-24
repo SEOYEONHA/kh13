@@ -39,6 +39,16 @@ public class MemberDao {
 		jdbcTemplate.update(sql, data);
 			}
 	
+	//목록(조회, Read)
+	public List<MemberDto> selectList(){
+		//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
+		String sql = "select * from member order by member_id asc";
+//		Object[] data = {};
+		//MemberMapper mapper = new MemberMapper();
+		return jdbcTemplate.query(sql, mapper);
+	}
+	
+	
 	//상세
 		public MemberDto selectOne(String memberId) {
 			//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();

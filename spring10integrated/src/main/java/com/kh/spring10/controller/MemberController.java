@@ -2,6 +2,7 @@ package com.kh.spring10.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,7 +71,6 @@ public class MemberController {
 		if(isValid) {
 			//세션에 따라 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
-		
 			return "redirect:/";
 		}
 		else {//로그인 실패
@@ -81,10 +81,30 @@ public class MemberController {
 	//실제 로그아웃
 	//- 로그인 때 검사를 했으므로 추가 검사는 불필요
 	//- 로그인 때 저장한 세션의 데이터만 삭제 처리
-	@RequestMapping("logout")
+	@RequestMapping("/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("loginId");
 		return "redirect:/";
+	}
+	
+	//마이페이지
+	//- (중요) 내 아이디는 HttpSession에 있다
+	@RequestMapping("/mypage")
+	public String mypage(/*@ModelAttribute MemberDto logInDto,*/
+													HttpSession session, 
+													Model model) {
+		//1. 세션에 저장된 아이디를 꺼낸다
+		String loginId = (String)session.getAttribute("loginId");
+		
+		//2. 아이디에 맞는 정보를 조회한다
+		MemberDto memberDto = memberDao.selectOne(loginId);
+		
+		//3. 화면에 조회한 정보를 전달한다
+		model.addAttribute("memberDto", memberDto);
+		//model.addAttribute("session", session);
+		
+		//4. 연결된 화면을 반환한다
+		return "/WEB-INF/views/member/mypage.jsp";
 	}
 	
 	
