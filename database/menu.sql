@@ -1,24 +1,17 @@
-/* 여러 줄 주석(자바와 동일)
-	
-	테이블 제약조건(table constraint)
-	- 테이블에 추가되는 데이터에 대한 조건을 설정할 수 있다
-	- 종류는 null, 중복, 값의범위or조건 등이 있다
-	- null을 허용하지 않으려면 컬럼 옆에 not null 키워드를 추가한다
-	- 중복을 허용하지 않으려면 컬럼 옆에 unique 키워드를 추가한다
-	- 허용되는 값을 지정하려면 컬럼 옆에 check 키워드를 추가한다
-*/
-
-CREATE TABLE menu(
-menu_name varchar2(60) NOT NULL UNIQUE
-	CHECK(regexp_like(menu_name, '^[가-힣]+$')),
-menu_type varchar2(9) NOT NULL CHECK(menu_type IN ('디저트', '음료')),
-menu_price NUMBER NOT NULL CHECK(menu_price >= 0),
--- menu_event char(1) NOT NULL CHECK(menu_event = 'Y' OR menu_event = 'N')
-menu_event char(1) NOT NULL CHECK(menu_event IN ('Y', 'N'))
+create table menu(
+menu_no number primary key,--메뉴번호, 시퀀스로 자동 부여
+menu_name_kor varchar2(60) not null,--메뉴 한글 이름
+menu_name_eng varchar2(60) not null,--메뉴 영문 이름
+menu_type varchar2(30) not null,--메뉴 종류
+menu_price number default 0 not null check(menu_price >= 0)--메뉴 판매가(원)
 );
-DROP TABLE menu;
 
-INSERT INTO menu(menu_name, menu_type, menu_price, menu_event)
-values('아메리카노', '디저트', 3000, 'N');
+create sequence menu_seq;
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES
+(menu_seq.nextval, '아메리카노', 'Americano', '음료', 4000);
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '카페라떼', 'Cafe Latte', '음료', 5000);
 
 SELECT * FROM menu;
