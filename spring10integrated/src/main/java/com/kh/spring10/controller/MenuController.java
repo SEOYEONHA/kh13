@@ -43,16 +43,23 @@ public class MenuController {
 	public String change(@RequestParam int menuNo, Model model) {
 		MenuDto dto = dao.selectOne(menuNo);
 		model.addAttribute("dto", dto);
-		if(dto == null) {
-			return "redirect:changeFail";
-		}
-		else {
-			return "/WEB-INF/views/menu/change.jsp";
-		}
+		return "/WEB-INF/views/menu/change.jsp";
+//		if(dto == null) {
+//			return "redirect:changeFail";
+//		}
+//		else {
+//			return "/WEB-INF/views/menu/change.jsp";
+//		}
 	}
 	@PostMapping("/change")
 	public String change(@ModelAttribute MenuDto dto) {
-			return "redirect:chageSuccess";
+		if(dao.update(dto)) {
+			//return "redirect:chageSuccess";
+			return "redirect:detail?menuNo=" + dto.getMenuNo();
+		}
+		else {
+			return "redirect:changeFail";
+		}
 	}
 	
 	@RequestMapping("/changeSuccess")

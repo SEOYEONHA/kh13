@@ -33,9 +33,9 @@
 		<br>
 		
 		<%-- 다른 페이지로의 링크 --%>
-		<a href="list"><button>목록보기</button></a></a>&nbsp;
+		<a href="list"><button>목록보기</button></a>&nbsp;
 		<a href="insert"><button>신규등록</button></a>&nbsp;
-		<a href=""><button>수정</button></a></a>&nbsp;
+		<a href="change?menuNo=${dto.menuNo}"><button>수정</button></a>&nbsp;
 		<a href="delete?menuNo=${dto.menuNo}"><button>삭제</button></a>
 	</c:when>
 	<c:otherwise>

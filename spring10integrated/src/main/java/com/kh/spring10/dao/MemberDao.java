@@ -1,5 +1,7 @@
 package com.kh.spring10.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -37,7 +39,16 @@ public class MemberDao {
 		jdbcTemplate.update(sql, data);
 			}
 	
-	
+	//상세
+		public MemberDto selectOne(String memberId) {
+			//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
+			String sql = "select * from member where member_id = ?";
+			//MemberMapper mapper = new MemberMapper();
+			Object[] data = {memberId};
+			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
+			
+			return list.isEmpty() ? null : list.get(0);
+		}
 	
 	
 }

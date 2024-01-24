@@ -19,6 +19,7 @@
 		<option value="스무디">스무디</option>
 		<option value="에이드">에이드</option>
 		<option value="디저트">디저트</option>
+		<option value="베이커리">베이커리</option>
 	</select><br><br>
 	메뉴 가격 <input name="menuPrice" type="number" required value="${dto.menuPrice}"><br><br>
 	<button>정보 수정</button>
