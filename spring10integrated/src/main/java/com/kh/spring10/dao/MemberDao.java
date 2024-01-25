@@ -39,6 +39,14 @@ public class MemberDao {
 		jdbcTemplate.update(sql, data);
 			}
 	
+	//회원 탈퇴
+	public boolean delete(String memberId) {
+		//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
+		String sql = "delete member where member_id = ?";
+		Object[] data = {memberId};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
 	//목록(조회, Read)
 	public List<MemberDto> selectList(){
 		//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
@@ -48,17 +56,59 @@ public class MemberDao {
 		return jdbcTemplate.query(sql, mapper);
 	}
 	
+	//검색(조회, Read)
+	public List<MemberDto> selectList(String column, String keyword){
+		String sql = "select * from member where instr(" + column + ", ?) >0 "
+									+ "order by " + column + " asc, member_id asc";
+		Object[] data = {keyword};
+		return jdbcTemplate.query(sql, mapper, data);
+	}
+	
+	//비밀번호 변경(수정, Update)
+	public boolean updateMemberPw(MemberDto dto) {
+		//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
+		String sql = "update member "
+						+ "set member_pw = ? "
+						+ "where member_id = ?";
+		Object[] data = {
+				dto.getMemberPw(),
+				dto.getMemberId()
+		};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
 	
 	//상세
-		public MemberDto selectOne(String memberId) {
-			//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
-			String sql = "select * from member where member_id = ?";
-			//MemberMapper mapper = new MemberMapper();
-			Object[] data = {memberId};
-			List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
-			
-			return list.isEmpty() ? null : list.get(0);
-		}
+	public MemberDto selectOne(String memberId) {
+		//JdbcTemplate jdbcTemplate = JdbcHelper.getJdbcTemplate();
+		String sql = "select * from member where member_id = ?";
+		//MemberMapper mapper = new MemberMapper();
+		Object[] data = {memberId};
+		List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
+		
+		return list.isEmpty() ? null : list.get(0);
+	}
 	
+	//최종 로그인시각 변경(수정, Update)
+	public boolean updateMemberLogin(String memberId) {
+		String sql = "update member set member_login=sysdate "
+													+ "where member_id = ?";
+		Object[] data = {memberId};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//회원이 자신의 정보를 변경(수정, Update)
+	public boolean updateMember(MemberDto dto) {
+		String sql = "update member "
+						+ "set member_nick = ?, member_birth = ?, member_contact = ?, "
+						+ "member_email = ?, member_post = ?, member_address1 = ?, "
+						+ "member_address2 = ? "
+						+ "where member_id = ?";
+		Object[] data = {
+				dto.getMemberNick(), dto.getMemberBirth(), dto.getMemberContact(), 
+				dto.getMemberEmail(), dto.getMemberPost(), dto.getMemberAddress1(), 
+				dto.getMemberAddress2(), dto.getMemberId()
+		};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
 	
 }

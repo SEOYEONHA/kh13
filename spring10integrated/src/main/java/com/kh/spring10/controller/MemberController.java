@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.spring10.dao.MemberDao;
 import com.kh.spring10.dto.MemberDto;
@@ -71,6 +72,10 @@ public class MemberController {
 		if(isValid) {
 			//세션에 따라 데이터 추가
 			session.setAttribute("loginId", findDto.getMemberId());
+			
+			//최종 로그인시각 갱신
+			memberDao.updateMemberLogin(findDto.getMemberId());
+			
 			return "redirect:/";
 		}
 		else {//로그인 실패
@@ -107,24 +112,122 @@ public class MemberController {
 		return "/WEB-INF/views/member/mypage.jsp";
 	}
 	
+	//비밀번호 변경
+	@GetMapping("/password")
+	public String password(){
+		return "/WEB-INF/views/member/password.jsp";
+	}
 	
-	
-//	@PostMapping("/login")
-//	public String login(Model model,
-//							@ModelAttribute MemberDto dto,
-//							@RequestParam String memberId,
-//							@RequestParam String memberPw) {
-//		boolean pass = memberId.equals(dto.getMemberId()) && memberPw.equals(dto.getMemberPw());
-//		model.addAttribute("dto", dto);
-//		model.addAttribute("pass", pass);
-//		if(pass) {
-//			return "/WEB-INF/views/home";
-//		}
-//		else {
-//			return "/WEB-INF/views/member/login.jsp";
-//		}
-//	}
-	
-	
+	@PostMapping("/password")
+	public String password(/*@ModelAttribute MemberDto inputDto,*/ 
+										@RequestParam String originPw,
+										@RequestParam String changePw,
+										HttpSession session) {
+		//로그인된 사용자의 아이디를 추출
+		String loginId = (String)session.getAttribute("loginId");
+		
+		//비밀번호 검사를 위해 DB에 저장된 정보를 불러온다
+		MemberDto findDto = memberDao.selectOne(loginId);
+		
+		//findDto != null 이 식은 굳이 ?
+		boolean isValid = findDto.getMemberPw().equals(originPw);
+		
+		if(isValid) {//입력한 기존 비밀번호가 유효할 경우
+			//session.setAttribute("loginId", findDto.getMemberId());
+			//session.getAttribute(loginId);
+			//아이디와 변경할 비밀번호로 DTO를 만들어 DAO의 기능을 호출
+			MemberDto memberDto = new MemberDto();
+			memberDto.setMemberId(loginId);
+			memberDto.setMemberPw(changePw);
+			memberDao.updateMemberPw(memberDto);
 			
+			return "redirect:passwordFinish";
+		}
+		else {//입력한 기존 비밀번호가 유효하지 않을 경우
+			return "redirect:password?error";
+		}
+	}
+	
+	@RequestMapping("/passwordFinish")
+	public String passwordFinish() {
+		return "/WEB-INF/views/member/passwordFinish.jsp";
+	}
+	
+	//개인정보 변경
+	@GetMapping("/change")
+	public String change(HttpSession session, Model model) {
+		//사용자 아이디를 세션에서 추출
+		String loginId = (String)session.getAttribute("loginId");
+		
+		//아이디로 정보 조회
+		MemberDto memberDto = memberDao.selectOne(loginId);
+//		MemberDto findDto = memberDao.selectOne(memberDto.getMemberId());
+		
+		//모델에 정보 추가
+		model.addAttribute("memberDto", memberDto);
+		
+		return "/WEB-INF/views/member/change.jsp";
+	}
+	@PostMapping("/change")
+	public String change(@ModelAttribute MemberDto memberDto, HttpSession session) {
+		//세션에서 아이디 추출
+		String loginId = (String)session.getAttribute("loginId");
+		
+		//memberDto에 아이디 설정
+		memberDto.setMemberId(loginId);
+		
+		//DB정보 조회
+		MemberDto findDto = memberDao.selectOne(loginId);
+		
+		//판정
+		boolean isValid = memberDto.getMemberPw().equals(findDto.getMemberPw());
+		
+		//변경 요청
+		if(isValid) {
+			memberDao.updateMember(memberDto);
+			return "redirect:mypage";
+		}
+		else {
+			//이전 페이지로 리다이렉트
+			return "redirect:change?error";
+		}
+	}
+	
+	//회원 탈퇴
+	@GetMapping("/exit")
+	public String exit() {
+		return "/WEB-INF/views/member/exit.jsp";
+	}
+	@PostMapping("/exit")
+	public String exit(@RequestParam String memberPw, HttpSession session) {
+		String loginId = (String)session.getAttribute("loginId");
+		
+		MemberDto findDto = memberDao.selectOne(loginId);
+		boolean isValid = findDto.getMemberPw().equals(memberPw);
+		
+		if(isValid) {
+			memberDao.delete(loginId); //회원탈퇴
+			session.removeAttribute("loginId");//로그아웃
+			return "redirect:exitFinish"; // *redirect도 get방식임(post방식이 없음)
+		}
+		else {
+			return "redirect:exit?error";
+		}
+	}
+	
+	@RequestMapping("/exitFinish")
+	public String exitFinish() {
+		return "/WEB-INF/views/member/exitFinish.jsp";
+	}
+			
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

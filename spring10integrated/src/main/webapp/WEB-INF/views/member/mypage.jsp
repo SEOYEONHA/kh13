@@ -1,66 +1,66 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>    
-<h1 align="center">¸¶ÀÌÆäÀÌÁö</h1>
+<h1 align="center">ë§ˆì´í˜ì´ì§€</h1>
 <hr>
-<h3>${memberDto.memberId}´ÔÀÇ È¸¿ø Á¤º¸</h3>
-<table border="1" width = "400">
+<h3>${memberDto.memberId}ë‹˜ì˜ íšŒì› ì •ë³´</h3>
+<table border="1" width = "600">
 	<tr>
-		<th width="40%">´Ğ³×ÀÓ</th>
+		<th width="30%">ë‹‰ë„¤ì„</th>
 		<td>${memberDto.memberNick}</td>
 	</tr>
 	<tr>
-		<th>»ı³â¿ùÀÏ</th>
+		<th>ìƒë…„ì›”ì¼</th>
 		<td>${memberDto.memberBirth}</td>
 	</tr>
 	<tr>
-		<th>¿¬¶ôÃ³</th>
+		<th>ì—°ë½ì²˜</th>
 		<td>${memberDto.memberContact}</td>
 	</tr>
 	<tr>
-		<th>ÀÌ¸ŞÀÏ</th>
+		<th>ì´ë©”ì¼</th>
 		<td>${memberDto.memberEmail}</td>
 	</tr>
 	<tr>
-		<th>ÁÖ¼Ò</th>
+		<th>ì£¼ì†Œ</th>
 		<td>[${memberDto.memberPost}] ${memberDto.memberAddress1}<br>
 		${memberDto.memberAddress2}
 		</td>
 	</tr>
 	<tr>
-		<th>È¸¿øµî±Ş</th>
+		<th>íšŒì›ë“±ê¸‰</th>
 		<td>${memberDto.memberLevel}</td>
 	</tr>
 	<tr>
-		<th>Æ÷ÀÎÆ®</th>
+		<th>í¬ì¸íŠ¸</th>
 		<td>${memberDto.memberPoint} point</td>
 	</tr>
 	<tr>
-		<th>°¡ÀÔ½Ã°£</th>
+		<th>ê°€ì…ì‹œê°„</th>
 		<td><fmt:formatDate value="${memberDto.memberJoin}" 
 									pattern="Y-MM-DD HH:mm:ss"></fmt:formatDate>
 <%--	<td><fmt:formatDate value="${memberDto.memberJoin}" 
-							pattern="Y³â M¿ù DÀÏ H½Ã mºĞ sÃÊ"></fmt:formatDate>
+							pattern="Yë…„ Mì›” Dì¼ Hì‹œ më¶„ sì´ˆ"></fmt:formatDate>
 		 																								--%>	
 		</td>
 	</tr>
 	<tr>
-		<th>¸¶Áö¸· ·Î±×ÀÎ½Ã°£</th>
+		<th>ë§ˆì§€ë§‰ ë¡œê·¸ì¸ì‹œê°„</th>
 		<td><fmt:formatDate value="${memberDto.memberLogin}" 
 									pattern="Y-MM-DD HH:mm:ss"></fmt:formatDate>
 	<%--	<td><fmt:formatDate value="${memberDto.memberJoin}" 
-								pattern="Y³â M¿ù DÀÏ H½Ã mºĞ sÃÊ"></fmt:formatDate>
+								pattern="Yë…„ Mì›” Dì¼ Hì‹œ më¶„ sì´ˆ"></fmt:formatDate>
 			 																								--%>	
 		</td>
 	</tr>
 </table>
 <br>
-<a href="#"><button>ºñ¹Ğ¹øÈ£ º¯°æ</button></a>
-<a href="#"><button>°³ÀÎÁ¤º¸ º¯°æ</button></a>
-<a href="#"><button>È¸¿ø Å»Åğ</button></a>
+<a href="/member/password"><button>ë¹„ë°€ë²ˆí˜¸ ë³€ê²½</button></a>
+<a href="/member/change"><button>ê°œì¸ì •ë³´ ë³€ê²½</button></a>
+<a href="/member/exit"><button>íšŒì› íƒˆí‡´</button></a>
 
 
 

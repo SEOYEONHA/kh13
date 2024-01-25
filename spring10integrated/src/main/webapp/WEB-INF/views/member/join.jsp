@@ -11,9 +11,9 @@
 	아이디(*) <input name="memberId" placeholder="소문자 시작, 숫자포함 8~20자" type="text" required><br>
 	비밀번호(*) <input name="memberPw" placeholder="대소문자, 숫자, 특수문자(!@#$) 포함 6~15자" type="password" required><br>
 	닉네임(*) <input name="memberNick" type="text" required><br>
-	생년월일 <input name="memberBrith" type="date"><br>
+	생년월일 <input name="memberBirth" type="date"><br>
 	연락처 <input name="memberContact" type="tel"><br>
-	이메일(*) <input name="memberEmail" type="email" required><br><br>
+	이메일(*) <input name="memberEmail" type="email" required><br>
 	주소
 	<input name="memberPost" placeholder="우편번호"  type="text"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	<input name="memberAddress1" placeholder="기본주소" type="text"><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
