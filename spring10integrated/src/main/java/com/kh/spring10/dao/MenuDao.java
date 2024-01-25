@@ -58,6 +58,7 @@ public class MenuDao {
 		return jdbcTemplate.query(sql, mapper, data);
 	}
 	
+	//상세 검색
 	public MenuDto selectOne(int menuNo) {
 		String sql = "select * from menu where menu_no = ?";
 		Object[] data = {menuNo};

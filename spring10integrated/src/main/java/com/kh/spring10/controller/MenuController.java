@@ -83,6 +83,7 @@ public class MenuController {
 		return "/WEB-INF/views/menu/list2.jsp";
 	}
 	
+	//상세 페이지
 	@RequestMapping("/detail")
 	public String detail(@RequestParam int menuNo, Model model) {
 		MenuDto dto = dao.selectOne(menuNo);
@@ -90,6 +91,7 @@ public class MenuController {
 		return "/WEB-INF/views/menu/detail.jsp";		
 	}
 	
+	//삭제페이지
 	//@RequestMapping("/delete")
 	@GetMapping("/delete")
 	public String delete(@RequestParam int menuNo) {
