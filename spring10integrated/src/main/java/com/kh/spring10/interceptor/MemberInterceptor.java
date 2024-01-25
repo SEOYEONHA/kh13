@@ -28,6 +28,12 @@ public class MemberInterceptor implements HandlerInterceptor {
 			return true;
 		}
 		else { //회원이 아니라면
+			//단순히 차단만 하는게 아니라 사용자에게 보여줄 화면을 준비
+			//[1] 로그인화 면으로 강제이동(리다이렉트 redirect - 개발자도구에서 302 강제이동임)
+			response.sendRedirect("/member/login"); // 회원 로그인페이지로 강제이동(리다이렉트)
+			
+			//[2] HTTP 상태번호를 반환 (Unauthorized)
+			//response.sendError(401);
 			return false;
 		}
 	}
