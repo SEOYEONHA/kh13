@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.spring10.dto.PocketmonDto;
 import com.kh.spring10.mapper.PocketmonMapper;
+import com.kh.spring10.mapper.StatMapper;
+import com.kh.spring10.vo.StatVO;
 
 //DAO도 이제부터는 등록을 해야 한다
 //- @Repository는 파일이나 데이터베이스와 같이 영속성 개체를 제어하는 도구
@@ -68,7 +70,16 @@ public class PocketmonDao {
 		List<PocketmonDto> list = jdbcTemplate.query(sql, mapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+	@Autowired
+	private StatMapper statMapper;
 	
+	//변종 메소드 - 포켓몬스터 개체수 통계
+	public List<StatVO> statByType(){
+		String sql = "select pocketmon_type 항목, count(*) 개수 from pocketmon "
+								+ "group by pocketmon_type "
+								+ "order by 개수 desc, pocketmon_type asc";
+		return jdbcTemplate.query(sql, statMapper);
+	}
 	
 	
 	
