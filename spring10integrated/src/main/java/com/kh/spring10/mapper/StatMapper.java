@@ -19,4 +19,5 @@ public class StatMapper implements RowMapper<StatVO> {
 		return statVO;
 	}
 
+	
 }

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.spring10.dto.MemberDto;
 import com.kh.spring10.mapper.MemberMapper;
+import com.kh.spring10.mapper.StatMapper;
+import com.kh.spring10.vo.StatVO;
 
 @Repository
 public class MemberDao {
@@ -109,6 +111,32 @@ public class MemberDao {
 				dto.getMemberAddress2(), dto.getMemberId()
 		};
 		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	//관리자가 회원의 정보를 변경(수정, Update)
+	public boolean updateAdmin(MemberDto dto) {
+		String sql = "update member "
+						+ "set member_nick = ?, member_birth = ?, member_contact = ?, "
+						+ "member_email = ?, member_post = ?, member_address1 = ?, "
+						+ "member_address2 = ?, member_level = ?, member_point = ? "
+						+ "where member_id = ?";
+		Object[] data = {
+				dto.getMemberNick(), dto.getMemberBirth(), dto.getMemberContact(), 
+				dto.getMemberEmail(), dto.getMemberPost(), dto.getMemberAddress1(), 
+				dto.getMemberAddress2(), dto.getMemberLevel(), dto.getMemberPoint(),  
+				dto.getMemberId()
+		};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	@Autowired
+	private StatMapper statMapper;
+	
+	public List<StatVO> statByLevel(){
+		String sql = "select member_level 항목, count(*) 개수 from member "
+						+ "group by member_level "
+						+ "order by 개수 desc, member_level asc";
+		return jdbcTemplate.query(sql, statMapper);
 	}
 	
 }

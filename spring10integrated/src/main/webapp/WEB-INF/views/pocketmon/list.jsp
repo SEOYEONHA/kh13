@@ -5,10 +5,7 @@
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
     
-<h1>
-	포켓몬스터 목록
-	<a href="insert1">신규 등록</a>	
-</h1>
+<h1>포켓몬스터 목록</h1>
 <%-- 검색창(form은 그냥 주소생성기라고 생각) --%>
 <form action="list" method="get">
 	<select name="column">
@@ -18,17 +15,33 @@
 	<input type="search" name="keyword" value="${param.keyword}">
 	<button>검색</button>
 </form>
+<br>
+<%-- 목록 출력 --%>
+<table border="1" width="700">
+	<thead>
+		<tr>
+			<th>번호</th>
+			<th>이름</th>
+			<th>속성</th>
+		</tr>
+	</thead>
+	<tbody align="center">
+	<%-- for(PocketmonDto dto:list) --%>
+		<c:forEach var="dto" items="${list}">
+		<tr>
+			<td>${dto.pocketmonNo}</td>
+			<td><a href="detail?pocketmonNo=${dto.pocketmonNo}">${dto.pocketmonName}</a></td>
+			<td>${dto.pocketmonType}</td>
+		</tr>
+		</c:forEach>
+	</tbody>
+</table>
+<br>
+<a href="list"><button>목록보기</button></a>
+<a href="insert1"><button>포켓몬 신규 등록</button></a> 
 
 
-<%-- for(PocketmonDto dto:list) --%>
-<c:forEach var="dto" items="${list}">
-	<h2>
-		번호 = ${dto.pocketmonNo}, 
-		이름 = ${dto.pocketmonName}, 
-		속성 = ${dto.pocketmonType}
-		<a href="detail?pocketmonNo=${dto.pocketmonNo}">이동</a>
-		</h2>
-</c:forEach>
+
 
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>

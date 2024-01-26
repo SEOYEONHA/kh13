@@ -30,6 +30,7 @@
 			- div는 투명한 영역
 		 --%>
 		<div>
+		<%-- 템플릿 페이지는 무조건 절대경로를 써야한다 --%>
 			<a href="/">홈으로</a>
 			<a href="/pocketmon/list">포켓몬스터 시스템</a>
 			<a href="/emp/list">사원관리 시스템</a>
@@ -53,7 +54,7 @@
 		<c:if test="${sessionScope.loginLevel == '관리자'}">
 		<div>
 			<a href="#">회원관리</a>		
-			<a href="#">포켓몬통계</a>
+			<a href="/admin/stat/pocketmon">포켓몬통계</a>
 			<a href="#">사원통계</a>
 			<a href="#">메뉴통계</a>
 			<a href="#">회원통계</a>

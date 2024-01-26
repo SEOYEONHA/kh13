@@ -53,7 +53,7 @@ public class PocketmonController {
 	public String edit(@ModelAttribute PocketmonDto dto) {
 		if(dao.update(dto)) {
 			//return "redirect:/pocketmon/editSuccess";
-			return "redirect:editSuccess";
+			return "redirect:detail?pocketmonNo=" + dto.getPocketmonNo();
 		}
 		else {
 			//return "redirect:/pocketmon/editFail";

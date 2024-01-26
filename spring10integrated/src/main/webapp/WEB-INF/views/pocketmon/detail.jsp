@@ -32,7 +32,7 @@
 		
 		<%-- 다른 페이지로의 링크 --%>
 		<a href="list"><button>목록보기</button></a>&nbsp;
-		<a href=""><button>수정</button></a>&nbsp;
+		<a href="edit"><button>수정</button></a>&nbsp;
 		<a href="delete?pocketmonNo=${dto.pocketmonNo}"><button>삭제</button></a>
 	</c:when>
 	<c:otherwise>
