@@ -63,7 +63,7 @@
 			<%-- 다른 페이지로의 링크 --%>
 			<a href=search><button>검색페이지로 돌아가기</button></a>&nbsp;
 			<a href="edit?memberId=${memberDto.memberId}"><button>수정하기</button></a>&nbsp;
-			<a href="#"><button>삭제</button></a>
+			<a href="delete?memberId=${memberDto.memberId}"><button>회원삭제하기</button></a>
 		</c:when>
 		<c:otherwise>
 			<h1>존재하지 않는 회원정보</h1>

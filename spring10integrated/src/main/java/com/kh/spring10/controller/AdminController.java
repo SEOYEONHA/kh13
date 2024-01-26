@@ -103,6 +103,14 @@ public class AdminController {
 		}
 	}
 	
+	//삭제 페이지
+	@GetMapping("/member/delete")
+	public String delete(@RequestParam String memberId) {
+		memberDao.delete(memberId);
+		return "redirect:search";
+	}
+	
+	
 	
 	
 	

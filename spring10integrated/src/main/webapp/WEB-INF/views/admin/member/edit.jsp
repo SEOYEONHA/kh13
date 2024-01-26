@@ -17,7 +17,6 @@
 	<input name="memberAddress2" placeholder="상세주소" type="text" value="${memberDto.memberAddress2}"><br><br>
 	회원등급 
 	<select name= "memberLevel">
-		<option value="${memberDto.memberLevel}">${memberDto.memberLevel}</option>
 		<option value="일반회원" ${memberDto.memberLevel == '일반회원' ? 'selected' : ' '}>일반회원</option>
 		<option value="우수회원" ${memberDto.memberLevel == '우수회원' ? 'selected' : ' '}>우수회원</option>
 		<option value="관리자" ${memberDto.memberLevel == '관리자' ? 'selected' : ' '}>관리자</option>

@@ -91,7 +91,7 @@ public class MenuController {
 		return "/WEB-INF/views/menu/detail.jsp";		
 	}
 	
-	//삭제페이지
+	//삭제 페이지
 	//@RequestMapping("/delete")
 	@GetMapping("/delete")
 	public String delete(@RequestParam int menuNo) {
