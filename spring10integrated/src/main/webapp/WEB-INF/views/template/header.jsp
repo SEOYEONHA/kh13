@@ -49,6 +49,17 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
+		<%--관리자 메뉴 = 관리자일 경우에만 출력 --%>
+		<c:if test="${sessionScope.loginLevel == '관리자'}">
+		<div>
+			<a href="#">회원관리</a>		
+			<a href="#">포켓몬통계</a>
+			<a href="#">사원통계</a>
+			<a href="#">메뉴통계</a>
+			<a href="#">회원통계</a>
+		</div>
+		</c:if>
+		
 		<div>
 		<%-- 
 			<c:choose>
@@ -62,7 +73,8 @@
 			--%>
 			
 			login = ${sessionScope.loginId != null} , 
-			loginId = ${sessionScope.loginId}
+			loginId = ${sessionScope.loginId} ,
+			loginLevel = ${sessionScope.loginLevel}
 		</div>
 		<hr>
 		<%-- 
