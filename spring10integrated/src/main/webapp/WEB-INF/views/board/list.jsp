@@ -55,6 +55,7 @@
 	<button>검색</button>
 </form> <br>
 
+
 <a href="write"><button>새 게시글 작성하기</button></a> 
 
 
