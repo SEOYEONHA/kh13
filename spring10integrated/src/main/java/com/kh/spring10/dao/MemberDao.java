@@ -113,8 +113,8 @@ public class MemberDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
-	//관리자가 회원의 정보를 변경(수정, Update)
-	public boolean updateAdmin(MemberDto dto) {
+	//관리자가 회원의 정보를 변경(관리자에 의한 회원정보 수정, Update) 
+	public boolean updateMemberAdmin(MemberDto dto) {
 		String sql = "update member "
 						+ "set member_nick = ?, member_birth = ?, member_contact = ?, "
 						+ "member_email = ?, member_post = ?, member_address1 = ?, "
@@ -138,5 +138,6 @@ public class MemberDao {
 						+ "order by 개수 desc, member_level asc";
 		return jdbcTemplate.query(sql, statMapper);
 	}
+	
 	
 }

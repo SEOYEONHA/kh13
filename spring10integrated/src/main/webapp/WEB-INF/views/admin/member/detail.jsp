@@ -11,7 +11,7 @@
 		<c:when test="${memberDto != null}">
 			<table border="1" width = "600">
 				<tr>
-					<th width="30%">닉네임</th>
+					<th width="30%" >닉네임</th>
 					<td>${memberDto.memberNick}</td>
 				</tr>
 				<tr>

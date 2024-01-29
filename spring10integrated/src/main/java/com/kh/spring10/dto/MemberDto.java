@@ -11,6 +11,12 @@ public class MemberDto {
 	private String memberEmail;
 	private String memberPost;
 	private String memberAddress1;
+	private String memberAddress2;
+	private String memberLevel;
+	private int memberPoint;
+	private Date memberJoin;
+	private Date memberLogin;
+	
 	public MemberDto() {
 		super();
 	}
@@ -92,9 +98,5 @@ public class MemberDto {
 	public void setMemberLogin(Date memberLogin) {
 		this.memberLogin = memberLogin;
 	}
-	private String memberAddress2;
-	private String memberLevel;
-	private int memberPoint;
-	private Date memberJoin;
-	private Date memberLogin;
+	
 }

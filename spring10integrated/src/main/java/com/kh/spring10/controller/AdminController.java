@@ -110,11 +110,12 @@ public class AdminController {
 	}
 	@PostMapping("/member/edit")
 	public String memberEdit(@ModelAttribute MemberDto memberDto) {
-		if(memberDao.updateAdmin(memberDto)) {
+		if(memberDao.updateMemberAdmin(memberDto)) {
+//			return "redirect:/admin/member/detail?memberId=" + memberDto.getMemberId();
 			return "redirect:detail?memberId=" + memberDto.getMemberId();
 		}
 		else {
-			return "redirect:edit?edit?error";
+			return "redirect:edit?error";
 		}
 	}
 	

@@ -48,14 +48,15 @@ public class EmpDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
+	//사원 목록 및 검색
 	public List<EmpDto> selectList(){
-		String sql ="select * from emp order by emp_no asc";
+		String sql = "select * from emp order by emp_no asc";
 		//Object[] data = {};
 		return jdbcTemplate.query(sql, mapper);
 	}
 	
 	public List<EmpDto> selectList(String column, String keyword){
-		String sql ="select * from emp where instr(" + column + ", ?) > 0 "
+		String sql = "select * from emp where instr(" + column + ", ?) > 0 "
 								+ "order by " + column + " asc, emp_no asc";
 		Object[] data = {keyword};
 		return jdbcTemplate.query(sql, mapper, data);
