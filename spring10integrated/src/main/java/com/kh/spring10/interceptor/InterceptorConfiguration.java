@@ -17,6 +17,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	@Autowired
 	private MemberInterceptor memberInterceptor;
 	
+	@Autowired
+	private AdminInterceptor adminInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry에다가 인터셉터를 주소와 함께 등록
@@ -40,5 +43,8 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 											"/member/join*", //join 어쩌고는 포함
 											"/member/login", "/member/exitFinish"
 											);
+		
+		//관리자 인터셉터 등록
+//		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // /admin/* 만 하면 admin/pocketmon/list 이런건 아예안됨 
 	}
 }
