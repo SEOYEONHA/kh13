@@ -45,6 +45,7 @@
 </table>
 <br>
 
+
 <%-- 검색창 --%>
 <form action="list" method="get">
 	<select name="column">
