@@ -122,6 +122,7 @@ public class AdminController {
 	@GetMapping("/member/delete")
 	public String delete(@RequestParam String memberId) {
 		memberDao.delete(memberId);
+		//return "redirect:/admin/member/search";
 		return "redirect:search";
 	}
 	

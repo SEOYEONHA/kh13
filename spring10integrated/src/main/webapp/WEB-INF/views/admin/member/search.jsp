@@ -60,6 +60,7 @@
 					<th>연락처</th>
 					<th>이메일</th>
 					<th>생년월일</th>
+					<th>이동</th>
 				</tr>
 				</thead>
 			<tbody align="center">
@@ -70,6 +71,8 @@
 						<td>${memberDto.memberContact}</td>
 						<td>${memberDto.memberEmail}</td>
 						<td>${memberDto.memberBirth}</td>
+						<td>
+							<a href="detail?memberId=${memberDto.memberId}">&raquo;</a>
 					</tr>
 				</c:forEach>
 			</tbody>
