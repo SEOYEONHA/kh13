@@ -8,7 +8,14 @@
 <h1 align="center">회원 검색</h1>
     
     
-<%--검색창 --%>
+<%--
+	절대경로
+	<form action="/admin/member/search" method="get"></form>
+
+	절대경로로 할 이유가 없으니 상대경로로 함! --%>
+	
+	
+<%-- 검색창 --%>
 <form action="search" method="get">
 	<select name="column">
 		<option value="member_id" ${param.column == 'member_id' ? 'selected' : ' '}>아이디</option>
@@ -17,11 +24,30 @@
 		<option value="member_email" ${param.column == 'member_email' ? 'selected' : ' '}>이메일</option>
 		<option value="member_birth" ${param.column == 'member_birth' ? 'selected' : ' '}>생년월일</option>
 	</select>
-	<input type="text" name="keyword" placeholder="검색어를 입력하세요" value="${param.keyword}">
+	<input type="search" name="keyword" required placeholder="검색어를 입력하세요"
+					 value="${param.keyword}" >
 	<button>검색</button>
 </form>
 
+
+<%-- 조회 결과는 list의 유무에 따라 다르게 출력--%>
 <%-- 목록 출력 --%>
+
+<%--     강사님 코드
+<c:choose>
+	<c:when test="${list=null}">
+		<h2>검색어를 입력하세요</h2>
+	</c:when>
+	<c:when test="${list.isEmpty()}">
+		<h2>검색 결과가 존재하지 않습니다</h2> 
+	</c:when>
+	<c:otherwise>
+		<table>
+		...
+		</table>
+	</c:otherwise>
+</c:choose>
+--%>
 
 <c:choose>
 	<c:when test="${not empty param.keyword}">
@@ -50,6 +76,7 @@
 		</table>
 	</c:when>
 	<c:otherwise>
+		<h2 style="color:fuchsia;" align="center">♡검색어를 입력하세요♡</h2>
 		<img width="400" src="/bg2.jpg">
 	</c:otherwise>
 </c:choose>
