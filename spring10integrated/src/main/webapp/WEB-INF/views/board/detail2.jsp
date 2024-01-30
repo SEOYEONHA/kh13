@@ -15,6 +15,8 @@ ${detailDto.boardContent}
 <br><br>
 
 <a href="list"><button>목록보기</button></a>
+<a href="edit?boardNo=${detailDto.boardNo}"><button>수정하기</button></a>
+<a href="delete?boardNo=${detailDto.boardNo}"><button>삭제하기</button></a> 
 <a href="write"><button>새 게시글 작성하기</button></a> 
 
 

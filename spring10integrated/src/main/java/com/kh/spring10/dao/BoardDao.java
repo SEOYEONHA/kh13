@@ -57,8 +57,14 @@ public class BoardDao {
 	
 	//게시글 목록 및 검색
 	public List<BoardDto> selectList(){
-		String sql = "select * from board order by board_no desc";
-		return jdbcTemplate.query(sql, boardMapper);
+//		String sql = "select * from board order by board_no desc";
+//		return jdbcTemplate.query(sql, boardMapper);
+//	}
+		String sql = "select board_no, board_title, board_writer, "
+						+ "board_wtime, board_etime, board_readcount "
+						+ "from board order by board_no desc";
+		
+		return jdbcTemplate.query(sql, boardListMapper);
 	}
 	
 	public List<BoardDto> selectList(String column, String keyword){

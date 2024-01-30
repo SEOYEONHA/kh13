@@ -1,18 +1,52 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
 
 
-<h2 align="center">${detailDto.boardTitle}</h2>
-<h4 align="right">작성자 : ${detailDto.boardWriter}    조회수 : ${detailDto.boardReadcount }</h4>
-<h5 align="right">${detailDto.boardWtime}</h5>
-<c:if test="${detailDto.boardEtime != null}"><h5 align="right" style="color: purple">
-(수정됨) ${detailDto.boardEtime}</h5></c:if>
-${detailDto.boardContent}
-<br><br>
+<table border="1" width="900">
+	<tr>
+		<td>${detailDto.boardTitle}</td>
+	</tr>
+	<tr align="right">
+		<td>
+			<c:choose>
+				<c:when test="${detailDto.boardWriter == null}">
+					${boardDto.boardWriterStr}
+				</c:when>
+				<c:otherwise>
+					작성자 : ${memberDto.memberNick}(${memberDto.memberLevel}) 
+				</c:otherwise>
+			</c:choose>
+			<br>
+			조회수 : ${detailDto.boardReadcount} <br>
+		</td>
+	</tr>
+	<tr align="right">
+		<td>
+			<fmt:formatDate value="${detailDto.boardWtime}" 
+				pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate> <br>
+			<c:if test="${detailDto.boardEtime != null}">
+				(수정됨)<fmt:formatDate value="${detailDto.boardEtime}" 
+				pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+			</c:if>
+		</td>
+	</tr>
+	<tr height="200" valign="top">
+		<td>${detailDto.boardContent}</td>
+	</tr>
+	<tr>
+		<td>
+			댓글 ? 
+		</td>
+	</tr>
+
+
+
+</table>
 
 <a href="list"><button>목록보기</button></a>
 <a href="edit?boardNo=${detailDto.boardNo}"><button>수정하기</button></a>

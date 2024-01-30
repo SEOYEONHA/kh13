@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.spring10.dao.BoardDao;
+import com.kh.spring10.dao.MemberDao;
 import com.kh.spring10.dto.BoardDto;
+import com.kh.spring10.dto.MemberDto;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -22,6 +24,9 @@ public class BoardController {
 	
 	@Autowired
 	private BoardDao boardDao;
+	
+	@Autowired
+	private MemberDao memberDao;
 	
 	
 	//게시글 등록
@@ -43,11 +48,18 @@ public class BoardController {
 	@RequestMapping("/detail")
 	public String detail(@RequestParam int boardNo, Model model,
 									@ModelAttribute BoardDto boardDto, HttpSession session) {
-		String loginId = (String)session.getAttribute("loginId");
+		//String loginId = (String)session.getAttribute("loginId");
 		
 		boardDao.updateReadcount(boardDto);
 		BoardDto detailDto = boardDao.selectOne(boardNo);
 		model.addAttribute("detailDto", detailDto);
+		
+		//조회한 게시글 정보에 있는 회원 아이디로 작성자 정보를 불러와서 첨부
+		if(detailDto.getBoardWriter() != null) { //작성자가 탈퇴하지 않았다면
+			MemberDto memberDto = memberDao.selectOne(detailDto.getBoardWriter());
+			model.addAttribute("memberDto", memberDto);
+		}
+		
 		return "/WEB-INF/views/board/detail.jsp";
 	}
 	
