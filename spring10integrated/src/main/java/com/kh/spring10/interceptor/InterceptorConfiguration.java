@@ -20,6 +20,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	@Autowired
 	private AdminInterceptor adminInterceptor;
 	
+	@Autowired
+	private BoardInterceptor boardInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		//registry에다가 인터셉터를 주소와 함께 등록
@@ -45,6 +48,11 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 											);
 		
 		//관리자 인터셉터 등록
-//		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // /admin/* 만 하면 admin/pocketmon/list 이런건 아예안됨 
+//		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // /admin/* 만 하면 admin/pocketmon/list 이런건 아예안됨
+		
+		
+//		registry.addInterceptor(boardInterceptor).addPathPatterns("/board/edit", "/board/delete");
 	}
+	
+	
 }

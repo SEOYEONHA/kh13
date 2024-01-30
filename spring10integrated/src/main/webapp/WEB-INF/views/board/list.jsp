@@ -12,7 +12,7 @@
 		<a href="list"><button>전체 목록보기</button></a>
 	</c:when>
 	<c:otherwise>
-		<h1 align="center">게시글 목록</h1>
+		<h1 align="center">자유게시판</h1>
 	</c:otherwise>
 </c:choose>
 
@@ -33,11 +33,19 @@
 		<c:forEach var="boardDto" items="${boardList}">
 		<tr>
 			<td>${boardDto.boardNo}</td>
-			<td><a href="detail?boardNo=${boardDto.boardNo}">${boardDto.boardTitle}</a></td>
-			<td>${boardDto.boardWriter}</td>
-			<td><fmt:formatDate value="${boardDto.boardWtime}" 
-												pattern="Y-MM-DD HH:mm:ss"></fmt:formatDate>
-										</td>
+			<td align="left"><a href="detail?boardNo=${boardDto.boardNo}">${boardDto.boardTitle}</a></td>
+			<%-- 
+			<c:choose>
+				<c:when test="${boardDto.boardWriter == null}">
+					<td>(탈퇴한회원)</td>
+				</c:when>
+				<c:otherwise>
+					<td>${boardDto.boardWriter}</td>
+				</c:otherwise>
+			</c:choose>
+			--%>
+			<td>${boardDto.boardWriterStr}</td>
+			<td>${boardDto.boardWtimeStr}	</td>
 			<td>${boardDto.boardReadcount}</td>
 		</tr>
 		</c:forEach>
@@ -51,8 +59,9 @@
 	<select name="column">
 		<option value="board_title" ${param.column == 'board_title' ? 'selected' : ' '}>제목</option>
 		<option value="board_writer" ${param.column == 'board_writer' ? 'selected' : ' '}>작성자</option>
+		<option value="board_content" ${param.column == 'board_content' ? 'selected' : ' '}>내용</option>
 	</select>
-		<input type="text" name="keyword" placeholder="검색어를 입력하세요" value="${param.keyword}">
+		<input type="search" name="keyword" placeholder="검색어를 입력하세요" value="${param.keyword}">
 	<button>검색</button>
 </form> <br>
 

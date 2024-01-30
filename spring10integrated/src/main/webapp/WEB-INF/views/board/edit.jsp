@@ -10,7 +10,7 @@
 
 
 <form action="edit" method="post">
-	<input type="text" name="boardTitle" placeholder="게시글 제목" required value="${boardDto.boardTitle}"><br><br>
+	<input type="text" name="boardTitle" placeholder="게시글 제목" required size="50" value="${boardDto.boardTitle}"><br><br>
 	<textarea rows="10" cols="100" name="boardContent" placeholder="내용을 작성해주세요" required>${boardDto.boardContent}</textarea>
 	<input type="hidden" name="boardNo" required value="${boardDto.boardNo}"><br>
 	<button>게시글 수정</button>

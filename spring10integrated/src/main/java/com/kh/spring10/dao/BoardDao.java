@@ -7,6 +7,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring10.dto.BoardDto;
+import com.kh.spring10.mapper.BoardListMapper;
 import com.kh.spring10.mapper.BoardMapper;
 
 @Repository
@@ -18,12 +19,27 @@ public class BoardDao {
 	@Autowired 
 	private BoardMapper boardMapper;
 	
+	@Autowired
+	private BoardListMapper boardListMapper; 
+	
+	//게시물 작성 후 디테일로 ..?
+	public int insertBoardNo() {
+		String sql = "select board_seq.nextval from dual";
+		return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	
+	public int redirectDetail() {
+	    String sql = "select board_seq.currval from dual";
+	    return jdbcTemplate.queryForObject(sql, int.class);
+	}
+	
 	//게시글 작성
 	public void insert(BoardDto boardDto) {
+		
 		String sql = "insert into board("
 						+ "board_no, board_title, board_content, board_writer, "
-						+ "board_wtime) values(board_seq.nextval, ?, ?, ?, sysdate)";
-		Object[] data = {
+						+ "board_wtime) values(?, ?, ?, ?, sysdate)";
+		Object[] data = { insertBoardNo(), 
 			boardDto.getBoardTitle(), boardDto.getBoardContent(), boardDto.getBoardWriter()};
 		
 		jdbcTemplate.update(sql, data);
@@ -41,16 +57,23 @@ public class BoardDao {
 	
 	//게시글 목록 및 검색
 	public List<BoardDto> selectList(){
-		String sql = "select * from board order by board_no asc";
+		String sql = "select * from board order by board_no desc";
 		return jdbcTemplate.query(sql, boardMapper);
 	}
 	
 	public List<BoardDto> selectList(String column, String keyword){
-		String sql = "select * from board where instr(" + column + ", ?) > 0 "
-								+ "order by " + column + " asc, board_no asc";
+//		String sql = "select * from board where instr(" + column + ", ?) > 0 "
+//								+ "order by board_no desc";
+//		Object[] data = {keyword};
+//		return jdbcTemplate.query(sql, boardMapper, data);
+//	}
+		String sql = "select board_no, board_title, board_writer, "
+						+ "board_wtime, board_etime, board_readcount "
+						+ "from board where instr(" + column + ", ?) > 0 "
+						+ "order by board_no desc";
 		Object[] data = {keyword};
-		return jdbcTemplate.query(sql, boardMapper, data);
-	}
+		return jdbcTemplate.query(sql, boardListMapper, data);
+		}
 	
 	//게시글 수정
 	public boolean editBoard(BoardDto boardDto) {
@@ -78,6 +101,8 @@ public class BoardDao {
 		Object[] data = {boardNo};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
+	
+
 	
 	
 }

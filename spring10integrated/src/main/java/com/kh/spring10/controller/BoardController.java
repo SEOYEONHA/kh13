@@ -36,16 +36,18 @@ public class BoardController {
 		boardDto.setBoardWriter(loginId);
 		boardDao.insert(boardDto);
 		
-		return "redirect:detail?boardNo=" + boardDto.getBoardNo();
+		return "redirect:detail?boardNo=" + boardDao.redirectDetail();
 	}
 	
 	//게시글 상세
 	@RequestMapping("/detail")
-	public String detail(@RequestParam int boardNo, Model model) {
+	public String detail(@RequestParam int boardNo, Model model,
+									@ModelAttribute BoardDto boardDto, HttpSession session) {
+		String loginId = (String)session.getAttribute("loginId");
 		
-		BoardDto boardDto = boardDao.selectOne(boardNo);
 		boardDao.updateReadcount(boardDto);
-		model.addAttribute("boardDto", boardDto);
+		BoardDto detailDto = boardDao.selectOne(boardNo);
+		model.addAttribute("detailDto", detailDto);
 		return "/WEB-INF/views/board/detail.jsp";
 	}
 	
@@ -63,6 +65,7 @@ public class BoardController {
 	}
 	
 	
+	
 	//게시글 수정
 	@GetMapping("/edit")
 	public String edit(@RequestParam int boardNo, Model model) {
@@ -70,6 +73,7 @@ public class BoardController {
 		model.addAttribute("boardDto", boardDto);
 		return "/WEB-INF/views/board/edit.jsp";
 	}
+	
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute BoardDto boardDto) {
 		if(boardDao.editBoard(boardDto)){
