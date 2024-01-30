@@ -50,7 +50,7 @@ public class BoardController {
 									@ModelAttribute BoardDto boardDto, HttpSession session) {
 		//String loginId = (String)session.getAttribute("loginId");
 		
-		boardDao.updateReadcount(boardDto);
+		//boardDao.updateReadcount(boardNo);
 		BoardDto detailDto = boardDao.selectOne(boardNo);
 		model.addAttribute("detailDto", detailDto);
 		

@@ -1,9 +1,15 @@
-package com.kh.spring10.interceptor;
+package com.kh.spring10.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import com.kh.spring10.interceptor.AdminInterceptor;
+import com.kh.spring10.interceptor.BoardInterceptor;
+import com.kh.spring10.interceptor.BoardReadcountInterceptor;
+import com.kh.spring10.interceptor.MemberInterceptor;
+import com.kh.spring10.interceptor.TestInterceptor;
 
 //application.properties에서 하기 힘든 설정들을 이곳에서 구현할 수 있다
 //[1] 상속을 통한 자격 획득 (WebMvcConfigurer)
@@ -22,6 +28,9 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	
 	@Autowired
 	private BoardInterceptor boardInterceptor;
+	
+	@Autowired
+	private BoardReadcountInterceptor boardReadcountInterceptor;
 	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
@@ -48,7 +57,11 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 											);
 		
 		//관리자 인터셉터 등록
-//		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // /admin/* 만 하면 admin/pocketmon/list 이런건 아예안됨
+		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // /admin/* 만 하면 admin/pocketmon/list 이런건 아예안됨
+		
+		//게시글 조회수 중복방지 인터셉터 등록
+		registry.addInterceptor(boardReadcountInterceptor)
+								.addPathPatterns("/board/detail");
 		
 		
 //		registry.addInterceptor(boardInterceptor).addPathPatterns("/board/edit", "/board/delete");

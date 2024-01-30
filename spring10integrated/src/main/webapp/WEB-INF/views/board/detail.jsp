@@ -43,10 +43,10 @@
 			댓글 ? 
 		</td>
 	</tr>
-
-
-
 </table>
+
+
+<br>
 
 <a href="list"><button>목록보기</button></a>
 <a href="edit?boardNo=${detailDto.boardNo}"><button>수정하기</button></a>

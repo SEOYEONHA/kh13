@@ -95,9 +95,10 @@ public class BoardDao {
 	}
 	
 	//조회수 ...?
-	public boolean updateReadcount(BoardDto boardDto) {
-		String sql = "update board set board_readcount = board_readcount + 1 where board_no = ?";
-		Object[] data = {boardDto.getBoardNo()};
+	public boolean updateReadcount(int boardNo) {
+		String sql = "update board set board_readcount = board_readcount + 1 "
+							+ "where board_no = ?";
+		Object[] data = {boardNo};
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
