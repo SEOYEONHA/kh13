@@ -12,13 +12,20 @@ board_readcount number default 0
 								check (board_readcount >= 0) -- 작성 시점에 0으로 설정, 0 이상만 설정가능  
 );
 
-drop table board;
-INSERT INTO board (board_no, board_title, board_content, board_writer, board_wtime)
-VALUES (board_seq.nextval, '제목1', '내용1', 'adminuser1', SYSDATE);
 
-select * from board;
-
-select * from board where board_no = board_seq.nextval from dual;
-
-select board_seq.nextval from dual;
-select board_seq.currval from dual;
+-- 1000개의 샘플 데이터 생성
+INSERT INTO board (board_no, board_title, board_content, board_wtime, board_readcount)
+SELECT
+    board_seq.NEXTVAL,
+    '샘플 제목 ' || level,
+    '샘플 내용 ' || level,
+    SYSDATE - ROUND(DBMS_RANDOM.VALUE(1, 365)), -- 작성일은 최대 1년 전부터 현재까지 랜덤
+    ROUND(DBMS_RANDOM.VALUE(0, 100)) -- 조회수는 0부터 100까지 랜덤
+FROM
+    dual
+CONNECT BY
+    level <= 1000;
+   
+update board set board_writer = 'testuser3';
+commit;
+rollback;
