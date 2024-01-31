@@ -7,6 +7,8 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
 
 
+<h1>${detailDto.boardNo}번 게시글</h1>
+
 <table border="1" width="900">
 	<tr>
 		<td>${detailDto.boardTitle}</td>

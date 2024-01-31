@@ -47,7 +47,7 @@ public class BoardController {
 	//게시글 상세
 	@RequestMapping("/detail")
 	public String detail(@RequestParam int boardNo, Model model,
-									@ModelAttribute BoardDto boardDto, HttpSession session) {
+									@ModelAttribute BoardDto boardDto /*, HttpSession session*/) {
 		//String loginId = (String)session.getAttribute("loginId");
 		
 		//boardDao.updateReadcount(boardNo);

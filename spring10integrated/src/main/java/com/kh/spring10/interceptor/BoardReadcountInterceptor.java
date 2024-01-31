@@ -1,5 +1,8 @@
 package com.kh.spring10.interceptor;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -54,8 +57,22 @@ public class BoardReadcountInterceptor implements HandlerInterceptor{
 		//- history=[10. 13. 15] 과 같은 형태로 만들 예정
 		//- history에 해당하는 저장소는 HashSet<Integer> 형태로 만든다
 		
+		//session에 history라는 이름의 저장소를 꺼낸다(없을 수도 있음)
+		Set<Integer> history = (Set<Integer>) session.getAttribute("history");
 		
+		//history가 없으면 null이믈 새로만들어야 한다
+		if(history == null) {
+			history = new HashSet<>();
+		}
 		
+		if(history.contains(boardNo)) {//이미 읽은적이 있다면
+			return true;//그냥 통과시키고
+		}
+		else {//읽은적이 없다면
+			history.add(boardNo);//번호를 기록하고
+			session.setAttribute("history", history);//저장소를 갱신시켜라
+			//return true; //안함 조회수를 증가시켜야 하니까!!!
+		}
 		
 		//조회수 증가
 		boardDao.updateReadcount(boardNo);
