@@ -87,6 +87,39 @@ public class BoardDto {
 		}
 	}
 	
+	//현재시각을 기준으로 얼마나 지난 글인지를 계산하여 반환
+	public String getBoardWtimeDiff() {
+		long now = System.currentTimeMillis();
+		long before = boardWtime.getTime();
+		long gap = now - before;
+		gap /= 1000; //초로 변경
+		
+		if(gap < 60) { //1분 미만은 방금 전으로 표시
+			return "방금 전";
+		}
+		else if(gap < 60 * 60) { //1시간 미만은 분으로 표시
+			return gap / 60 + "분 전";
+		}
+		else if(gap < 24 * 60 * 60) { //1일 미만은 시간으로 표시
+			return gap / 60 / 60 + "시간 전";
+		}
+		else if(gap < 7 * 24 * 60 * 60) { //7일 미만은 일로 표시
+			return gap / 24 / 60 / 60 + "일 전"; 
+		}
+		else if(gap < 30 * 24 * 60 * 60) { //한달 미만은 주로 표시
+			return gap / 7 / 24 / 60 / 60 + "주 전";
+		}
+		else if(gap < 1 * 365 * 24 * 60 * 60) { //1년 미만은 개월로 표시
+			return gap / 30 / 24 / 60 / 60 + "개월 전";
+		}
+		else if(gap < 10 * 365 * 247 * 60 * 60) { //10년 미만은 년으로 표시
+			return gap / 365 / 24 / 60 / 60 + "년 전";
+		}
+		else { // 나머지는 오래 전으로 표시
+			return "오래 전";
+		}
+	}
+	
 	
 	
 	
