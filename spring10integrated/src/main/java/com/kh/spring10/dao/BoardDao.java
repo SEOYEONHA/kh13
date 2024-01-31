@@ -102,7 +102,7 @@ public class BoardDao {
 	//- 위 두개를 이용하여 시작행(beginRow)과 종료행(endRow)를 계산
 	public List<BoardDto> selectListByPaging(int page, int size){
 		int endRow = page * size;
-		int beginRow = endRow - (size-1);
+		int beginRow = endRow - (size - 1);
 		
 		String sql = "select * from ("
 							+ "select rownum rn, TMP.* from ("
@@ -115,7 +115,23 @@ public class BoardDao {
 		return jdbcTemplate.query(sql, boardListMapper, data);
 	}
 	
-	
+	//검색 페이징
+	public List<BoardDto> selectListByPaging(String column, String keyword, 
+																int page, int size){
+		int endRow = page * size;
+		int beginRow = endRow - (size - 1);
+		
+		String sql = "select * from ("
+				+ "select rownum rn, TMP.* from ("
+					+ "select board_no, board_title, board_writer, "
+					+ "board_wtime, board_etime, board_readcount "
+					+ "from board where instr(" + column + ", ?) > 0 "
+					+ "order by board_no desc"
+				+ ")TMP"
+			+ ") where rn between ? and ?";
+		Object[] data = {keyword, beginRow, endRow};
+		return jdbcTemplate.query(sql, boardListMapper, data);
+	}
 	
 	
 	//게시글 수정
