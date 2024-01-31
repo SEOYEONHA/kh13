@@ -36,12 +36,18 @@ public class BoardController {
 	}
 	@PostMapping("/write")
 	public String write(@ModelAttribute BoardDto boardDto, HttpSession session) {
+		//세션에서 로그인한 사용자의 ID 추출
 		String loginId = (String)session.getAttribute("loginId");
 		
+		//아이디를 게시글 정보에 포함시킨다
 		boardDto.setBoardWriter(loginId);
-		boardDao.insert(boardDto);
 		
-		return "redirect:detail?boardNo=" + boardDao.redirectDetail();
+		int sequence = boardDao.getSequence(); //DB에서 시퀀스 번호를 추출
+		//int sequence = boardDao.redirectDetail(); //원래 내코드
+		boardDto.setBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
+		boardDao.insert(boardDto);//등록
+		
+		return "redirect:detail?boardNo=" + sequence;
 	}
 	
 	//게시글 상세
@@ -100,6 +106,7 @@ public class BoardController {
 	@GetMapping("/delete")
 	public String delete(@RequestParam int boardNo) {
 		boardDao.delete(boardNo);
+		//return "redirect:/board/list";//절대경로
 		return "redirect:list";
 	}
 	

@@ -22,26 +22,41 @@ public class BoardDao {
 	@Autowired
 	private BoardListMapper boardListMapper; 
 	
+	//count, sequence, max, min, sum, avg 처럼 결과가 하나만 나오는 경우
+	//그 결과는 객체가 아니라 원시데이터 형태일 확률이 높다
 	//게시물 작성 후 디테일로 ..?
-	public int insertBoardNo() {
+//	public int insertBoardNo() {
+//		String sql = "select board_seq.nextval from dual";
+//		//jdbcTemplate.qureryForObject(구문, 결과자료형); //String.class / doublc.class 전부 됨
+//		//.class - 자료형 객체
+//		return jdbcTemplate.queryForObject(sql, int.class);
+//	}
+//	
+//	public int redirectDetail() {
+//	    String sql = "select board_seq.currval from dual";
+//	    return jdbcTemplate.queryForObject(sql, int.class);
+//	}
+	public int getSequence() {
 		String sql = "select board_seq.nextval from dual";
+		//jdbcTemplate.qureryForObject(구문, 결과자료형); //String.class / doublc.class 전부 됨
+		//.class - 자료형 객체
 		return jdbcTemplate.queryForObject(sql, int.class);
 	}
 	
-	public int redirectDetail() {
-	    String sql = "select board_seq.currval from dual";
-	    return jdbcTemplate.queryForObject(sql, int.class);
-	}
-	
-	//게시글 작성
+	//게시글 작성 - 등록할 대 시퀀스 번호를 생성하면 절!대! 안된다
 	public void insert(BoardDto boardDto) {
 		
+//		String sql = "insert into board("
+//						+ "board_no, board_title, board_content, board_writer, "
+//						+ "board_wtime) values(?, ?, ?, ?, sysdate)";
+		//sysdate에 default 걸려있어서 안써도 됨!
 		String sql = "insert into board("
-						+ "board_no, board_title, board_content, board_writer, "
-						+ "board_wtime) values(?, ?, ?, ?, sysdate)";
-		Object[] data = { insertBoardNo(), 
-			boardDto.getBoardTitle(), boardDto.getBoardContent(), boardDto.getBoardWriter()};
-		
+						+ "board_no, board_title, board_content, board_writer)"
+						+ " values(?, ?, ?, ?)";
+		Object[] data = { boardDto.getBoardNo(), 
+			boardDto.getBoardTitle(), boardDto.getBoardContent(), 
+			boardDto.getBoardWriter()
+			};
 		jdbcTemplate.update(sql, data);
 	}
 	
