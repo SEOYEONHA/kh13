@@ -39,7 +39,6 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		
-		registry.addInterceptor(testInterceptor);
 		
 		//registry에다가 인터셉터를 주소와 함께 등록
 		//registry.addInterceptor(인터샙터객체).addPathPatterns(주소);
