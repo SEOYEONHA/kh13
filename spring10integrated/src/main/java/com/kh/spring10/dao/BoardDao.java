@@ -95,6 +95,28 @@ public class BoardDao {
 		Object[] data = {keyword};
 		return jdbcTemplate.query(sql, boardListMapper, data);
 		}
+
+	//목록 + 페이징
+	//- page는 현재 조회할 페이지 번호
+	//- size는 조회할 페이지의 출력개수
+	//- 위 두개를 이용하여 시작행(beginRow)과 종료행(endRow)를 계산
+	public List<BoardDto> selectListByPaging(int page, int size){
+		int endRow = page * size;
+		int beginRow = endRow - (size-1);
+		
+		String sql = "select * from ("
+							+ "select rownum rn, TMP.* from ("
+								+ "select board_no, board_title, board_writer, "
+								+ "board_wtime, board_etime, board_readcount "
+								+ "from board order by board_no desc"
+							+ ")TMP"
+						+ ") where rn between ? and ?";
+		Object[] data = {beginRow, endRow};
+		return jdbcTemplate.query(sql, boardListMapper, data);
+	}
+	
+	
+	
 	
 	//게시글 수정
 	public boolean editBoard(BoardDto boardDto) {

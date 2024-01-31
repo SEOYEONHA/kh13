@@ -72,10 +72,12 @@ public class BoardController {
 	//게시글 목록
 	@RequestMapping("/list")
 	public String list(@RequestParam(required = false) String column,
-							@RequestParam(required = false) String keyword,
+							@RequestParam(required = false) String keyword, 
+							@RequestParam(required = false, defaultValue = "1") int page, 
+							@RequestParam(required = false, defaultValue = "10") int size, 
 							Model model) {
 		boolean isSearch = column != null && keyword != null;
-		List<BoardDto> boardList = isSearch ? boardDao.selectList(column, keyword) : boardDao.selectList();
+		List<BoardDto> boardList = isSearch ? boardDao.selectList(column, keyword) : boardDao.selectListByPaging(page, size);
 		
 		model.addAttribute("isSearch", isSearch);
 		model.addAttribute("boardList", boardList);
