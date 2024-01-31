@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.kh.spring10.interceptor.AdminInterceptor;
 import com.kh.spring10.interceptor.BoardInterceptor;
+import com.kh.spring10.interceptor.BoardOwnerInterceptor;
 import com.kh.spring10.interceptor.BoardReadcountInterceptor;
 import com.kh.spring10.interceptor.MemberInterceptor;
 import com.kh.spring10.interceptor.TestInterceptor;
@@ -32,8 +33,14 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 	@Autowired
 	private BoardReadcountInterceptor boardReadcountInterceptor;
 	
+	@Autowired
+	private BoardOwnerInterceptor boardOwnerInterceptor;
+	
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
+		
+		registry.addInterceptor(testInterceptor);
+		
 		//registry에다가 인터셉터를 주소와 함께 등록
 		//registry.addInterceptor(인터샙터객체).addPathPatterns(주소);
 		//registry.addInterceptor(testInterceptor).addPathPatterns("/**"); // testInterceptor이 아이를 모든주소에 전부다 라는 뜻
@@ -49,25 +56,30 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		//- **는 하위 엔드포인트(마지막 /)까지 모두 포함하여 설정할 때 사용
 		//- *는 동일 엔드포인트까지만 포함하여 설정할 때 사용
 		registry.addInterceptor(memberInterceptor)
-									.addPathPatterns("/member/**", //멤버 전부 막힘
-																"/board/**"
-															)
-									.excludePathPatterns(
-											//"/member/join", "/member/joinFinish",
-											"/member/join*", //join 어쩌고는 포함
-											"/member/login", "/member/exitFinish", 
-											"/board/list", "/board/detail"
-											);
+											.addPathPatterns("/member/**", //멤버 전부 막힘
+																		"/board/**"
+																	)
+											.excludePathPatterns(
+													//"/member/join", "/member/joinFinish",
+													"/member/join*", //join 어쩌고는 포함
+													"/member/login", "/member/exitFinish", 
+													"/board/list", "/board/detail"
+													);
 		
 		//관리자 인터셉터 등록
-		registry.addInterceptor(adminInterceptor).addPathPatterns("/admin/**"); // /admin/* 만 하면 admin/pocketmon/list 이런건 아예안됨
+		registry.addInterceptor(adminInterceptor)
+											.addPathPatterns("/admin/**"); // /admin/* 만 하면 admin/pocketmon/list 이런건 아예안됨
 		
 		//게시글 조회수 중복방지 인터셉터 등록
 		registry.addInterceptor(boardReadcountInterceptor)
-								.addPathPatterns("/board/detail");
+											.addPathPatterns("/board/detail");
 		
 		
 //		registry.addInterceptor(boardInterceptor).addPathPatterns("/board/edit", "/board/delete");
+		
+		//내 글 또는 관리자만 수정 삭제하는 인터셉터 등록
+		registry.addInterceptor(boardOwnerInterceptor)
+											.addPathPatterns("/board/edit", "/board/delete");
 	}
 	
 	
