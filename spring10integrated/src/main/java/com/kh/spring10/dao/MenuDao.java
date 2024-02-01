@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.spring10.dto.MenuDto;
 import com.kh.spring10.mapper.MenuMapper;
 import com.kh.spring10.mapper.StatMapper;
+import com.kh.spring10.vo.PageVO;
 import com.kh.spring10.vo.StatVO;
 
 @Repository
@@ -60,6 +61,49 @@ public class MenuDao {
 		return jdbcTemplate.query(sql, mapper, data);
 	}
 	
+	
+	//VO를 이용한 통합 페이징
+	public List<MenuDto> selectListByPaging(PageVO pageVO){
+		if(pageVO.isSearch()) { //검색
+			String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+						+ "select * from menu "
+//						+ "where instr(" + column + ", ?) > 0 " //대소문자 구별
+						+ "where instr(upper(" + pageVO.getColumn() + "), upper(?)) > 0 " //대소문자 무시
+						+ "order by " + pageVO.getColumn()  + " asc, menu_no asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
+			Object[] data = {pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
+			return jdbcTemplate.query(sql, mapper, data);
+		}
+		
+		else { //목록
+			String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+						+ "select * from menu order by menu_no asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
+			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
+			return jdbcTemplate.query(sql, mapper, data);
+		}
+	}
+	
+	//VO를 이용한 카운트
+	public int count(PageVO pageVO) {
+		if(pageVO.isSearch()) {//검색
+			String sql = "select count(*) from menu "
+					+ "where instr(" + pageVO.getColumn() + ", ?) > 0";
+			Object[] data = {pageVO.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, data);
+		}
+		else {//목록
+			String sql = "select count(*) from menu";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
+	
+	
+	
 	//상세 검색
 	public MenuDto selectOne(int menuNo) {
 		String sql = "select * from menu where menu_no = ?";
@@ -67,6 +111,10 @@ public class MenuDao {
 		List<MenuDto> list = jdbcTemplate.query(sql, mapper, data);
 		return list.isEmpty() ? null : list.get(0);
 	}
+
+	
+	
+	
 	
 	@Autowired
 	private StatMapper statMapper;

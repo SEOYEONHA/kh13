@@ -84,7 +84,7 @@ public class PageVO {
 		return getBeginBlock() == 1;
 	}
 	
-	public boolean isLstBlock() {
+	public boolean isLastBlock() {
 		return getEndBlock() == getTotalPage();
 	}
 	

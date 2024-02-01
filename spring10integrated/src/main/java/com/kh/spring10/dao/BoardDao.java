@@ -137,8 +137,6 @@ public class BoardDao {
 	//통합 페이징
 	public List<BoardDto> selectListByPaging(PageVO pageVO){
 		if(pageVO.isSearch()) { //검색
-	
-			
 			String sql = "select * from ("
 					+ "select rownum rn, TMP.* from ("
 						+ "select board_no, board_title, board_writer, "
@@ -151,8 +149,6 @@ public class BoardDao {
 			return jdbcTemplate.query(sql, boardListMapper, data);
 		}
 		else { //목록
-	
-			
 			String sql = "select * from ("
 								+ "select rownum rn, TMP.* from ("
 									+ "select board_no, board_title, board_writer, "

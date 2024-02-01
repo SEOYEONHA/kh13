@@ -73,7 +73,7 @@
 	
 	<%-- 다음이 있을 경우만 링크를 제공 --%>
 	<c:choose>
-		<c:when test="${pageVo.isLastBlock()}">다음&gt;</c:when>
+		<c:when test="${pageVO.isLastBlock()}">다음&gt;</c:when>
 		<c:otherwise>
 			<a href="list?page=${pageVO.getNextBlock()}&${pageVO.getQueryString()}">다음&gt;</a>
 		</c:otherwise>
@@ -91,7 +91,7 @@
 	<button>검색</button>
 </form> <br>
 
-
+<a href="list"><button>목록보기</button></a>
 <a href="write"><button>새 게시글 작성하기</button></a> 
 
 
