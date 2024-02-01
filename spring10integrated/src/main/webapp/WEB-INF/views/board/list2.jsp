@@ -6,15 +6,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 <%-- 페이지 제목 --%>
-<c:choose>
-	<c:when test="${isSearch}">
-		<h1 align="center">게시글 검색 결과</h1>
-		<a href="list"><button>전체 목록보기</button></a>
-	</c:when>
-	<c:otherwise>
-		<h1 align="center">자유게시판</h1>
-	</c:otherwise>
-</c:choose>
+<h1 align="center">자유게시판</h1>
 
 	<p>
 		타인에 대한 무분별한 비방 또는 욕설은 환영합니다.
@@ -59,22 +51,21 @@
 
 <%-- 네비게이터 --%>
 <h3 align="center">
-	<%-- 이전에 있을 경우만 링크를 제공 --%>
+	<%-- 이전이 있을 경우만 링크를 제공 --%>
 	<c:choose>
-		<c:when test="${beginBlock == 1}">&lt;이전</c:when>
+		<c:when test="${pageVO.firstBlock}">&lt;이전</c:when>
 		<c:otherwise>
-			<a href="list?page=${beginBlock-1}&size=${size}&column=${param.column}&keyword=${param.keyword}">&lt;이전</a>
+			<a href="list?page=${pageVO.prevBlock}&${pageVO.queryString}">&lt;이전</a>
 		</c:otherwise>
 	</c:choose>
 	&nbsp;&nbsp;
 	<%-- for(int i=beginBlock; i <= endBlock; i ++) {...} --%>
-	<c:forEach var="i" begin="${beginBlock}" end="${Math.min(totalPage, endBlock)}" step="1" >
-	
-		<%-- 다른페이지일 경우만 링크를 제공(내가있는페이지는 링크없애기) --%>
+	<c:forEach var="i" begin="${pageVO.getBeginBlock()}" end="${pageVO.getEndBlock()}" step="1">
+		<%-- 다른 페이지일 경우만 링크를 제공 --%>
 		<c:choose>
-			<c:when test="${page == i}">${i}</c:when>
+			<c:when test="${pageVO.isCurrentPage(i)}">${i}</c:when>
 			<c:otherwise>
-				<a href="list?page=${i}&size=${size}&column=${param.column}&keyword=${param.keyword}">${i}</a>
+				<a href="list?page=${i}&${pageVO.getQueryString()}">${i}</a>
 			</c:otherwise>
 		</c:choose>
 	</c:forEach>
@@ -82,9 +73,9 @@
 	
 	<%-- 다음이 있을 경우만 링크를 제공 --%>
 	<c:choose>
-		<c:when test="${endBlock >= totalPage}">다음&gt;</c:when>
+		<c:when test="${pageVo.isLastBlock()}">다음&gt;</c:when>
 		<c:otherwise>
-			<a href="list?page=${endBlock+1}&size=${size}&column=${param.column}&keyword=${param.keyword}">다음&gt;</a>
+			<a href="list?page=${pageVO.getNextBlock()}&${pageVO.getQueryString()}">다음&gt;</a>
 		</c:otherwise>
 	</c:choose>
 </h3>

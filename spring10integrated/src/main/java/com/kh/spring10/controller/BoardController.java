@@ -3,9 +3,12 @@ package com.kh.spring10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,12 +18,20 @@ import com.kh.spring10.dao.BoardDao;
 import com.kh.spring10.dao.MemberDao;
 import com.kh.spring10.dto.BoardDto;
 import com.kh.spring10.dto.MemberDto;
+import com.kh.spring10.vo.PageVO;
 
 import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/board")
 public class BoardController {
+	
+	//게시판에서는 empty String으로 전달되는 파라미터를 null로 간주하도록 설정
+	//@InitBinder 설정으로 구현
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+	}
 	
 	@Autowired
 	private BoardDao boardDao;
@@ -70,20 +81,61 @@ public class BoardController {
 	}
 	
 	//게시글 목록
-	@RequestMapping("/list")
-	public String list(@RequestParam(required = false) String column,
-							@RequestParam(required = false) String keyword, 
-							@RequestParam(required = false, defaultValue = "1") int page, 
-							@RequestParam(required = false, defaultValue = "10") int size, 
-							Model model) {
-		boolean isSearch = column != null && keyword != null;
-		List<BoardDto> boardList = isSearch ? boardDao.selectListByPaging(column, keyword, page, size) : boardDao.selectListByPaging(page, size);
-		
-		model.addAttribute("isSearch", isSearch);
-		model.addAttribute("boardList", boardList);
-		return "/WEB-INF/views/board/list.jsp";
-	}
+//	@RequestMapping("/list")
+//	public String list(@RequestParam(required = false) String column,
+//							@RequestParam(required = false) String keyword, 
+//							@RequestParam(required = false, defaultValue = "1") int page, 
+//							@RequestParam(required = false, defaultValue = "10") int size, 
+//							Model model) {
+//		boolean isSearch = column != null && keyword != null;
+//		
+//		/*
+//		 	화면에 네비게이터를 보여주는 데 필요한 값들을 계산
+//		 	- blockSize : 화면에 표시할 네비게이터 개수(10으로 설정)
+//		 	- beginBlock : 네비게이터에 처음 숫자 , (페이지 - 1) / 10 * 10 + 1 (10은 blockSize)
+//		 	- endBlock : 네비게이터에서 마지막 숫자 , (페이지 - 1) / 10 * 10 + 10 (10은 blockSize)
+//		 	- count : 게시물 개수
+//		 	- totalPage : 전체 페이지 개수
+//		 */
+//		int blockSize = 10;
+//		int beginBlock = (page - 1) / blockSize * blockSize + 1;
+//		int endBlock = (page - 1) / blockSize * blockSize + blockSize;
+//		
+//		model.addAttribute("beginBlock", beginBlock); //네비게이터 시작번호
+//		model.addAttribute("endBlock", endBlock);//네비게이터 종료번호
+//		model.addAttribute("page", page);
+//		
+//		int count = isSearch ? boardDao.count(column, keyword) : boardDao.count();
+//		int totalPage = (count - 1) / size + 1;
+//		
+//		model.addAttribute("count", count); //게시글 개수
+//		model.addAttribute("totalPage", totalPage);//총 페이지 수
+//		
+//		model.addAttribute("size", size); //현재 게시글 표시개수
+//		
+//		
+//		List<BoardDto> boardList = isSearch ? boardDao.selectListByPaging(column, keyword, page, size) : boardDao.selectListByPaging(page, size);
+//		
+//		model.addAttribute("isSearch", isSearch);
+//		model.addAttribute("boardList", boardList);
+//		return "/WEB-INF/views/board/list.jsp";
+//	}
 	
+	// paging 처리를 별도의 VO 클래스로 구현
+	// (참고) @ModelAtrribute에 옵션을 주면 자동으로 모델에 첨부된다 
+	@RequestMapping("/list")
+	public String list(@ModelAttribute PageVO vo, 
+							Model model) {
+		//세부 계산은 클래스에서 수행하도록 하고 count, list만 처리
+		int count = boardDao.count(vo);
+		vo.setCount(count);
+		
+		List<BoardDto> boardList = boardDao.selectListByPaging(vo);
+		model.addAttribute("boardList", boardList);
+		//vo.setList(list); //위에거나 이거나 둘중하나
+		
+		return "/WEB-INF/views/board/list2.jsp";
+	}
 	
 	
 	//게시글 수정
