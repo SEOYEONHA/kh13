@@ -36,36 +36,8 @@
 </table>
 <br>
 
-<%-- 네비게이터 --%>
-<h3 align="center">
-
-	<%-- 이전이 있을 경우에만 링크 제공 --%>
-	<c:choose>
-		<c:when test="${pageVO.firstBlock}">&lt;이전</c:when>
-		<c:otherwise>
-			<a href="list?page=${pageVO.prevBlock}&${pageVO.queryString}">&lt;이전</a>
-		</c:otherwise>
-	</c:choose>
-	&nbsp;&nbsp;
-	<c:forEach var="i" begin="${pageVO.getBeginBlock()}" end="${pageVO.getEndBlock()}" step="1">
-		<%-- 다른 페이지일 경우에만 링크를 제공 --%>
-		<c:choose>
-			<c:when test="${pageVO.isCurrentPage(i)}">${i}</c:when>		
-			<c:otherwise>
-				<a href="list?page=${i}&${pageVO.getQueryString()}">${i}</a>
-			</c:otherwise>
-		</c:choose>
-	</c:forEach>
-	&nbsp;&nbsp;
-	
-	<%-- 다음이 있을 경우에만 링크를 제공 --%>
-	<c:choose>
-		<c:when test="${pageVO.isLastBlock()}">다음&gt;</c:when>
-		<c:otherwise>
-			<a href="list?page=${pageVO.getNextBlock()}&${pageVO.getQueryString()}">다음&gt;</a>
-		</c:otherwise>
-	</c:choose>
-</h3>
+<%-- 네비게이터(구조는 복잡하지만 /board/list와 같지않을까?) --%>
+<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 
 <%--검색창 --%>
 <form action="list" method="get">

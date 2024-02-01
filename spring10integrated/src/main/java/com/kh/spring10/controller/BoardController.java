@@ -134,7 +134,7 @@ public class BoardController {
 		model.addAttribute("boardList", boardList);
 		//vo.setList(list); //위에거나 이거나 둘중하나
 		
-		return "/WEB-INF/views/board/list2.jsp";
+		return "/WEB-INF/views/board/list3.jsp";
 	}
 	
 	
