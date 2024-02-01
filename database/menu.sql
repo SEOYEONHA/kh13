@@ -80,6 +80,37 @@ VALUES (menu_seq.nextval, '바닐라 빈 스무디', 'Vanilla Bean Smoothie', '�
 INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
 VALUES (menu_seq.nextval, '오렌지 샤베트', 'Orange Sherbet', '디저트', 4200);
 
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '초콜릿 치즈볼', 'Chocolate Cheese Ball', '디저트', 7000);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '레몬 마들렌', 'Lemon Madeleine', '디저트', 4500);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '스테이크 샐러드', 'Steak Salad', '식사', 11000);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '바나나 브레드', 'Banana Bread', '디저트', 4800);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '레드 벨벳 케이크', 'Red Velvet Cake', '디저트', 8500);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '아이스 허니 라떼', 'Iced Honey Latte', '음료', 6000);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '샐러리 케이크', 'Celery Cake', '디저트', 5200);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '브라우니', 'Brownie', '디저트', 4800);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '피자 꼬치', 'Pizza Skewer', '식사', 9500);
+
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+VALUES (menu_seq.nextval, '모히또', 'Mojito', '음료', 7000);
+
 INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
 SELECT menu_seq.nextval,
        '메뉴' || menu_seq.currval,
@@ -87,7 +118,6 @@ SELECT menu_seq.nextval,
        '음료',
        ((menu_seq.currval - 1) * 500) + 4000
 FROM dual
-CONNECT BY LEVEL <= 100;
-
+CONNECT BY LEVEL <= 30;
 
 SELECT * FROM menu;
