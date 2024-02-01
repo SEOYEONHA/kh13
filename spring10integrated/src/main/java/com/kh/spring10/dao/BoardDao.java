@@ -140,9 +140,13 @@ public class BoardDao {
 			String sql = "select * from ("
 					+ "select rownum rn, TMP.* from ("
 						+ "select board_no, board_title, board_writer, "
-						+ "board_wtime, board_etime, board_readcount "
+						+ "board_wtime, board_etime, board_readcount, "
+						+ "board_group, board_target, board_depth "
 						+ "from board where instr(" + pageVO.getColumn() + ", ?) > 0 "
-						+ "order by board_no desc"
+						//+ "order by board_no desc" //옛날방식(최신순)
+						+ "connect by prior board_no = board_target "
+						+ "start with board_target is null "
+						+ "order siblings by board_group desc, board_no asc"
 					+ ")TMP"
 				+ ") where rn between ? and ?";
 			Object[] data = {pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
@@ -152,8 +156,13 @@ public class BoardDao {
 			String sql = "select * from ("
 								+ "select rownum rn, TMP.* from ("
 									+ "select board_no, board_title, board_writer, "
-									+ "board_wtime, board_etime, board_readcount "
-									+ "from board order by board_no desc"
+									+ "board_wtime, board_etime, board_readcount, "
+									+ "board_group, board_target, board_depth "
+									+ "from board "
+									//+ "order by board_no desc" //옛날방식(최신순)
+									+ "connect by prior board_no = board_target "
+									+ "start with board_target is null "
+									+ "order siblings by board_group desc, board_no asc"
 								+ ")TMP"
 							+ ") where rn between ? and ?";
 			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};

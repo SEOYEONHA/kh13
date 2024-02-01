@@ -14,6 +14,11 @@ public class BoardDto {
 	private Date boardWtime;
 	private Date boardEtime;
 	private int boardReadcount;
+	
+	private int boardGroup; //그룹번호
+	private Integer boardTarget; //null일수도 있으니까 Integer로 만드는게 좋음
+	private int boardDepth; //차수
+	
 	public BoardDto() {
 		super();
 	}
@@ -118,6 +123,24 @@ public class BoardDto {
 		else { // 나머지는 오래 전으로 표시
 			return "오래 전";
 		}
+	}
+	public int getBoardGroup() {
+		return boardGroup;
+	}
+	public void setBoardGroup(int boardGroup) {
+		this.boardGroup = boardGroup;
+	}
+	public Integer getBoardTarget() {
+		return boardTarget;
+	}
+	public void setBoardTarget(Integer boardTarget) {
+		this.boardTarget = boardTarget;
+	}
+	public int getBoardDepth() {
+		return boardDepth;
+	}
+	public void setBoardDepth(int boardDepth) {
+		this.boardDepth = boardDepth;
 	}
 	
 	

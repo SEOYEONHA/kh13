@@ -16,21 +16,38 @@
 
 
 <%-- 목록 출력 --%>
-<table border="1" width="1000">
+<table border="1" width="800">
 	<thead>
 		<tr>
 			<th>글번호</th>
-			<th width="60%">제목</th>
+			<th width="40%">제목</th>
 			<th>작성자</th>
 			<th>작성시간</th>
 			<th>조회수</th>
+			<th>그룹</th>
+			<th>대상</th>
+			<th>차수</th>
 		</tr>
 	</thead>
 	<tbody align="center">
 		<c:forEach var="boardDto" items="${boardList}">
 		<tr>
 			<td>${boardDto.boardNo}</td>
-			<td align="left"><a href="detail?boardNo=${boardDto.boardNo}">${boardDto.boardTitle}</a></td>
+			<%-- 제목 칸 --%>
+			<td align="left">
+				<%-- 제목 앞에 차수만큼 띄어쓰기 처리 --%>
+				<c:forEach var="i" begin="1" end="${boardDto.boardDepth}" step="1">
+					&nbsp;&nbsp;&nbsp;&nbsp;
+				</c:forEach>
+				
+				<%-- 답글일 경우만 이미지를 출력 --%>
+				<c:if test="${boardDto.boardDepth >0}">
+					♥
+				</c:if>
+			
+				<%-- 제목 출력 --%>
+				<a href="detail?boardNo=${boardDto.boardNo}">${boardDto.boardTitle}
+			</a></td>
 			<%-- 
 			<c:choose>
 				<c:when test="${boardDto.boardWriter == null}">
@@ -44,6 +61,9 @@
 			<td>${boardDto.boardWriterStr}</td>
 			<td>${boardDto.boardWtimeStr}	</td>
 			<td>${boardDto.boardReadcount}</td>
+			<td>${boardDto.boardGroup}</td>
+			<td>${boardDto.boardTarget}</td>
+			<td>${boardDto.boardDepth}</td>
 		</tr>
 		</c:forEach>
 	</tbody>

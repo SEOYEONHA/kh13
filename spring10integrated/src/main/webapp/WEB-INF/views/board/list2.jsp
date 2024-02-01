@@ -24,6 +24,9 @@
 			<th>작성자</th>
 			<th>작성시간</th>
 			<th>조회수</th>
+			<th>그룹</th>
+			<th>대상</th>
+			<th>차수</th>
 		</tr>
 	</thead>
 	<tbody align="center">
@@ -44,6 +47,9 @@
 			<td>${boardDto.boardWriterStr}</td>
 			<td>${boardDto.boardWtimeStr}	</td>
 			<td>${boardDto.boardReadcount}</td>
+			<td>${boardDto.boardGroup}</td>
+			<td>${boardDto.boardTarget}</td>
+			<td>${boardDto.boardDepth}</td>
 		</tr>
 		</c:forEach>
 	</tbody>
