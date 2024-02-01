@@ -80,4 +80,14 @@ VALUES (menu_seq.nextval, '바닐라 빈 스무디', 'Vanilla Bean Smoothie', '�
 INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
 VALUES (menu_seq.nextval, '오렌지 샤베트', 'Orange Sherbet', '디저트', 4200);
 
+INSERT INTO menu (menu_no, menu_name_kor, menu_name_eng, menu_type, menu_price)
+SELECT menu_seq.nextval,
+       '메뉴' || menu_seq.currval,
+       'Menu' || menu_seq.currval,
+       '음료',
+       ((menu_seq.currval - 1) * 500) + 4000
+FROM dual
+CONNECT BY LEVEL <= 100;
+
+
 SELECT * FROM menu;
