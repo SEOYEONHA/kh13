@@ -40,11 +40,27 @@ public class BoardController {
 	private MemberDao memberDao;
 	
 	
-	//게시글 등록
+//	//게시글 등록
+//	@GetMapping("/write")
+//	public String write(@ModelAttribute BoardDto boardDto, Model model) {
+//		if(boardDto.getBoardTarget() != null) {
+//			BoardDto targetDto = boardDao.selectOne(boardDto.getBoardTarget()); //원본글 정보 추출
+//			model.addAttribute("targetDto", targetDto);
+//		}
+//		return "/WEB-INF/views/board/write.jsp";
+//	}
+	//답글일 경우는 작성 페이지롣 ㅏㅂ글의 정보를 전달(제목 등에 사용)
 	@GetMapping("/write")
-	public String write() {
+	public String write(@RequestParam(required = false) Integer boardTarget, 
+									Model model) {
+		if(boardTarget != null) {
+		BoardDto targetDto = boardDao.selectOne(boardTarget);
+		model.addAttribute("targetDto", targetDto);
+		}
 		return "/WEB-INF/views/board/write.jsp";
 	}
+	
+	
 //	@PostMapping("/write")
 //	public String write(@ModelAttribute BoardDto boardDto, HttpSession session) {
 //		//세션에서 로그인한 사용자의 ID 추출
@@ -76,6 +92,7 @@ public class BoardController {
 		int sequence = boardDao.getSequence();
 		boardDto.setBoardNo(sequence);
 		
+		
 		//새글, 답글에 따른 그룹, 대상, 차수를 계산한다
 		if(boardDto.getBoardTarget() == null) { //새글(대상 == null)
 			boardDto.setBoardGroup(sequence); //그룹번호는 글번호로 설정
@@ -85,14 +102,15 @@ public class BoardController {
 		else { //답글(대상 != null)
 			//대상글의 모든 정보를 조회
 			BoardDto targetDto = boardDao.selectOne(boardDto.getBoardTarget()); //원본글 정보 추출
-			
 			boardDto.setBoardGroup(targetDto.getBoardGroup()); //그룹번호를 대상글의 그룹번호로 설정
 //			boardDto.setBoardTarget(targetDto.getBoardNo()); //boardTarget은 이미 설정되어 있음(jsp에서)
 			boardDto.setBoardDepth(targetDto.getBoardDepth() + 1); //차수를 대상의 차수 + 로 설정
 		}
 		
 		//계산이 완료된 정보를 이용하여 새글과 답글 모두 같은 메소드로 등록
+		
 		boardDao.insert(boardDto);
+		
 		
 		return "redirect:detail?boardNo=" + sequence;
 	}
