@@ -46,7 +46,9 @@ public class PocketmonController {
 	//- 수정이 될 수도 안될 수도 있다 -> 그에 따른 결과 페이지가 달라진다
 	
 	@GetMapping("/edit")
-	public String edit() {
+	public String edit(Model model) {
+//		PocketmonDto 
+//		dao.selectOne()
 		return "/WEB-INF/views/pocketmon/edit.jsp";
 	}
 	@PostMapping("/edit")
