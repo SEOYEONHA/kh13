@@ -52,11 +52,13 @@ public class BoardDao {
 //						+ "board_wtime) values(?, ?, ?, ?, sysdate)";
 		//sysdate에 default 걸려있어서 안써도 됨!
 		String sql = "insert into board("
-						+ "board_no, board_title, board_content, board_writer)"
-						+ " values(?, ?, ?, ?)";
+						+ "board_no, board_title, board_content, board_writer, "
+						+ "board_group, board_target, board_depth) "
+						+ "values(?, ?, ?, ?, ?, ?, ?)";
 		Object[] data = { boardDto.getBoardNo(), 
 			boardDto.getBoardTitle(), boardDto.getBoardContent(), 
-			boardDto.getBoardWriter()
+			boardDto.getBoardWriter(), boardDto.getBoardGroup(), 
+			boardDto.getBoardTarget(), boardDto.getBoardDepth()
 			};
 		jdbcTemplate.update(sql, data);
 	}

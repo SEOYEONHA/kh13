@@ -39,7 +39,15 @@
 		</td>
 	</tr>
 	<tr height="200" valign="top">
-		<td>${detailDto.boardContent}</td>
+		<td>
+			<%-- 
+				HTML은 엔터와 스페이스 등을 무시하기때문에 tectarea와 모양이 달라진다
+				- 상용 에디터를 쓰면 알아서 글자를 보정해주기 때문에 문제가 없다
+				- 기본 textarea를 쓰면 문제가 발생한다
+				- <pre>태그를 사용하면 글자를 있는그대로 출력한다
+			 --%>
+			<pre>${detailDto.boardContent}</pre>
+		</td>
 	</tr>
 	<tr>
 		<td>
@@ -51,7 +59,7 @@
 
 <br>
 
-<a href="#"><button>답글쓰기</button></a>
+<a href="write?boardTarget=${detailDto.boardNo}"><button>답글쓰기</button></a>
 <a href="list"><button>목록보기</button></a>
 <%-- 
 	수정과 삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 

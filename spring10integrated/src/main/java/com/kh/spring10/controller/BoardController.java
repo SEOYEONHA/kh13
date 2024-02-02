@@ -45,18 +45,54 @@ public class BoardController {
 	public String write() {
 		return "/WEB-INF/views/board/write.jsp";
 	}
+//	@PostMapping("/write")
+//	public String write(@ModelAttribute BoardDto boardDto, HttpSession session) {
+//		//세션에서 로그인한 사용자의 ID 추출
+//		String loginId = (String)session.getAttribute("loginId");
+//		
+//		//아이디를 게시글 정보에 포함시킨다
+//		boardDto.setBoardWriter(loginId);
+//		
+//		int sequence = boardDao.getSequence(); //DB에서 시퀀스 번호를 추출
+//		//int sequence = boardDao.redirectDetail(); //원래 내코드
+//		boardDto.setBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
+//		boardDao.insert(boardDto);//등록
+//		
+//		return "redirect:detail?boardNo=" + sequence;
+//	}
+	
 	@PostMapping("/write")
 	public String write(@ModelAttribute BoardDto boardDto, HttpSession session) {
-		//세션에서 로그인한 사용자의 ID 추출
-		String loginId = (String)session.getAttribute("loginId");
+		//새글과 답글을 구분하여 처리
+		//- 구분 기준은 boardDto에 boardTarget 유무(있으면 답글, 없으면 새글)
+		//- 새글이면 그룹번호=글번호, 대상=null, 차수=0
+		//- 답글이면 그룹번호=원본글그룹번호, 대상=원본글번호, 차수=원본글차수+1
 		
-		//아이디를 게시글 정보에 포함시킨다
+		//새글이든 답글이든 작성자는 있어야 한다
+		String loginId = (String)session.getAttribute("loginId");
 		boardDto.setBoardWriter(loginId);
 		
-		int sequence = boardDao.getSequence(); //DB에서 시퀀스 번호를 추출
-		//int sequence = boardDao.redirectDetail(); //원래 내코드
-		boardDto.setBoardNo(sequence);//게시글 정보에 추출한 번호를 포함시킨다
-		boardDao.insert(boardDto);//등록
+		//글번호 생성하여 설정해준다
+		int sequence = boardDao.getSequence();
+		boardDto.setBoardNo(sequence);
+		
+		//새글, 답글에 따른 그룹, 대상, 차수를 계산한다
+		if(boardDto.getBoardTarget() == null) { //새글(대상 == null)
+			boardDto.setBoardGroup(sequence); //그룹번호는 글번호로 설정
+			boardDto.setBoardTarget(null); //대상은 null로 설정(안해도 됨, 안해도 null이라)
+			boardDto.setBoardDepth(0); //차수도 안해도 됨!!
+		}
+		else { //답글(대상 != null)
+			//대상글의 모든 정보를 조회
+			BoardDto targetDto = boardDao.selectOne(boardDto.getBoardTarget()); //원본글 정보 추출
+			
+			boardDto.setBoardGroup(targetDto.getBoardGroup()); //그룹번호를 대상글의 그룹번호로 설정
+//			boardDto.setBoardTarget(targetDto.getBoardNo()); //boardTarget은 이미 설정되어 있음(jsp에서)
+			boardDto.setBoardDepth(targetDto.getBoardDepth() + 1); //차수를 대상의 차수 + 로 설정
+		}
+		
+		//계산이 완료된 정보를 이용하여 새글과 답글 모두 같은 메소드로 등록
+		boardDao.insert(boardDto);
 		
 		return "redirect:detail?boardNo=" + sequence;
 	}
