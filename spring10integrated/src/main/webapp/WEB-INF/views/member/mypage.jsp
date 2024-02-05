@@ -7,6 +7,9 @@
 <h1 align="center">마이페이지</h1>
 <hr>
 <h3>${memberDto.memberId}님의 회원 정보</h3>
+
+<img src="image" width="200" height="200"><br>
+
 <table border="1" width = "600">
 	<tr>
 		<th width="30%">닉네임</th>
