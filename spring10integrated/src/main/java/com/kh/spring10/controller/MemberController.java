@@ -229,6 +229,15 @@ public class MemberController {
 		boolean isValid = findDto.getMemberPw().equals(memberPw);
 		
 		if(isValid) {
+			//회원 탈퇴 전에 프로필 번호를 찾아서 삭제처리를 해야함
+			try { //프로필사진이 없는경우
+				int attachNo = memberDao.findAttachNo(loginId);
+				attachService.remove(attachNo); //파일삭제 + DB 삭제
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
 			memberDao.delete(loginId); //회원탈퇴
 			session.removeAttribute("loginId");//로그아웃
 			return "redirect:exitFinish"; // *redirect도 get방식임(post방식이 없음)

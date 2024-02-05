@@ -134,11 +134,13 @@ public class AdminItemController {
 			try {
 				int attachNo = itemDao.findAttachNo(itemNo); //아이템 번호로 파일번호 찾고
 				
-				//실제 파일 삭제
-				File dir = new File(System.getProperty("user.home"), "khUpload");
-				File target = new File(dir, String.valueOf(attachNo));
-				target.delete();
-				attachDao.delete(attachNo); //파일정보 지우고
+//				//실제 파일 삭제
+//				File dir = new File(System.getProperty("user.home"), "khUpload");
+//				File target = new File(dir, String.valueOf(attachNo));
+//				target.delete();
+//				attachDao.delete(attachNo); //파일정보 지우고
+				
+				attachService.remove(attachNo); //파일삭제 + DB삭제
 			}
 			catch(Exception e) {					}
 			

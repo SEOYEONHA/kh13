@@ -145,5 +145,11 @@ public class MemberDao {
 		Object[] data = {memberId, attachNo};
 		jdbcTemplate.update(sql, data);
 	}
+
+	public int findAttachNo(String memberId) {
+		String sql = "select attach_no from member_attach where member_id = ?";
+		Object[] data = {memberId};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
 	
 }

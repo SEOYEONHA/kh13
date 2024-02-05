@@ -32,5 +32,13 @@ public class AttachService {
 		
 		return attachNo;
 	}
-
+	
+	// 파일삭제 + DB삭제
+	public void remove(int attachNo) {
+		//실제 파일 삭제
+		File dir = new File(System.getProperty("user.home"), "khUpload");
+		File target = new File(dir, String.valueOf(attachNo));
+		target.delete();
+		attachDao.delete(attachNo); //파일정보 지우고
+	}
 }
