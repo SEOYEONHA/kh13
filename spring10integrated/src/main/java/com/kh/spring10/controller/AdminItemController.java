@@ -43,7 +43,7 @@ public class AdminItemController {
 							 @RequestParam MultipartFile attach) throws IllegalStateException, IOException {
 		
 		//충전상품 등록
-		int itemNo = itemDao.getSequence();
+		int itemNo = itemDao.getSequence(); //시퀀스번호를 미리 뽑아서
 		itemDto.setItemNo(itemNo);
 		itemDao.insert(itemDto);
 		
@@ -52,7 +52,6 @@ public class AdminItemController {
 //		System.out.println("itemCharge = " + itemCharge);
 //		System.out.println("isEmpty = " + attach.isEmpty());
 		
-		//충전상품 등록
 		
 		//if(attach.isEmpty() == false)
 		if(!attach.isEmpty()) {
