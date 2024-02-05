@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -93,9 +94,99 @@ public class AdminItemController {
 			
 			//연결
 			itemDao.connect(itemNo, attachNo);
+				}
+		return "redirect:list";
+		
+			}
+	
+		//포인트 상품 목록
+		@RequestMapping("/list")
+		public String list(Model model) {
+			List<ItemDto> list = itemDao.selectList();
+			model.addAttribute("list", list);
+			return "/WEB-INF/views/admin/item/list.jsp";
 		}
-		return "redirect:add";
+		
+		//상품번호를 전달하면 파일번호를 찾아서 리다이렉트하는 페이지 생성
+		@RequestMapping("/image")
+		public String image(@RequestParam int itemNo) {
+			try {
+				int attachNo = itemDao.findAttachNo(itemNo);
+				return "redirect:/download?attachNo=" + attachNo;
+			}
+			catch(Exception e) {
+				//return "기본이미지 주소";
+				return "redirect:https://via.placeholder.com/200x100";
+			}
+		}
+	
+		//충전 상품 삭제
+		//- 주의할 점은 파일 번호를 먼저 알아내고 지워야 한다는 것
+		@GetMapping("/delete")
+		public String delete(@RequestParam int itemNo) {
+			try {
+				int attachNo = itemDao.findAttachNo(itemNo); //아이템 번호로 파일번호 찾고
+				
+				//실제 파일 삭제
+				File dir = new File(System.getProperty("user.home"), "khUpload");
+				File target = new File(dir, String.valueOf(attachNo));
+				target.delete();
+				attachDao.delete(attachNo); //파일정보 지우고
+			}
+			catch(Exception e) {					}
+			
+			finally { //예외 여부와 관계 없이 무조건 실행되는 구문
+				itemDao.delete(itemNo); //아이템 삭제
+			}
+			return "redirect:list";
+		}
+		
+		//충전상품 정보 수정
+		@GetMapping("/edit")
+		public String edit(@RequestParam int itemNo, Model model) {
+			ItemDto itemDto = itemDao.selectOne(itemNo);
+			model.addAttribute("itemDto", itemDto);
+			return "/WEB-INF/views/admin/item/edit.jsp";
+		}
+		@PostMapping("/edit")
+		public String edit(@ModelAttribute ItemDto itemDto, 
+									@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+			//우선 아이템 정보는 첨부파일과 관계 없이 수정 처리
+			itemDao.update(itemDto);
+			
+			//첨부파일이 있다면 기존의 첨부파일을 지우고 신규 첨부파일을 등록
+			if(!attach.isEmpty()) {
+				//기존 파일 삭제
+				try {
+					int attachNo = itemDao.findAttachNo(itemDto.getItemNo());//파일번호찾고
+					File dir = new File(System.getProperty("user.home"), "khUpload");
+					File target = new File(dir, String.valueOf(attachNo));
+					target.delete();//실제파일 삭제
+					attachDao.delete(attachNo);//DB에서 삭제
+				}
+				catch(Exception e) {}//예외 발생 시 아무것도 안함(skip)
+				
+				//신규 파일 추가
+				//- attach_seq 번호 생성
+				//- 실물 파일을 저장
+				//- DB에 insert
+				//- item과 connect 처리
+				int attachNo = attachDao.getSequence();//시퀀스생성
+				File dir = new File(System.getProperty("user.home"), "khUpload");
+				File target = new File(dir, String.valueOf(attachNo));
+				attach.transferTo(target);//실물파일저장
+				
+				AttachDto attachDto = new AttachDto();
+				attachDto.setAttachNo(attachNo);
+				attachDto.setAttachName(attach.getOriginalFilename());
+				attachDto.setAttachType(attach.getContentType());
+				attachDto.setAttachSize(attach.getSize());
+				attachDao.insert(attachDto);//DB저장
+				
+				itemDao.connect(itemDto.getItemNo(), attachNo);//연결처리
+			}
+			
+			return "redirect:list";
+		}
 	}
-	
-	
-}
+

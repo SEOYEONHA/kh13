@@ -1,5 +1,7 @@
 package com.kh.spring10.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -37,4 +39,42 @@ public class ItemDao {
 		Object[] data = {itemNo, attachNo};
 		jdbcTemplate.update(sql, data);
 	}
+	
+	//아이템 목록 조회
+	public List<ItemDto> selectList(){
+		String sql = "select * from item order by item_price asc";
+		return jdbcTemplate.query(sql, itemMapper);
+	}
+	
+	public int findAttachNo(int itemNo) {
+		String sql = "select attach_no from item_attach where item_no = ?";
+		Object[] data = {itemNo};
+		return jdbcTemplate.queryForObject(sql, int.class, data);
+	}
+	
+	public boolean delete(int itemNo) {
+		String sql = "delete item where item_no = ?";
+		Object[] data = {itemNo};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+
+	public ItemDto selectOne(int itemNo) {
+		String sql = "select * from item where item_no = ?";
+		Object[] data = {itemNo};
+		List<ItemDto> list = jdbcTemplate.query(sql, itemMapper, data);
+		return list.isEmpty() ? null : list.get(0);
+	}
+
+	public boolean update(ItemDto itemDto) {
+		String sql = "update item "
+								+ "set item_name = ?, item_price = ?, item_charge=? "
+								+ "where item_no = ?";
+		Object[] data = {
+				itemDto.getItemName(), itemDto.getItemPrice(), 
+				itemDto.getItemCharge(), itemDto.getItemNo()
+		};
+		return jdbcTemplate.update(sql, data) > 0;
+	}
+	
+	
 }
