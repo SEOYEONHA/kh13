@@ -1,5 +1,7 @@
 package com.kh.spring10.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -29,5 +31,12 @@ public class AttachDao {
 				attachDto.getAttachType(), attachDto.getAttachSize()
 		};
 		jdbcTemplate.update(sql, data);
+	}
+	
+	public AttachDto selectOne(int attachNo) {
+		String sql = "select * from attach where attach_no = ?";
+		Object[] data = {attachNo};
+		List<AttachDto> list = jdbcTemplate.query(sql, attachMapper, data);
+		return list.isEmpty() ? null : list.get(0);
 	}
 }
