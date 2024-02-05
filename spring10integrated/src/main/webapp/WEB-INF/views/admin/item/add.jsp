@@ -17,6 +17,7 @@
 	<%--
 		파일 선택은 input[type=file]로 한다
 		- accept를 통해 원하는 유형만 선택할 수 있다
+		- multiple 속성을 추가하면 여러 개의 파일을 선택할 수 있다
 	 --%>
 	이미지 <input type="file" name="attach" accept="image/*"><br><br>
 	<button>신규등록</button>

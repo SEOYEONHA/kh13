@@ -2,6 +2,7 @@ package com.kh.spring10.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -72,7 +73,7 @@ public class AdminItemController {
 //			File dir = new File("D:/khUpload"); //디렉터리 객체 생성
 			File dir = new File(System.getProperty("user.home"), "khUpload"); //디렉터리 객체 생성
 			dir.mkdirs(); //실제 디렉터리 생성
-			System.out.println("dir = " + dir.getAbsolutePath());
+			//System.out.println("dir = " + dir.getAbsolutePath());
 			
 			//[2]
 			//File target = new File(dir, attach.getOriginalFilename()); //파일 객체 생성
