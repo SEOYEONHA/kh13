@@ -1,5 +1,8 @@
 package com.kh.spring10.controller;
 
+import java.io.File;
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,9 +11,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.kh.spring10.dao.AttachDao;
 import com.kh.spring10.dao.MemberDao;
+import com.kh.spring10.dto.AttachDto;
 import com.kh.spring10.dto.MemberDto;
+import com.kh.spring10.service.AttachService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -21,6 +28,11 @@ public class MemberController {
 	@Autowired
 	private MemberDao memberDao;
 	
+	@Autowired
+	private AttachDao attachDao;
+	
+	@Autowired
+	private AttachService attachService;
 	
 	
 	//회원가입
@@ -29,8 +41,16 @@ public class MemberController {
 		return "/WEB-INF/views/member/join.jsp";
 	}
 	@PostMapping("/join")
-	public String join(@ModelAttribute MemberDto dto) {
-		memberDao.insert(dto);
+	public String join(@ModelAttribute MemberDto memberDto, 
+									@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+		memberDao.insert(memberDto);
+		
+		if(!attach.isEmpty()) {
+			int attachNo = attachService.save(attach); //파일저장 + DB저장
+			
+			//주인공이 되는곳에 구현하는게 좋음
+			memberDao.connect(memberDto.getMemberId(), attachNo); //연결
+		}
 		return "redirect:joinFinish";
 	}
 	@RequestMapping("/joinFinish")

@@ -139,5 +139,11 @@ public class MemberDao {
 		return jdbcTemplate.query(sql, statMapper);
 	}
 	
+	//프로필 이미지 연결
+	public void connect(String memberId, int attachNo) {
+		String sql = "insert into member_attach(member_id, attach_no) values(?, ?)";
+		Object[] data = {memberId, attachNo};
+		jdbcTemplate.update(sql, data);
+	}
 	
 }

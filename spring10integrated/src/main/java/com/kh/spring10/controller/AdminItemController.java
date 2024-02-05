@@ -18,6 +18,7 @@ import com.kh.spring10.dao.AttachDao;
 import com.kh.spring10.dao.ItemDao;
 import com.kh.spring10.dto.AttachDto;
 import com.kh.spring10.dto.ItemDto;
+import com.kh.spring10.service.AttachService;
 
 @Controller
 @RequestMapping("/admin/item")
@@ -28,6 +29,10 @@ public class AdminItemController {
 	
 	@Autowired
 	private ItemDao itemDao;
+	
+	@Autowired
+	private AttachService attachService;
+	
 
 	@GetMapping("/add")
 	public String add() {
@@ -57,47 +62,49 @@ public class AdminItemController {
 		
 		//if(attach.isEmpty() == false)
 		if(!attach.isEmpty()) {
-			System.out.println("파일명 = " + attach.getOriginalFilename());
-			System.out.println("파일유형 = " + attach.getContentType());
-			System.out.println("파일크기 = " + attach.getSize());
+//			System.out.println("파일명 = " + attach.getOriginalFilename());
+//			System.out.println("파일유형 = " + attach.getContentType());
+//			System.out.println("파일크기 = " + attach.getSize());
+//			
+//			//파일명을 대체하기 위한 시퀀스 생성
+//			int attachNo = attachDao.getSequence();
+//			
+//			//파일과 관련된 작업(저장 등)을 구현
+//			//[1] 파일이 저장될 위치(디렉터리)를 정한다
+//			//[2] 1번에서 정한 위치에 신규 파일을 생성해야 한다
+//			//[3] 사용자에게서 전송받은 파일의 내용을 2번 파일에 복사한다
+//			
+//			
+//			//[1]
+////			File dir = new File("D:/khUpload"); //디렉터리 객체 생성
+//			File dir = new File(System.getProperty("user.home"), "khUpload"); //디렉터리 객체 생성
+//			dir.mkdirs(); //실제 디렉터리 생성
+//			//System.out.println("dir = " + dir.getAbsolutePath());
+//			
+//			//[2]
+//			//File target = new File(dir, attach.getOriginalFilename()); //파일 객체 생성
+//			File target = new File(dir, String.valueOf(attachNo)); //파일 객체 생성
+//			
+//			//[3]
+//			attach.transferTo(target); //파일 내용 복사
+//			
+//			//첨부파일 정보를 DB에 저장
+//			AttachDto attachDto = new AttachDto();
+//			attachDto.setAttachNo(attachNo);
+//			attachDto.setAttachName(attach.getOriginalFilename());
+//			attachDto.setAttachType(attach.getContentType());
+//			attachDto.setAttachSize(attach.getSize());
+//			
+//			attachDao.insert(attachDto);
 			
-			//파일명을 대체하기 위한 시퀀스 생성
-			int attachNo = attachDao.getSequence();
-			
-			//파일과 관련된 작업(저장 등)을 구현
-			//[1] 파일이 저장될 위치(디렉터리)를 정한다
-			//[2] 1번에서 정한 위치에 신규 파일을 생성해야 한다
-			//[3] 사용자에게서 전송받은 파일의 내용을 2번 파일에 복사한다
-			
-			
-			//[1]
-//			File dir = new File("D:/khUpload"); //디렉터리 객체 생성
-			File dir = new File(System.getProperty("user.home"), "khUpload"); //디렉터리 객체 생성
-			dir.mkdirs(); //실제 디렉터리 생성
-			//System.out.println("dir = " + dir.getAbsolutePath());
-			
-			//[2]
-			//File target = new File(dir, attach.getOriginalFilename()); //파일 객체 생성
-			File target = new File(dir, String.valueOf(attachNo)); //파일 객체 생성
-			
-			//[3]
-			attach.transferTo(target); //파일 내용 복사
-			
-			//첨부파일 정보를 DB에 저장
-			AttachDto attachDto = new AttachDto();
-			attachDto.setAttachNo(attachNo);
-			attachDto.setAttachName(attach.getOriginalFilename());
-			attachDto.setAttachType(attach.getContentType());
-			attachDto.setAttachSize(attach.getSize());
-			
-			attachDao.insert(attachDto);
+			int attachNo = attachService.save(attach);
 			
 			//연결
 			itemDao.connect(itemNo, attachNo);
-				}
+			}
 		return "redirect:list";
 		
-			}
+		}
 	
 		//포인트 상품 목록
 		@RequestMapping("/list")
