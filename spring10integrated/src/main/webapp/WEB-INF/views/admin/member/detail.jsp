@@ -60,6 +60,52 @@
 				</tr>
 		</table>
 <br>
+
+<hr>
+
+<br>
+
+<h1 align="center">${memberDto.memberId}님의 포인트 구매내역</h1>
+<c:choose> 
+	<c:when test="${empty buyList}">
+		<h2 align="center" style="color: red;">포인트 구매내역이 없습니다.</h2>
+	</c:when>
+	<c:otherwise>
+		<table border="1" width="600">
+			<thead>
+				<tr>
+					<th>번호</th>
+					<th>상품명</th>
+					<th>수량</th>
+					<th>구매금액</th>
+					<th>구매일시</th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="buyDto" items="${buyList}">
+				<tr>
+					<td>${buyDto.buySerial}</td>
+					<td>${buyDto.itemName}</td>
+					<td>${buyDto.buyQty}</td>
+					<td>
+						<fmt:formatNumber value="${buyDto.buyTotal}" pattern="#,##0"></fmt:formatNumber>
+					</td>
+					<td>
+						<fmt:formatDate value="${buyDto.buyTime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+					</td>
+				</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</c:otherwise>
+</c:choose>
+<br>
+
+
+
+
+
+
 			<%-- 다른 페이지로의 링크 --%>
 			<a href=#><button>임시 비밀번호 발행</button></a>&nbsp;
 			<a href=search><button>검색페이지로 돌아가기</button></a>&nbsp;
