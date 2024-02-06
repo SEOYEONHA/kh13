@@ -55,14 +55,15 @@ public class InterceptorConfiguration implements WebMvcConfigurer{
 		//- **는 하위 엔드포인트(마지막 /)까지 모두 포함하여 설정할 때 사용
 		//- *는 동일 엔드포인트까지만 포함하여 설정할 때 사용
 		registry.addInterceptor(memberInterceptor)
-											.addPathPatterns("/member/**", //멤버 전부 막힘
-																		"/board/**"
+						.addPathPatterns("/member/**", //멤버 전부 막힘
+											"/board/**",
+											"/point/**"
 																	)
-											.excludePathPatterns(
-													//"/member/join", "/member/joinFinish",
-													"/member/join*", //join 어쩌고는 포함
-													"/member/login", "/member/exitFinish", 
-													"/board/list", "/board/detail"
+						.excludePathPatterns(
+											//"/member/join", "/member/joinFinish",
+											"/member/join*", //join 어쩌고는 포함
+											"/member/login", "/member/exitFinish", 
+											"/board/list", "/board/detail"
 													);
 		
 		//관리자 인터셉터 등록

@@ -43,7 +43,8 @@
 			<c:choose>
 				<c:when test="${sessionScope.loginId != null}">
 					<a href="/member/logout">로그아웃</a>  
-					<a href="/member/mypage">마이페이지</a>   
+					<a href="/member/mypage">마이페이지</a>
+					<a href="/point/charge">포인트충전</a>   
 				</c:when>
 				<c:otherwise>
 					<a href="/member/join">회원가입</a>
