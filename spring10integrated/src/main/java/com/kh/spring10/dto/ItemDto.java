@@ -13,8 +13,8 @@ public class ItemDto {
 	public String getItemName() {
 		return itemName;
 	}
-	public void setItemName(String itemNam) {
-		this.itemName = itemNam;
+	public void setItemName(String itemName) {
+		this.itemName = itemName;
 	}
 	public int getItemPrice() {
 		return itemPrice;
