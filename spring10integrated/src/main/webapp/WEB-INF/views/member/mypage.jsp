@@ -53,7 +53,7 @@
 	<tr>
 		<th>마지막 로그인시간</th>
 		<td><fmt:formatDate value="${memberDto.memberLogin}" 
-									pattern="Y-MM-DD HH:mm:ss"></fmt:formatDate>
+									pattern="Y-MM-dd HH:mm:ss"></fmt:formatDate>
 	<%--	<td><fmt:formatDate value="${memberDto.memberJoin}" 
 								pattern="Y년 M월 D일 H시 m분 s초"></fmt:formatDate>
 			 																								--%>	
@@ -64,6 +64,49 @@
 <a href="/member/password"><button>비밀번호 변경</button></a>
 <a href="/member/change"><button>개인정보 변경</button></a>
 <a href="/member/exit"><button>회원 탈퇴</button></a>
+
+
+<hr>
+
+<br>
+
+<h1 align="center">
+	포인트 구매 내역
+	<a href="/point/charge">추가구매</a>
+</h1>
+<table border="1" width="600">
+	<thead>
+		<tr>
+			<th>번호</th>
+			<th>상품명</th>
+			<th>수량</th>
+			<th>구매금액</th>
+			<th>구매일시</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="buyDto" items="${buyList}">
+		<tr>
+			<td>${buyDto.buySerial}</td>
+			<td>${buyDto.itemName}</td>
+			<td>${buyDto.buyQty}</td>
+			<td>
+				<fmt:formatNumber value="${buyDto.buyTotal}" pattern="#,##0"></fmt:formatNumber>
+			</td>
+			<td>
+				<fmt:formatDate value="${buyDto.buyTime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+			</td>
+		</tr>
+		</c:forEach>
+	</tbody>
+</table>
+
+
+
+
+
+
+
 
 
 
