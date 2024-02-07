@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인스타그램 로그인 화면</title>
+    <style>
+        /* 전체 선택자 - 모든 태그에 설정(전체 규칙) */
+        *{
+            box-sizing: border-box;
+            font-family: 빙그레 메로나체, sans-serif;
+        }
+
+        img{
+            width: 250px;
+            /* height: 80px; */
+        }
+        input {
+            display:block;
+            width: 300px;
+            /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif, sans-serif; */
+            font-size: 15px;
+            padding: 1em;
+            /*
+            margin-top: 10px;
+            margin-botton: 10px;
+            */
+            margin: 10px 0px;
+            border-color: #dbdbdb;
+            border-style: solid;
+            border-radius: 5px;
+        }
+        button{
+            display: block;
+            width: 300px;
+            font-family: 'Franklin Gothic Medium', sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+            padding: 0.5em;
+            margin: 20px 0px;
+            background-color: #4cb5f9; /*rgb(76, 181, 249);*/
+            color: white;
+            border-radius: 10px;
+            /* border-color: #4cb5f9;
+            border-style: solid; */
+            border: 1px solid #4cb5f9;
+        }
+        hr{
+            margin: 30px 0px;
+            width: 300px;
+        }
+        a{
+            color:#00376b;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+     <div align="center">
+        <!-- <img src="https://cdn.discordapp.com/attachments/1193766807383846936/1204639036141215744/instagram.png?ex=65d57687&is=65c30187&hm=f682a17e89438b76f0869a54aacb9d60c7bf87cebd2916c4014c3abbc6a1f08f&"> -->
+        <img src="img/instagram.png">
+        <form action="#" method="post">
+            <input type="text" name="memberId" placeholder="전화번호, 사용자 이름 또는 이메일">
+            <input type="password" name="memberPw" placeholder="비밀번호">
+            <button>로그인</button>
+            <hr>
+            <a href="#">비밀번호를 잊으셨나요?</a>
+        </form>
+    </div>
+    
+</body>
+</html>
