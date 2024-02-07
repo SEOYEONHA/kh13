@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>네이버 : 로그인</title>
+    <style>
+        /* 전체 선택자 - 모든 태그에 설정(전체 규칙) */
+        * {
+            box-sizing: border-box;
+            font-family: 빙그레 메로나체, sans-serif;
+        }
+
+        .logo {
+            width:180px;
+            height: 70px;
+        }
+
+        .box {
+            display: block;
+            width: 350px;
+            font-size: 16px;
+            padding: 0.7em;
+        }
+
+        /* .box도 있고 .input도 있는 경우 선택 */
+        .box.input {
+            border: 2px solid #CCC;
+            /*입력창의 기본 강조효과 제거*/
+            outline: none;
+        }
+        /* 조건부 선택자 */
+        .box.input:focus {
+            border-color: #03c75a;
+        }
+        .box.input[name=memberId] {
+            border-bottom-width: 1px;
+            border-top-left-radius: 0.3em;
+            border-top-right-radius: 0.3em;
+        }
+        .box.input[name=memberPw] {
+            border-top-width: 1px;
+            border-bottom-left-radius: 0.3em;
+            border-bottom-right-radius: 0.3em;
+        }
+        .box.btn {
+            background-color: #03c75a;
+            color: white;
+
+            font-weight: bold;/*700*/
+            margin-top: 25px;
+
+            border: 1px solid #03c75a;
+            border-radius: 0.3em;
+        }
+    </style>
+</head>
+<body>
+
+    <div align="center">
+        <img class="logo" src="image/naver_logo.png">
+        <form action="#" method="post" autocomplete="off">
+            <input class="box input" type="text" name="memberId" placeholder="아이디">
+            <input class="box input" type="password" name="memberPw" placeholder="비밀번호">
+            <button class="box btn">로그인</button>
+        </form>        
+    </div>
+
+</body>
+</html>

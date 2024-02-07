@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>인스타그램 로그인 화면</title>
+    <title>네이버 로그인 화면</title>
     <style>
         /* 전체 선택자 - 모든 태그에 설정(전체 규칙) */
         *{
@@ -17,27 +17,27 @@
             - 앞에 점(.)을 찍어서 클래스임을 표시
         */
         .logo {
-            width: 250px;
+            margin:30px;
+            width: 200px;
         }
-        .inputbox {
+        .box {
             display:block;
             width: 300px;
             font-size: 15px;
-            margin: 10px 0px;
         }
         .input {
             padding: 1em;
-            border: 1px solid #dbdbdb;
+            border: 0.5px solid #dbdbdb;
             border-radius: 5px;
         }
         .btn {
-            /* font-weight: bold; */
+            font-weight: bold; 
             padding: 0.7em;
             margin: 20px 0px;
-            background-color: #4cb5f9;
+            background-color: #03c75a;
             color: white;
-            border-radius: 10px;
-            border: 1px solid #4cb5f9;
+            border-radius: 6px;
+            border: 1px solid #03c75a;
         }
         .seperator {
             margin: 30px 0px;
@@ -58,13 +58,12 @@
     -->
     
      <div align="center">
-        <img src="image/instagram.png" class="logo">
+        <img src="img/naver_logo.png" class="logo">
         <form action="#" method="post">
-            <input class="inputbox input" type="text" name="memberId" placeholder="전화번호, 사용자 이름 또는 이메일">
-            <input class="inputbox input" type="password" name="memberPw" placeholder="비밀번호">
-            <button class="inputbox btn">로그인</button>
-            <hr class="inputbox seperator">
-            <a href="#" class="link">비밀번호를 잊으셨나요?</a>
+            <input class="box input" type="text" name="memberId" placeholder="아이디">
+            <input class="box input" type="password" name="memberPw" placeholder="비밀번호">
+            <button class="box btn">로그인</button>
+         
         </form>
     </div>
     
