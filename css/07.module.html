@@ -130,21 +130,35 @@
             background-color: #c42627;
         }
 
+        /*
+            정렬 스타일
+            - .left를 붙이면 왼쪽 정렬
+            - .center를 붙이면 가운데 정렬
+            - .right를 붙이면 오른쪽 정렬
+        */
+        .left { text-align: left; }
+        .center { text-align: center; }
+        .right { text-align: right; }
+        
+
+
     </style>
 </head>
 <body>
     <div class="container w-450">
-        <div class="cell">이미지</div>
+        <div class="cell center">
+            <img src="image/naver_logo.png" width="200">
+        </div>
         <div class="cell">
             <input type="text" name="memberId" class="tool w-100" placeholder="아이디">
         </div>
         <div class="cell">
             <input type="password" name="memberPw" class="tool w-100" placeholder="비밀번호">
         </div>
-        <div class="cell" align="center">
-            <button class="btn positive w-50">로그인</button>
-            <a href="#" class="btn w-50">회원가입</a>
-            <a href="#" class="btn negative w-50">부정버튼</a>
+        <div class="cell">
+            <button class="btn positive w-100">로그인</button>
+            <a href="#" class="btn w-100">회원가입</a>
+            <a href="#" class="btn negative w-100">부정버튼</a>
         </div>
     </div>
 </body>
