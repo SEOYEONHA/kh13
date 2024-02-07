@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>style 태그 방식</title>
+    <!--
+        style 태그를 사용하여 태그를 선택한 뒤 디자인
+        - 이 방식은 대상을 정한 뒤 속성을 작성해야 한다
+        - 대상을 정하기 위한 키워드를 선택자(selector)라고 한다
+        - 여러 개의 태그에 동일한 스타일을 적용할 수 있다
+        - 원하는 대상을 정하려면 선택자(selector)를 공부해야 한다
+        - style 태그는 화면에 나오지 않기 때문에 head에 배치한다
+    -->
+    <style>
+        /* h1이라는 태그를 선택하도록 하는 선택자(태그 선택자) */
+        h1 {
+            color:blue;
+        }
+        h1:first-child {
+            font-style: italic;
+        }
+        h1:nth-child(2){
+            background-color: yellow;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello CSS Design</h1>
+    <h1>Hello CSS Design</h1>
+    <h1>Hello CSS Design</h1>
+    <h1>Hello CSS Design</h1>
+    <h1>Hello CSS Design</h1>
+</body>
+</html>

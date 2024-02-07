@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS 속성(Attributes)</title>
+    <style>
+        /*
+            CSS의 주요 속성
+            - color : 글자 색상 속성
+            - background-* : 배경 속성(ex : 이미지, 색상, 그라데이션, ...)
+            - font-* : 글꼴 속성
+                - font-size : 글꼴 크기(기본값 16px, 태그마다 다름)
+                - font-family : 글꼴 종류
+            - padding-* : 내부 여백 속성
+                - padding-left, padding-right, padding-top, padding-bottom
+                - px은 수치로 지정하는 방법
+                - em은 배율로 지정하는 방법 (1.5em = 글자크기의 1.5배)
+            - border-* : 테두리 속성
+        */
+        h1 {
+            color: red;
+            background-color:yellow;
+        }
+        /* input {} */
+        /* input 태그 중 name=keyword인 태그를 선택 (속성 선택자) */
+        input[name=keyword] {
+            font-size: 24px;
+            font-family: 빙그레 메로나체, sans-serif;
+            padding: 0.5em;
+            padding-left: 1em;
+            padding-right: 1em;
+
+            border-color: red;
+            border-width: 2px;
+            border-style: solid;
+            /* border-radius: 5px; */
+
+            border-top: none;
+            border-left: none;
+            border-right: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS 주요 속성</h1>
+    <input type="text" name="keyword" value="Hello CSS!">
+</body>
+</html>
