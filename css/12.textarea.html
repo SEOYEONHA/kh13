@@ -9,7 +9,18 @@
     <style>
         /*
             textarea도 입력도구이므로 .tool을 사용
+            textarea의 최대 문제점은 가로로 크기조절이 가능한 것이므로 이를 제어
+            resize 속성으로 설정
+            - 'resize : none' 으로 설정하면 크기 조절이 불가능
+            - 'resize : vertical' 로 설정하면 세로 크기 조절만 가능
         */
+        textarea.tool { /* textarea에 tool이 붙어있는 경우 */
+            resize: vertical;
+            min-height: 5em; /* 필요시 개조 */
+        }
+        textarea.tool.tool-fixed {
+            resize: none;
+        }
     </style>
 </head>
 <body>
@@ -19,7 +30,7 @@
             <h1>textarea 디자인</h1>
         </div>
         <div class="cell">
-            <textarea></textarea>
+            <textarea class="tool w-100" rows="5"></textarea>
         </div>
     </div>
 
