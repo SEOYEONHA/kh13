@@ -95,6 +95,15 @@
     padding-right: 0;
 }
 
+/* 이미지가 들어갈 수 있는 입력창 */
+.tool.tool-image {
+    padding-left: 2.25em;
+    background-size: 1em;
+    background-repeat: no-repeat;
+    background-position-x: 0.625em;
+    /* background-position-y: 50%; */
+    background-position-y: center;
+}
 
 /*
     버튼은 크게 세 가지 용도로 구분한다
