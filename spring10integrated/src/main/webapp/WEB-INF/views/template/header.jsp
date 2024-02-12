@@ -21,6 +21,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>나의 홈페이지</title>
+		<link rel="stylesheet" type="text/css" href="/css/commons.css">
+		<link rel="stylesheet" type="text/css" href="/css/test.css">
 	</head>
 	<body>
 		<%--
