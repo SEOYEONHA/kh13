@@ -105,6 +105,21 @@
     background-position-y: center;
 }
 
+ /*
+            textarea도 입력도구이므로 .tool을 사용
+            textarea의 최대 문제점은 가로로 크기조절이 가능한 것이므로 이를 제어
+            resize 속성으로 설정
+            - 'resize : none' 으로 설정하면 크기 조절이 불가능
+            - 'resize : vertical' 로 설정하면 세로 크기 조절만 가능
+        */
+        textarea.tool { /* textarea에 tool이 붙어있는 경우 */
+            resize: vertical;
+            min-height: 5em; /* 필요시 개조 */
+        }
+        textarea.tool.tool-fixed {
+            resize: none;
+        }
+
 /*
     버튼은 크게 세 가지 용도로 구분한다
     1. 긍정버튼 - 누르면 긍정적인 작업이 바랭하는 경우 (순리대로 흘러가는 경우)
