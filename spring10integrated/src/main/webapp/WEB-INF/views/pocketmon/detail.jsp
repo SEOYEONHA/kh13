@@ -10,7 +10,7 @@
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<div class="container w-300">
+<div class="container w-500">
 	<div class="cell center">
 		<c:choose>
 			<c:when test="${dto != null}">
@@ -33,18 +33,18 @@
 						</tr>
 					</table>
 			</div>
-		<div class="cell center">
-			<%-- 다른 페이지로의 링크 --%>
-			<a href="list" class="btn pink">목록보기</a>
-			<a href="edit" class="btn">수정</a>
-			<a href="delete?pocketmonNo=${dto.pocketmonNo}" class="btn negative">삭제</a>
-		</div>
+			<div class="cell center my-20">
+				<%-- 다른 페이지로의 링크 --%>
+				<a href="list" class="btn pink">목록보기</a>&nbsp;&nbsp;
+				<a href="edit?pocketmonNo=${dto.pocketmonNo}" class="btn purple">수정</a>&nbsp;&nbsp;
+				<a href="delete?pocketmonNo=${dto.pocketmonNo}" class="btn negative">삭제</a>
+			</div>
 		</c:when>
-		<div class="cell title">
 		<c:otherwise>
-			<h1>존재하지 않는 포켓몬스터 번호</h1>
+			<div class="cell title">
+				<h1>존재하지 않는 포켓몬스터 번호</h1>
+			</div>
 		</c:otherwise>
-		</div>
 	</c:choose>
 	</div>
 </div>

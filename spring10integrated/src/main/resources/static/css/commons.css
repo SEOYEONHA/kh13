@@ -134,6 +134,7 @@
 */
 /* a.btn { a태그를 버튼으로 쓸 경우 */
 .btn { 
+    background-color: antiquewhite;
     color: #2d3436;
     text-decoration: none; /* 밑줄 제거 */
     display: inline-block;
@@ -152,6 +153,10 @@
 }
 .btn.pink {
     background-color: #fab1a0;
+    color:#FFF
+}
+.btn.purple {
+    background-color: #786fa6;
     color:#FFF
 }
 

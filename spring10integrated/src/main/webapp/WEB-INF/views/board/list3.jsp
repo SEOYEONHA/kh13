@@ -90,7 +90,7 @@
 				<button class="btn">검색</button>
 			</div>
 		</form>
-				</div>
+	</div>
 				
 	<div class="cell center">
 		<a href="list" class="btn pink">목록보기</a>
