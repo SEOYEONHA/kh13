@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>페이지 네비게이터 디자인</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+        /*
+            페이지 네비게이터 디자인
+            - .page-navigator 안에 있는 a태그에 대하여 디자인
+        */
+        .page-navigator {
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .page-navigator.page-navigator-small {
+            font-size: 12px;
+        }
+
+        .page-navigator.page-navigator-large {
+            font-size: 20px;
+}
+
+        .page-navigator > a {
+            display: inline-block;
+            color: #2d3436;
+            text-decoration: none;
+            border: 1px solid #2d3436;
+            padding: 0.5em;
+            font-size: inherit;
+            min-width: 2.5em;
+        }
+
+        /*
+            현재 페이지에 해당하는 번호에는 활성화 클래스인 on을 추가한다
+        */
+        .page-navigator > a.on, 
+        .page-navigator > a:hover {
+            color: #e17055;
+            border-color: #e17055;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container w-800">
+        <div class="cell center">
+            <h1>페이지 네비게이터 디자인</h1>
+        </div>
+        <div class="cell">
+            <div class="page-navigator page-navigator-small">
+                <a href="#">&lt;이전</a>
+                <a href="#">1</a>
+                <a href="#" class="on">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">7</a>
+                <a href="#">8</a>
+                <a href="#">9</a>
+                <a href="#">10</a>
+                <a href="#">다음&gt;</a>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="page-navigator">
+                <a href="#">&lt;이전</a>
+                <a href="#">1</a>
+                <a href="#" class="on">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">7</a>
+                <a href="#">8</a>
+                <a href="#">9</a>
+                <a href="#">10</a>
+                <a href="#">다음&gt;</a>
+            </div>
+        </div>
+        <div class="cell">
+            <div class="page-navigator page-navigator-large">
+                <a href="#">&lt;이전</a>
+                <a href="#">1</a>
+                <a href="#" class="on">2</a>
+                <a href="#">3</a>
+                <a href="#">4</a>
+                <a href="#">5</a>
+                <a href="#">6</a>
+                <a href="#">7</a>
+                <a href="#">8</a>
+                <a href="#">9</a>
+                <a href="#">10</a>
+                <a href="#">다음&gt;</a>
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
