@@ -102,12 +102,9 @@ public class PocketmonDao {
 		if(pageVO.isSearch()) { //검색
 			String sql = "select * from ("
 					+ "select rownum rn, TMP.* from ("
-						+ "select pocketmon_no, pocketmon_name, pocketmon_type "
-						+ "from pocketmon where instr(" + pageVO.getColumn() + ", ?) > 0 "
-						//+ "order by board_no desc" //옛날방식(최신순)
-						+ "connect by prior pocketmon_no = pocketmon_target "
-						+ "start with pocketmon_target is null "
-						+ "order siblings by pocketmon_group desc, pocketmon_no asc"
+						+ "select * from pocketmon "
+						+ "where instr(upper(" + pageVO.getColumn() + "), upper(?)) > 0 " //대소문자 무시
+						+ "order by " + pageVO.getColumn()  + " asc, pocketmon_no asc"
 					+ ")TMP"
 				+ ") where rn between ? and ?";
 			Object[] data = {pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
@@ -115,15 +112,10 @@ public class PocketmonDao {
 		}
 		else { //목록
 			String sql = "select * from ("
-								+ "select rownum rn, TMP.* from ("
-									+ "select pocketmon_no, pocketmon_name, pocketmon_type "
-									+ "from pocketmon "
-									//+ "order by board_no desc" //옛날방식(최신순)
-									+ "connect by prior pocketmon_no = pocketmon_target "
-									+ "start with pocketmon_target is null "
-									+ "order siblings by pocketmon_group desc, pocketmon_no asc"
-								+ ")TMP"
-							+ ") where rn between ? and ?";
+					+ "select rownum rn, TMP.* from ("
+						+ "select * from pocketmon order by pocketmon_no asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
 			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
 			return jdbcTemplate.query(sql, mapper, data);
 		}
