@@ -143,12 +143,16 @@
 }
 
 .btn.positive {
-    background-color: #00b894;
+    background-color: #63cdda;
     color: #FFFFFF; /* white, #FFF, #fff*/
 }
 .btn.negative {
     background-color: #d63031;
     color: #FFF;
+}
+.btn.pink {
+    background-color: #fab1a0;
+    color:#FFF
 }
 
 /* 버튼에 마우스가 올라가면 색상에 변화를 주겠다 */
@@ -156,16 +160,16 @@
     filter: brightness(0.9)
 }
 
-
 /*
     정렬 스타일
     - .left를 붙이면 왼쪽 정렬
     - .center를 붙이면 가운데 정렬
     - .right를 붙이면 오른쪽 정렬
+    - 우선순위에서 밀리지 않기 위해 !important 처리를 해야함
 */
-.left { text-align: left; }
-.center { text-align: center; }
-.right { text-align: right; }
+.left { text-align: left !important; }
+.center { text-align: center !important; }
+.right { text-align: right !important; }
 
 /*
     여백 스타일(spacine)
@@ -277,3 +281,178 @@
 .py-30 { padding-top:30px; padding-bottom: 30px; }
 .py-40 { padding-top:40px; padding-bottom: 40px; }
 .py-50 { padding-top:50px; padding-bottom: 50px; }
+
+ /*
+     테이블 디자인
+     - table이라는 클래스가 붙는 경우만 디자인하도록 설계
+     - table은 전체와 칸에 테두리가 따로 적용된다(나눠져있다, seperate)
+ */
+ .table {
+     border-collapse: collapse;
+     border-spacing: 0px;
+     width: 100%;
+ }
+
+ /*
+     .table 안에 있는 td와 th에만 디자인을 적용하는 방법
+     (1) 후손 선택자
+         - .table th 라고 작성하면 .table 안에있는 모든 th를 선택
+         - .table td 라고 작성하면 . table 안에있는 모든 td를 선택
+         - 작성이 편하지만 테이블이 중첩되면 문제가 생김(범용성 ↓)
+     (2) 자식 선택자
+         - .table > tbody > tr > td 라고 작성하면 순서대로 따라가서 나오는 td를 선택(대상을 좀 더 정확하게 저격)
+         - 작성이 까다롭지만 정확한 대상을 지정할 수 있음(범용성 ↑)
+ */
+ /* .table td, 
+ .table th { */
+ .table > thead > tr > th, 
+ .table > thead > tr > td, 
+ .table > tbody > tr > td, 
+ .table > tbody > tr > th, 
+ .table > tbody > tr > td, 
+ .table > tfoot > tr > th, 
+ .table > tfoot > tr > td
+ {
+     text-align: center;
+     padding: 0.25em;
+ }
+
+ /* 
+     테이블 확장 스타일 : 테두리가 있는 테이블 
+ */
+ .table.table-border > thead > tr > th, 
+ .table.table-border > thead > tr > td, 
+ .table.table-border > tbody > tr > th, 
+ .table.table-border > tbody > tr > td, 
+ .table.table-border > tfoot > tr > th, 
+ .table.table-border > tfoot > tr > td  
+ {
+     border: 1px solid #2d3436;
+ }
+  /* 
+     테이블 확장 스타일 : 줄무늬 테이블 
+     - 제목줄에 배경을 설정하고 내용은 짝수줄만 배경 설정
+     - 제목줄에 배경을 설정하지 않고 내용은 홀수줄만 배경 설정
+
+     *홀수로 하고싶으면
+     .table.table-stripe > tbody > tr:nth-child(2n-1) 
+     .table.table-stripe > tbody > tr:nth-child(2n+1) 
+ */
+ .table.table-stripe > thead > tr, 
+ .table.table-stripe > tbody > tr:nth-child(2n) 
+ {
+     background-color: #fab1a0;
+ }
+
+ /*
+     테이블 확장 스타일 : 마우스 반응 테이블
+     - 제목은 제외한 내용 줄만 마우스가 올라가면 색상이 변하도록 구현
+ */
+ .table.table-hover > tbody > tr:hover {
+     background-color: #fab1a0;
+ }
+
+  /*
+     테이블 확장 스타일 : 가로줄무늬 테이블
+ */
+ .table.table.table-horizontal {
+     border-top: 1px solid #2d3436;
+     border-bottom: 1px solid #2d3436;
+     border-left: none;
+     border-right: none;
+ }
+ .table.table-horizontal > thead {
+     border-bottom: 1px solid #2d3436;
+ }
+ /* :not() 을 이용하여 특정 대상을 선택에서 제거할 수 있다*/
+ .table.table-horizontal > tbody > tr:not(tr:last-child) {
+     border-bottom: 1px solid #b2bec3;
+ }
+         /*
+     링크 디자인
+     - class="link"인 경우 디자인을 설정
+     - 방문한 경우의 색상은 :visited 상태에 대해서 디자인을 하면 된다
+ */
+ .link {
+     text-decoration: none;
+     color: #2d3436;
+     display: inline-block;
+ }
+ .link:hover {
+     color: rgb(105, 153, 255);
+ }
+
+ .link.link-animation {
+      /* 
+         transition을 통해 특정 속성의 변화 속도를 지정 
+         - transition : 적용항목 변화시간 변화방식;
+         - 변화방식은 크게 세 가지로 구분
+             - linear : 변화속도가 일정한 것
+             - ease-in, ease-out, ease-in-out은 시작과 끝을 부드럽게
+                 - ease-in은 시작을 부드럽게
+                 - ease-out은 끝을 부드럽게
+                 - ease-in-out은 시작과 끝을 모두 부드럽게
+     */
+     /* transition: transform 0.2s linear; */
+     /* transition: transform 0.5s ease-in-out; */
+     transition-property: transform, color;
+     transition-duration: 0.2s;
+     transition-timing-function: ease-out;
+ }
+ .link.link-animation:hover {
+     /*
+         애니메이션 효과 추가
+         - display:inline 에서는 불가능
+         - transform 속성을 통해 원하는 작업을 부여
+         - transition
+     */
+     transform: scale(1.03);
+     /* transform: rotate(90deg); */
+     /* transform: skew(20deg) */
+ }
+
+  /*
+     페이지 네비게이터 디자인
+     - .page-navigator 안에 있는 a태그에 대하여 디자인
+ */
+.page-navigator {
+	text-align: center;
+	font-size: 16px;
+	}
+
+.page-navigator.page-navigator-small {
+    font-size: 12px;
+	}
+
+.page-navigator.page-navigator-large {
+    font-size: 20px;
+	}
+
+.page-navigator > a {
+	display: inline-block;
+	color: #2d3436;
+	text-decoration: none;
+	/* border: 1px solid #2d3436; */
+	border: 1px solid transparent;
+	padding: 0.5em;
+	font-size: inherit;
+	min-width: 2.5em;
+ }
+
+ /*
+     현재 페이지에 해당하는 번호에는 활성화 클래스인 on을 추가한다
+     단, off인 경우는 hover에서 제외한다
+ */
+ .page-navigator > a.on, 
+ .page-navigator > a:not(.off):hover {
+/* 	border: 1px solid #2d3436; */
+     color: #e17055;
+     border-color: #e17055;
+ }
+ 
+ /* off 클래스에 대한 효과 추가 */
+ .page-navigator > a.off {
+ 	color: #0984e3;
+ 	cursor: not-allowed;
+ 	}
+        

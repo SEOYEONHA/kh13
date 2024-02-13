@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.spring10.dao.PocketmonDao;
 import com.kh.spring10.dto.PocketmonDto;
+import com.kh.spring10.vo.PageVO;
 
 @Controller
 @RequestMapping("/pocketmon")
@@ -74,17 +75,29 @@ public class PocketmonController {
 	//목록 & 검색 페이지
 	//- 사용자의 검색어(선택)을 전달받아 조회 후 Model에 첨부
 	
+//	@RequestMapping("/list")
+//	public String list(@RequestParam(required = false) String column,
+//							@RequestParam(required = false) String keyword,
+//							Model model) {
+//		boolean isSearch = column != null && keyword != null;
+//		List<PocketmonDto> list = isSearch ? dao.selectList(column, keyword) : dao.selectList();
+////		if(isSearch) {
+////		}
+////		else {
+////		}
+//		model.addAttribute("list", list);
+//		return "/WEB-INF/views/pocketmon/list.jsp";
+//	}
+	
 	@RequestMapping("/list")
-	public String list(@RequestParam(required = false) String column,
-							@RequestParam(required = false) String keyword,
-							Model model) {
-		boolean isSearch = column != null && keyword != null;
-		List<PocketmonDto> list = isSearch ? dao.selectList(column, keyword) : dao.selectList();
-//		if(isSearch) {
-//		}
-//		else {
-//		}
+	public String list(@ModelAttribute PageVO vo, 
+									Model model) {
+		int count = dao.count(vo);
+		vo.setCount(count);
+		
+		List<PocketmonDto> list = dao.selectListByPaging(vo);
 		model.addAttribute("list", list);
+		
 		return "/WEB-INF/views/pocketmon/list.jsp";
 	}
 	

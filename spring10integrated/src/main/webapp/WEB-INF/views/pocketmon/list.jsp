@@ -36,7 +36,10 @@
 		</c:forEach>
 	</tbody>
 </table>
-<br>
+
+	<%-- 네비게이터 --%>
+	<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
+
 <a href="list"><button>목록보기</button></a>
 <a href="insert1"><button>포켓몬 신규 등록</button></a> 
 

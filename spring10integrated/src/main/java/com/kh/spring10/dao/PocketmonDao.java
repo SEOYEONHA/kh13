@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.spring10.dto.BoardDto;
 import com.kh.spring10.dto.PocketmonDto;
 import com.kh.spring10.mapper.PocketmonMapper;
 import com.kh.spring10.mapper.StatMapper;
+import com.kh.spring10.vo.PageVO;
 import com.kh.spring10.vo.StatVO;
 
 //DAO도 이제부터는 등록을 해야 한다
@@ -79,6 +81,52 @@ public class PocketmonDao {
 								+ "group by pocketmon_type "
 								+ "order by 개수 desc, pocketmon_type asc";
 		return jdbcTemplate.query(sql, statMapper);
+	}
+	
+	//VO를 이용한 카운트
+	public int count(PageVO pageVO) {
+		if(pageVO.isSearch()) {
+			String sql = "select count(*) from pocketmon "
+							+ "where instr(" + pageVO.getColumn() + ", ?) > 0";
+			Object[] data = {pageVO.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, data);
+		}
+		else { //목록
+			String sql = "select count(*) from pocketmon";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
+	
+	//통합 페이징
+	public List<PocketmonDto> selectListByPaging(PageVO pageVO){
+		if(pageVO.isSearch()) { //검색
+			String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+						+ "select pocketmon_no, pocketmon_name, pocketmon_type "
+						+ "from pocketmon where instr(" + pageVO.getColumn() + ", ?) > 0 "
+						//+ "order by board_no desc" //옛날방식(최신순)
+						+ "connect by prior pocketmon_no = pocketmon_target "
+						+ "start with pocketmon_target is null "
+						+ "order siblings by pocketmon_group desc, pocketmon_no asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
+			Object[] data = {pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
+			return jdbcTemplate.query(sql, mapper, data);
+		}
+		else { //목록
+			String sql = "select * from ("
+								+ "select rownum rn, TMP.* from ("
+									+ "select pocketmon_no, pocketmon_name, pocketmon_type "
+									+ "from pocketmon "
+									//+ "order by board_no desc" //옛날방식(최신순)
+									+ "connect by prior pocketmon_no = pocketmon_target "
+									+ "start with pocketmon_target is null "
+									+ "order siblings by pocketmon_group desc, pocketmon_no asc"
+								+ ")TMP"
+							+ ") where rn between ? and ?";
+			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
+			return jdbcTemplate.query(sql, mapper, data);
+		}
 	}
 	
 	
