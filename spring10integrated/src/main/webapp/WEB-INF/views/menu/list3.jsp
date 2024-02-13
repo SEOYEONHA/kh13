@@ -43,7 +43,7 @@
 	
 	<%--검색창 --%>
 	<div class="cell center">
-		<form action="list" method="get" autocomplate="off">
+		<form action="list" method="get" autocomplete="off">
 			<div class="cell">
 				<select name="column" class="tool">
 					<option value="menu_name_kor" ${param.column == 'menu_name_kor' ? 'selected' : ' '}>메뉴명(한글)</option>
@@ -55,7 +55,7 @@
 			</div>
 		</form>
 		<div class="cell center">
-			<a href="list" class="link pink btn left">목록보기</a>
+			<a href="list" class="link pink btn">목록보기</a>
 			<a href="insert" class="link positive btn">신규등록</a> 
 		</div>
 	</div>

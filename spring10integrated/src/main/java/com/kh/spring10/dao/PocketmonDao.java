@@ -3,8 +3,11 @@ package com.kh.spring10.dao;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.kh.spring10.dto.BoardDto;
 import com.kh.spring10.dto.PocketmonDto;
@@ -60,7 +63,7 @@ public class PocketmonDao {
 	}
 	
 	public List<PocketmonDto> selectList(String column, String keyword){
-		String sql = "select * from pocketmon where instr(" + column +", ?) > 0 "
+		String sql = "select * from pocketmon where instr(" + column + ", ?) > 0 "
 								+ "order by " + column + " asc, pocketmon_no asc";
 		Object[] data = {keyword};
 		return jdbcTemplate.query(sql, mapper, data);
@@ -102,9 +105,8 @@ public class PocketmonDao {
 		if(pageVO.isSearch()) { //검색
 			String sql = "select * from ("
 					+ "select rownum rn, TMP.* from ("
-						+ "select * from pocketmon "
-						+ "where instr(upper(" + pageVO.getColumn() + "), upper(?)) > 0 " //대소문자 무시
-						+ "order by " + pageVO.getColumn()  + " asc, pocketmon_no asc"
+						+ "select * from pocketmon where instr(" + pageVO.getColumn() + ", ?) > 0 "
+						+ "order by " + pageVO.getColumn() + " asc, pocketmon_no asc"
 					+ ")TMP"
 				+ ") where rn between ? and ?";
 			Object[] data = {pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
