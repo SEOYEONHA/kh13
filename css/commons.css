@@ -455,4 +455,29 @@
  	color: #0984e3;
  	cursor: not-allowed;
  	}
+
+/* 이미지 디자인 */
+.image-circle {
+    border-radius: 50%;
+}
+.image-round {
+    border-radius: 5px;
+}
+.image-grayscale {
+    filter:grayscale(100%);
+}
+.image-blur {
+    opacity: 0.5;  /* 불투명도 - 1(100%), 0(0%) */
+    transition: opacity 0.1s linear;
+}
+.image-blur.hover:hover {
+    opacity: 1;
+}
+.image-shadow {
+    /* box-shadow : x위치, y위치 번짐 확대 색상; */
+    box-shadow: 5px 5px 0 0 #2d3436;
+}
+.image-lift {
+    box-shadow: 0 0 2px 1px #2d3436;
+}
         

@@ -7,12 +7,54 @@
     <link rel="stylesheet" type="text/css" href="commons.css">
     <link rel="stylesheet" type="text/css" href="test.css">
     <style>
-    
+        /* 이미지 디자인 */
+        .image-circle {
+            border-radius: 50%;
+        }
+        .image-round {
+            border-radius: 5px;
+        }
+        .image-grayscale {
+            filter:grayscale(100%);
+        }
+        .image-blur {
+            opacity: 0.5;  /* 불투명도 - 1(100%), 0(0%) */
+            transition: opacity 0.1s linear;
+        }
+        .image-blur.hover:hover {
+            opacity: 1;
+        }
+        .image-shadow {
+            /* box-shadow : x위치, y위치 번짐 확대 색상; */
+            box-shadow: 5px 5px 0 0 #2d3436;
+        }
+        .image-lift {
+            box-shadow: 0 0 2px 1px #2d3436;
+        }
+
+
     </style>
 </head>
 <body>
-
-
-    
+    <div class="container w-600">
+        <div class="cell center">
+            <h1>이미지 디자인</h1>
+        </div>
+    </div>
+    <div class="cell center">
+        <img class="image-circle" src="image/bg6.jpg" width="150" height="150">
+        <img class="image-round" src="image/bg.jpg" width="150" height="150">
+        <img class="image-grayscale" src="image/bg3.jpg" width="150" height="150">
+    </div>
+    <div class="cell center">
+        <img class="image-blur" src="image/bg7.jpg" width="150" height="150">
+        <img class="image-blur hover" src="image/bg10.jpg" width="150" height="150">
+        <img class="image-shadow" src="image/bg9.jpg" width="150" height="150">
+    </div>
+    <div class="cell center">
+        <img class="image-lift" src="image/bg8.jpg" width="150" height="150">
+        <img class="image-blur hover" src="image/bg5.jpg" width="150" height="150">
+        <img class="image-shadow" src="image/bg11.jpg" width="150" height="150">
+    </div>
 </body>
 </html>
