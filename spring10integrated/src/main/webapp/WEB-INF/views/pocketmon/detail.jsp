@@ -32,7 +32,7 @@
 							<td>${dto.pocketmonType}</td>
 						</tr>
 					</table>
-			</div>
+				</div>
 			<div class="cell center my-20">
 				<%-- 다른 페이지로의 링크 --%>
 				<a href="list" class="btn pink">목록보기</a>&nbsp;&nbsp;
@@ -43,6 +43,9 @@
 		<c:otherwise>
 			<div class="cell title">
 				<h1>존재하지 않는 포켓몬스터 번호</h1>
+			</div>
+			<div class="cell">
+				<a href="list">목록보기></a>
 			</div>
 		</c:otherwise>
 	</c:choose>

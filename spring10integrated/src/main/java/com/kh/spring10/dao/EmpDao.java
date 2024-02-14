@@ -7,8 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.spring10.dto.EmpDto;
+import com.kh.spring10.dto.PocketmonDto;
 import com.kh.spring10.mapper.EmpMapper;
 import com.kh.spring10.mapper.StatMapper;
+import com.kh.spring10.vo.PageVO;
 import com.kh.spring10.vo.StatVO;
 
 @Repository
@@ -79,4 +81,48 @@ public class EmpDao {
 							+ "order by 개수 desc, emp_dept asc";
 		return jdbcTemplate.query(sql, statMapper);
 	}
+	
+	//VO를 이용한 카운트
+	public int count(PageVO pageVO) {
+		if(pageVO.isSearch()) {
+			String sql = "select count(*) from emp "
+							+ "where instr(" + pageVO.getColumn() + ", ?) > 0";
+			Object[] data = {pageVO.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, data);
+		}
+		else { //목록
+			String sql = "select count(*) from emp";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
+	
+	//통합 페이징
+	public List<EmpDto> selectListByPaging(PageVO pageVO){
+		if(pageVO.isSearch()) { //검색
+			String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+						+ "select * from emp where instr(" + pageVO.getColumn() + ", ?) > 0 "
+						+ "order by " + pageVO.getColumn() + " asc, emp_no asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
+			Object[] data = {pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
+			return jdbcTemplate.query(sql, mapper, data);
+		}
+		else { //목록
+			String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+						+ "select * from emp order by emp_no asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
+			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
+			return jdbcTemplate.query(sql, mapper, data);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
 }
