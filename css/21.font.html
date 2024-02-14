@@ -4,6 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>폰트 스타일</title>
+
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    
+    <!-- 내가 구현한 스타일 -->
     <link rel="stylesheet" type="text/css" href="commons.css">
     <link rel="stylesheet" type="text/css" href="test.css">
 
@@ -28,6 +35,19 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
+        /*
+            웹 폰트 설정
+        */
+        @font-face {
+            font-family: ssamanco;
+            src: url("font/BinggraeSamanco.ttf");
+        }
+
+        * {
+            font-family: "Noto Sans KR", sans-serif;
+        }
+
     </style>
 </head>
 <body>

@@ -9,7 +9,7 @@
  /* 전체 선택자 - 모든 태그에 설정(전체 규칙) */
  * {
     box-sizing: border-box;
-    font-family: 빙그레 메로나체, sans-serif;
+    font-family: "Noto Sans KR", sans-serif;
 }
 
 /*
