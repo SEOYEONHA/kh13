@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배치 방식</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+    <style>
+        /*
+            relative를 이용한 디자인
+        */
+        .effect-lift {
+            position: relative;
+            z-index: 99;
+            transition: bottom 0.1s ease-out;
+            bottom: 0px;
+        }
+        .effect-lift:hover {
+            bottom: 5px;
+        }
+
+        .effect-shake {
+            position: relative;
+            z-index: 99;
+        }
+        .effect-shake:hover {
+            /* animation : 애니메이션이름 딜레이 타이밍 실행시간 반복회수 [기타옵션] */
+            animation: shake linear 0.01s infinite;
+        }
+
+        /* 움직임에 대한 상세한 시나리오 작성 */
+        @keyframes shake {
+            0% { left: 0px; }
+            20% { left: -1px; }
+            50% { left: 0px; }
+            75% { left: 1px; }
+            100% { left: 0px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>relative position</h1>
+        </div>
+    </div>
+
+    <div class="cell">
+        <img class="effect-lift" src="image/redHeart.png" width="100">
+        <img class="effect-shake" src="image/bell.png" width="100">
+    </div>
+    <div class="cell">
+        
+    </div>
+
+</body>
+</html>
