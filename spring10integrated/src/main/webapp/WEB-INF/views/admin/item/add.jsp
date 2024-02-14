@@ -3,25 +3,41 @@
 
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<h1 align="center">판매 상품 등록</h1>
-
+<div class="container w-800">
+	<div class="cell title center">
+		<h1>판매 상품 등록</h1>
+	</div>
 <%-- 
 	파일을 전송하려는 form은 다음과 같이 설정해야 한다
 	- method=post
 	- encType=multipart/form-data
  --%>
-<form action="add" method="post" enctype="multipart/form-data">
-	상품명 <input type="text" name="itemName" required><br><br>
-	판매액 <input type="number" name="itemPrice" required><br><br>
-	충전액 <input type="number" name="itemCharge" required><br><br>
-	<%--
-		파일 선택은 input[type=file]로 한다
-		- accept를 통해 원하는 유형만 선택할 수 있다
-		- multiple 속성을 추가하면 여러 개의 파일을 선택할 수 있다
-	 --%>
-	이미지 <input type="file" name="attach" accept="image/*"><br><br>
-	<button>신규등록</button>
-</form>
-
+	<div class="cell">
+		<form action="add" method="post" enctype="multipart/form-data">
+			<div class="cell">
+				<label>상품명</label>
+				<input type="text" name="itemName" class="tool w-50" required>
+			</div>
+			<div class="cell">
+				<label>판매액</label> 
+				<input type="number" name="itemPrice" class="tool w-50" required>
+			</div>
+			<div class="cell">
+				<label>충전액</label> 
+				<input type="number" name="itemCharge" class="tool w-50" required>
+			</div>
+			<%--
+				파일 선택은 input[type=file]로 한다
+				- accept를 통해 원하는 유형만 선택할 수 있다
+				- multiple 속성을 추가하면 여러 개의 파일을 선택할 수 있다
+			 --%>
+			 <div class="cell">
+				<label>이미지</label> 
+				<input type="file" name="attach" accept="image/*">
+			</div>
+			<button>신규등록</button>
+		</form>
+	</div>
+</div>
 
 <jsp:include page="/WEB-INF/views/template/footer.jsp"></jsp:include>
