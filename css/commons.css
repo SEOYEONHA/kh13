@@ -501,3 +501,14 @@
 .gray { color: #636e72; }
 .white { color: white; }
 .pink { color: #ffcccc; }
+
+
+ /* 
+    다음 세 개의 스타일을 같이 사용하면 말줄임표 처리가 된다 
+    단, 반드시 영역에 폭이 설정되어 있어야한다
+*/
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
