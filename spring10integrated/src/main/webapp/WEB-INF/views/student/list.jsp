@@ -49,7 +49,7 @@
 	<%-- 네비게이터 --%>
 	<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
 	
-	<div class="cell">
+	<div class="cell center">
 		<%-- 검색창 --%>
 		<form action="list" method="get" autocomplete="off">
 			<select name="column" class="tool">

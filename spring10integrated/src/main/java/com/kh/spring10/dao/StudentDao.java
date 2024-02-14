@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.spring10.dto.StudentDto;
 import com.kh.spring10.mapper.StudentMapper;
+import com.kh.spring10.vo.PageVO;
 
 @Repository
 public class StudentDao {
@@ -80,6 +81,44 @@ public class StudentDao {
 				+ "order by 평균 desc;";
 		return jdbcTemplate.query(sql, mapper);
 	}
+	
+	//VO를 이용한 카운트
+	public int count(PageVO pageVO) {
+		if(pageVO.isSearch()) {
+			String sql = "select count(*) from student "
+							+ "where instr(" + pageVO.getColumn() + ", ?) > 0";
+			Object[] data = {pageVO.getKeyword()};
+			return jdbcTemplate.queryForObject(sql, int.class, data);
+		}
+		else { //목록
+			String sql = "select count(*) from student";
+			return jdbcTemplate.queryForObject(sql, int.class);
+		}
+	}
+	
+	//통합 페이징
+	public List<StudentDto> selectListByPaging(PageVO pageVO){
+		if(pageVO.isSearch()) { //검색
+			String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+						+ "select * from student where instr(" + pageVO.getColumn() + ", ?) > 0 "
+						+ "order by " + pageVO.getColumn() + " asc, student_id asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
+			Object[] data = {pageVO.getKeyword(), pageVO.getBeginRow(), pageVO.getEndRow()};
+			return jdbcTemplate.query(sql, mapper, data);
+		}
+		else { //목록
+			String sql = "select * from ("
+					+ "select rownum rn, TMP.* from ("
+						+ "select * from student order by student_id asc"
+					+ ")TMP"
+				+ ") where rn between ? and ?";
+			Object[] data = {pageVO.getBeginRow(), pageVO.getEndRow()};
+			return jdbcTemplate.query(sql, mapper, data);
+		}
+	}
+	
 	
 	
 }

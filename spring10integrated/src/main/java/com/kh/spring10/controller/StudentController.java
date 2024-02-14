@@ -3,9 +3,12 @@ package com.kh.spring10.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,10 +16,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.spring10.dao.StudentDao;
 import com.kh.spring10.dto.StudentDto;
+import com.kh.spring10.vo.PageVO;
 
 @Controller
 @RequestMapping("/student")
 public class StudentController {
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+	}
 	
 	@Autowired
 	private StudentDao studentDao;
@@ -34,17 +43,30 @@ public class StudentController {
 	}
 	
 	//목록&검색 페이지
+//	@RequestMapping("/list")
+//	public String list(@RequestParam(required = false) String column, 
+//							@RequestParam(required = false) String keyword,
+//							Model model
+//							) {
+//		boolean isSearch = column != null && keyword !=null;
+//		List<StudentDto> list = isSearch ? studentDao.selectList(column, keyword) : studentDao.selectList();
+//		model.addAttribute("isSearch", isSearch);
+//		model.addAttribute("list", list);
+//		return "/WEB-INF/views/student/list.jsp";
+//	}
 	@RequestMapping("/list")
-	public String list(@RequestParam(required = false) String column, 
-							@RequestParam(required = false) String keyword,
-							Model model
-							) {
-		boolean isSearch = column != null && keyword !=null;
-		List<StudentDto> list = isSearch ? studentDao.selectList(column, keyword) : studentDao.selectList();
-		model.addAttribute("isSearch", isSearch);
+	public String list(@ModelAttribute PageVO vo, 
+									Model model) {
+		int count = studentDao.count(vo);
+		vo.setCount(count);
+		
+		List<StudentDto> list = studentDao.selectListByPaging(vo);
 		model.addAttribute("list", list);
+		
 		return "/WEB-INF/views/student/list.jsp";
+//		return "/WEB-INF/views/student/rank.jsp";
 	}
+	
 	
 	@RequestMapping("/rankList")
 	public String rankList(Model model) {

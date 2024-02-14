@@ -80,40 +80,58 @@
 	
 	<hr class="mt-50">
 	
-	<div class="cell center">
-		<h1>포인트 구매 내역 </h1>
-	</div>
-	<div class="cell right">
-		<a href="/point/charge" class="btn positive">추가구매</a>
-	</div>
 	
-	<table border="1" width="600">
-		<thead>
-			<tr>
-				<th>번호</th>
-				<th>상품명</th>
-				<th>수량</th>
-				<th>구매금액</th>
-				<th>구매일시</th>
-			</tr>
-		</thead>
-		<tbody>
-			<c:forEach var="buyDto" items="${buyList}">
-			<tr>
-				<td>${buyDto.buySerial}</td>
-				<td>${buyDto.itemName}</td>
-				<td>${buyDto.buyQty}</td>
-				<td>
-					<fmt:formatNumber value="${buyDto.buyTotal}" pattern="#,##0"></fmt:formatNumber>
-				</td>
-				<td>
-					<fmt:formatDate value="${buyDto.buyTime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
-				</td>
-			</tr>
-			</c:forEach>
-		</tbody>
-	</table>
+	
+	<div class="cell center">
+		<c:if test="${not empty buyList}">
+		
+		<h1>포인트 구매 내역 </h1>
+		
+			<table class="table table-border">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>상품명</th>
+						<th>수량</th>
+						<th>구매금액</th>
+						<th>구매일시</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="buyDto" items="${buyList}">
+					<tr>
+						<td>${buyDto.buySerial}</td>
+						<td>${buyDto.itemName}</td>
+						<td>${buyDto.buyQty}</td>
+						<td>
+							<fmt:formatNumber value="${buyDto.buyTotal}" pattern="#,##0"></fmt:formatNumber>
+						</td>
+						<td>
+							<fmt:formatDate value="${buyDto.buyTime}" pattern="yyyy-MM-dd HH:mm"></fmt:formatDate>
+						</td>
+					</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+			<div class="cell my-30">
+				<a href="/point/charge" class="btn positive w-50">추가구매</a>
+			</div>
+		</c:if>
+	</div>
 
+	
+	
+	
+	
+	<c:if test="${empty buyList}">
+		<div class="cell center">
+			<i class="fa-regular fa-face-sad-tear fa-5x"></i> 
+			<h2>구매내역이 없습니다</h2>
+		</div>
+		<div class="cell my-30">
+			<a href="/point/charge" class="btn positive w-100">구매하러가기</a>
+		</div>
+	</c:if>
 </div>
 
 
