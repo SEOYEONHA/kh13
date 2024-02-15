@@ -153,16 +153,16 @@
 }
 .btn.pink {
     background-color: #ffcccc;
-    color:#FFF;
+    color:#FFF
 }
 .btn.purple {
     background-color: #786fa6;
-    color:#FFF;
+    color:#FFF
 }
 
 /* 버튼에 마우스가 올라가면 색상에 변화를 주겠다 */
 .btn:hover {
-    filter: brightness(0.9);
+    filter: brightness(0.9)
 }
 
 /*
@@ -346,7 +346,7 @@
  .table.table-stripe > thead > tr, 
  .table.table-stripe > tbody > tr:nth-child(2n) 
  {
-     background-color: #fab1a0;
+     background-color: #ffcccc;
  }
 
  /*
@@ -354,7 +354,7 @@
      - 제목은 제외한 내용 줄만 마우스가 올라가면 색상이 변하도록 구현
  */
  .table.table-hover > tbody > tr:hover {
-     background-color: #fab1a0;
+     background-color: #ffcccc;
  }
 
   /*
