@@ -41,61 +41,71 @@
 			- 로고, 검색창, 각종 메뉴들을 배치
 			- div는 투명한 영역
 		 --%>
-		<div>
-		<%-- 템플릿 페이지는 무조건 절대경로를 써야한다 --%>
-			<a href="/" class="link">홈으로</a>
-			<a href="/pocketmon/list" class="link">포켓몬스터 시스템</a>
-			<a href="/emp/list" class="link">사원관리 시스템</a>
-			<a href="/menu/list" class="link">메뉴관리 시스템</a>
-			<a href="/student/list" class="link">학생관리 시스템</a>
-			<a href="/board/list" class="link">자유게시판</a>
-		</div>
-		<%--로그인 여부에 따라 달라지는 메뉴 --%>
-		<div>
-			<c:choose>
-				<c:when test="${sessionScope.loginId != null}">
-					<a href="/member/logout" class="link">로그아웃</a>  
-					<a href="/member/mypage" class="link">마이페이지</a>
-					<a href="/point/charge" class="link">포인트충전</a>   
-				</c:when>
-				<c:otherwise>
-					<a href="/member/join" class="link">회원가입</a>
-					<a href="/member/login" class="link">로그인</a>
-				</c:otherwise>
-			</c:choose>
-		</div>
-		<%--관리자 메뉴 = 관리자일 경우에만 출력 --%>
+		 
+		 <%-- 템플릿 페이지는 무조건 절대경로를 써야한다 --%>
+		 
+    <ul class="menu" style="width:1200px">
+    	<li>
+    		<a href="/">
+    			<i class="fa-solid fa-house"></i>
+    			HOME
+    		</a>
+        <li>
+            <a href="#">데이터관리</a>
+            <ul>
+                <li><a href="/pocketmon/list">포켓몬스터</a></li>
+                <li><a href="/emp/list">사원정보</a></li>
+                <li><a href="/menu/list">메뉴정보</a></li>
+                <li><a href="/student/list">학생정보</a></li>
+            </ul>
+        </li>
+        <li><a href="/board/list">자유게시판</a></li>
+        
+        
+        <%--관리자 메뉴 = 관리자일 경우에만 출력 --%>
 		<c:if test="${sessionScope.loginLevel == '관리자'}">
-		<div>
-			<a href="/admin/member/search" class="link">회원관리</a>
-			<a href="/admin/item/list" class="link">충전상품관리</a>
-			<a href="/admin/stat/pocketmon" class="link">포켓몬통계</a>
-			<a href="/admin/stat/emp" class="link">사원통계</a>
-			<a href="/admin/stat/menu" class="link">메뉴통계</a>
-			<a href="/admin/stat/member" class="link">회원통계</a>
-		</div>
-		</c:if>
+	        <li>
+	            <a href="#">관리자메뉴</a>
+	            <ul>
+	                <li><a href="/admin/member/search">회원관리</a></li>
+	                <li><a href="/admin/item/list">충전상품관리</a></li>
+	                <li>
+	                    <a href="#">통계</a>
+	                    <ul>
+	                        <li><a href="/admin/stat/pocketmon">포켓몬통계</a></li>
+	                        <li><a href="/admin/stat/emp">사원통계</a></li>
+	                        <li><a href="/admin/stat/menu">메뉴통계</a></li>
+	                        <li><a href="/admin/stat/member">회원통계</a></li>
+	                    </ul>
+	                </li>
+	            </ul>
+	        </li>
+        </c:if>
+        
+        
+        
+        <%--로그인 여부에 따라 달라지는 메뉴 --%>
+        <li class="menu-end">
+        	<c:choose>
+        		<c:when test="${sessionScope.loginId != null}">
+        			<a href="#">
+        				<i class="fa-solid fa-user"></i>
+        				${sessionScope.loginId}
+        			</a>
+        			<ul>
+		                <li><a href="/member/mypage">마이페이지</a></li>
+		                <li><a href="/point/charge">포인트충전</a></li>
+		                <li><a href="/member/logout">로그아웃</a></li>
+            		</ul>
+        		</c:when>
+        		<c:otherwise>
+        			<a href="/member/login">로그인</a>
+            		<ul>
+              			<li><a href="/member/join">회원가입</a></li>
+            		</ul>
+        		</c:otherwise>
+        	</c:choose>
+        </li>
+	</ul>
 		
-		<div>
-		<%-- 
-			<c:choose>
-				<c:when test="${sessionScope.loginId != null}">
-					<a href="/member/testLogout">테스트로그아웃</a>
-				</c:when>
-				<c:otherwise>
-					<a href="/member/testLogin">테스트로그인</a>
-				</c:otherwise>
-			</c:choose>
-			--%>
 			
-			login = ${sessionScope.loginId != null} , 
-			loginId = ${sessionScope.loginId} ,
-			loginLevel = ${sessionScope.loginLevel}
-		</div>
-		<hr>
-		<%-- 
-			중단 영역
-			-실질적인 홈페이지의 내용이 표시되는 영역
-			- 크기는 무제한으로 늘어날 수 있음
-		--%>
-		<div>

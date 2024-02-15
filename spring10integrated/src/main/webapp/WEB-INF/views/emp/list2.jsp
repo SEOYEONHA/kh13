@@ -69,7 +69,7 @@
 		</form>
 		<%-- 검색창 종료지점 --%>
 	</div>
-	<div class="cell center">
+	<div class="cell center mb-20">
 		<a href="list" class="btn pink">목록보기</a>
 		<a href="insert" class="btn positive">신규등록</a> 
 	</div>

@@ -48,12 +48,11 @@
 				<button class="btn">검색</button>
 			</div>
 		</form>
-		<hr class="my-20">
 </div>
 
 	<div class="cell center mb-20">
 		<a href="list" class="btn pink">목록보기</a>
-		<a href="insert1" class="btn positive">포켓몬 신규 등록</a> 
+		<a href="insert1" class="btn positive">신규등록</a> 
 	</div>
 </div>
 

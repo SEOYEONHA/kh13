@@ -59,12 +59,11 @@
 				<input type="text" name="keyword" placeholder="검색어를 입력하세요" class="tool" required value="${param.keyword}">
 			<button class="btn">검색</button>
 		</form>
-		<hr class="my-20">
 	</div>
 	
 	<div class="cell center mb-20">
 		<a href="list" class="btn pink">목록보기</a>
-		<a href="add" class="btn positive">학생 신규 등록</a> 
+		<a href="add" class="btn positive">신규등록</a> 
 	</div>
 </div>
 

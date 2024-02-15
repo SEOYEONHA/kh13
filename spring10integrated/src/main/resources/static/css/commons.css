@@ -152,17 +152,17 @@
     color: #FFF;
 }
 .btn.pink {
-    background-color: #fab1a0;
-    color:#FFF
+    background-color: #ffcccc;
+    color:#FFF;
 }
 .btn.purple {
     background-color: #786fa6;
-    color:#FFF
+    color:#FFF;
 }
 
 /* 버튼에 마우스가 올라가면 색상에 변화를 주겠다 */
 .btn:hover {
-    filter: brightness(0.9)
+    filter: brightness(0.9);
 }
 
 /*

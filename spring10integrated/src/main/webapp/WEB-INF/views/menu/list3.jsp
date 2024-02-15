@@ -54,7 +54,7 @@
 				<button class="btn">검색</button>
 			</div>
 		</form>
-		<div class="cell center">
+		<div class="cell center mb-20">
 			<a href="list" class="link pink btn">목록보기</a>
 			<a href="insert" class="link positive btn">신규등록</a> 
 		</div>
