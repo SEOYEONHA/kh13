@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>체크박스를 이용한 디자인</title>
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /*
+            체크박스의 체크상태는 :checked 로 확인 및 적용할 수 있다
+            .c1 + span은 c1클래스 뒤에 있는 span 한 개를 의미
+            .c1:checked + span은 c1클래스가 체크되었을 때 뒤에있는 sapn 한 개를 의미
+
+            .c1 ~ span은 c1클래스 뒤에 있는 span 전체를 의미
+            .c1:checked ~ span은 c1클래스가 체크되었을 때 뒤에있는 sapn 전체를 의미
+
+            단, 앞에 있는건 선택이 안된다
+        */
+        .c1 + span { 
+            color: red; 
+        }
+        .c1:checked + span { 
+            color: blue;
+        }
+
+        .c2 ~ span { 
+            color: red; 
+        }
+        .c2:checked ~ span { 
+            color: blue;
+        }
+
+        /* 사이드바 흉내내기 */
+        .c3 {
+            display: none;
+        }
+        .c3 + div {
+            width: 200px;
+            /* height: 300px; */
+            background-color: #ffcccc;
+            /* position: relative; */
+            left: -200px;
+            transition: left 0.2s ease-out;
+
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            padding-top: 50px;
+        }
+        .c3:checked + div {
+            left: 0px;
+        }
+        .c3 ~ label {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 999;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>체크박스를 이용한 디자인</h1>
+        </div>
+        <div class="cell">
+            <input type="checkbox" class="c1">
+            <span>하나</span>
+            <span>둘</span>
+            <span>셋</span>
+            <span>넷</span>
+            <span>다섯</span>
+        </div>
+
+        <!-- 체크박스와 라벨을 연결 시킬 수 있다 -->
+        <div class="cell">
+            <h2>사이드바 구조 보기</h2>
+        </div>
+        <div class="cell">
+            <label for="ck3">
+                <i class="fa-solid fa-bars fa-2x"></i>
+            </label>
+        </div>
+        <div class="cell">
+            <input type="checkbox" class="c3" id="ck3">
+            <div>
+                사이드바 영역
+            </div>
+            <label for="ck3">
+                <i class="fa-solid fa-bars fa-2x"></i>
+            </label>
+        </div>
+    </div>
+
+    
+</body>
+</html>
