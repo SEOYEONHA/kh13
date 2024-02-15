@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쿠팡 로그인 화면</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="test.css"> -->
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        
+
+        input[name=memberId] {
+            background-image: url("image/user.png");
+        }
+        input[name=memberPw] {
+            background-image: url("image/lock2.png");
+        }
+        
+        .btn.positive {
+            background-color: rgb(52, 106, 255);
+            border: none;
+        }
+        .btn {
+            background-color: #fff;
+            border-radius: 3px;
+            border: 1px solid #636e72;
+        }
+        .btn, 
+        .tool {
+            font-size: 15px;
+            padding: 0.8em;
+        }
+
+        /* floating-cell 내부의 항목들은 모두 float:left 처리 */
+        .floating-cell > * {
+            float: left;
+        }
+        .floating-cell.reverse > * {
+            float: right;
+        }
+
+        /* .fa-envelope {
+            width: 12%;
+            font-size: 24px;
+            padding: 0.5em;
+            border: 1px solid #2d3436;
+        } */
+
+    </style>
+</head>
+<body>
+
+    <form action="#" method="post" autocomplete="off">
+        <div class="container w-400">
+            <div class="cell center title mt-20">
+                <img src="image/coupang_logo.png" width="60%">
+                <!-- <span>cou</span><span>p</span><span>a</span><span>n</span><span>g</span> -->
+            </div>
+            <div class="cell floation-cell">
+                <!-- <div cell -->
+                <input type="text" name="memberId" class="tool tool-image w-100" placeholder="아이디(이메일)">
+            </div>
+            <div class="cell floation-cell">
+                <input type="text" name="memberPw" class="tool tool-image w-100" placeholder="비밀번호">
+            </div>
+            <div class="cell floating-cell">
+                <div class="w-50 left">
+                    <!-- 편법 : 아이디와 for를 부여하지 않고 라벨로 입력창을 감싼다 -->
+                    <label>
+                        <input type="checkbox" class="c1">
+                        자동 로그인
+                    </label>
+                </div>
+                <div class="w-50 right">
+                    <a href="#" class="link blue">아이디·비밀번호 찾기 
+                        <i class="fa-solid fa-angle-right"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="cell">
+                <button class="btn positive w-100">로그인</button>
+            </div>
+            <hr class="my-20">
+            <div class="cell">
+                <button class="btn w-100">회원가입</button>
+            </div>
+        </div>
+    </form>
+
+    
+</body>
+</html>

@@ -63,7 +63,7 @@
 .w-1200 { width:1200px; }
 
 .w-100 { width: 100%; }
-.w-75 { width: 750%; }
+.w-75 { width: 75%; }
 .w-50 { width: 50%; }
 .w-33 { width: 33.3333%; }
 .w-25 { width: 25%; }
@@ -720,4 +720,12 @@
         content: ""; /* 태그 종료 시점의 가상영역을 생성하고 */
         display: block; /* div처럼 block 상태로 만들고 */
         clear: both; /* 사용한 float 속성을 모두 제거 */
+    }
+    
+    /* floating-cell 내부의 항목들은 모두 float:left 처리 */
+    .floating-cell > * {
+        float: left;
+    }
+    .floating-cell.reverse > * {
+        float: right;
     }
