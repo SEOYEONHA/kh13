@@ -63,7 +63,7 @@
 .w-1200 { width:1200px; }
 
 .w-100 { width: 100%; }
-.w-75 { width: 750%; }
+.w-75 { width: 75%; }
 .w-50 { width: 50%; }
 .w-33 { width: 33.3333%; }
 .w-25 { width: 25%; }
@@ -488,6 +488,91 @@
         
 
 /*
+    relative를 이용한 디자인
+*/
+.effect-lift {
+    position: relative;
+    z-index: 99;
+    transition: bottom 0.1s ease-out; 
+    bottom: 0px;
+}
+.effect-lift:hover {
+    bottom: 2px;
+}
+
+.effect-shake {
+    position: relative;
+    z-index: 99;
+}
+.effect-shake:hover {
+    /* animation : 애니메이션이름 타이밍 실행시간 반복횟수 [기타옵션] */
+    animation: shake linear 0.25s infinite;
+}
+
+/* 움직임에 대한 상세한 시나리오 작성 */
+@keyframes shake {
+    0% { left: 0px; }
+    25% { left: -1px; }
+    50% { left: 0px; }
+    75% { left: 1px; }
+    100% { left: 0px; }
+}
+
+/*
+    화면 위의 화면(overlay) 디자인
+    뒤가 비치게 만드는 방법은 두 가지가 있다
+    (1) 불투명도(opacity) 조절 - 내용물도 영향을 받는다
+    (2) 배경색에 알파(alpha) 조절 - rgba 사용
+*/
+.overlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999999;
+}
+.overlay > .container {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    margin: 20px auto;
+}
+
+/*
+    오버레이 안에 배치되는 .component는 한가운데 위치하도록 구현
+    가운데 배치하는 방법도 여러 가지가 있다
+    (1) top, left, margin을 사용하는 방법
+    (2) top, left, transform을 사용하는 방법
+*/
+.overlay > .component {
+    position: absolute;
+
+    /* 
+        (1)번 방식 - 크기가 고정이어야 하지만 모든브라우저에서 작동 
+        top: 50%;
+        left: 50%;
+        margin-left: -100px;
+        margin-top: -100px;
+
+        (2)번 방식 - 크기와 무관하게 정렬되며 1번보다 안되는 경우가 있음
+        top:50%;
+        left:50%;
+        transform: translate(-50%, -50%);
+
+        (3)번 방식 - display:flex 사용하는 방법
+        (4)번 방식 - display:grid 사용하는 방법
+    */
+    top:50%;
+    left:50%;
+    transform: translate(-50%, -50%);
+}
+
+
+
+
+/*
     글자 색상 디자인
 */
 .red { color: #d63031; }
@@ -623,4 +708,24 @@
         top: 0;
         left: auto;
         right: 100%;
+    }
+
+     /*
+        float 모듈 디자인
+        - float를 사용하고 싶다면 div에 floating-cell 이라는 클래스를 부여
+        - 영역이 끝나는 시점에 자동으로 clear를 수행하도록 디자인
+        - 가상 선택자인 ::after를 사용하여 강제 영역 생성 후 clear 수행
+    */
+    .floating-cell::after {
+        content: ""; /* 태그 종료 시점의 가상영역을 생성하고 */
+        display: block; /* div처럼 block 상태로 만들고 */
+        clear: both; /* 사용한 float 속성을 모두 제거 */
+    }
+    
+    /* floating-cell 내부의 항목들은 모두 float:left 처리 */
+    .floating-cell > * {
+        float: left;
+    }
+    .floating-cell.reverse > * {
+        float: right;
     }

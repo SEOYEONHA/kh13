@@ -13,7 +13,7 @@
 	
 	<div class="cell">
 		<table class="table table-border">
-			<tr>
+			<tr align="left">
 				<td>${detailDto.boardTitle}</td>
 			</tr>
 			<tr class="right">
