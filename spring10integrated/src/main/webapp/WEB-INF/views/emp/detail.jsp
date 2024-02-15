@@ -6,7 +6,7 @@
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
-<div class="cotainer w-500">
+<div class="container w-500">
 	<c:choose>
 		<c:when test="${dto != null}">
 			<div class="cell center title">
