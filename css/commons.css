@@ -751,3 +751,7 @@
     .flex-cell.vertical {
         flex-direction: column;
     }
+    .flex-cell.middle {
+        justify-content: center;
+        align-items: center;
+    }

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>요기요</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        .card {
+            box-shadow: 0 0 1px 1px #b2bec3;
+        }
+        .card > .image-wrapper {
+            width: 30%;
+            padding: 20px 15px;
+        }
+        .card > .content-wrapper {
+            width: 70%;
+            padding: 15px;
+        }
+        .card > .content-wrapper > .title-wrapper {
+            font-size: 26px;
+        }
+        .flext.cell mddle {
+            justify-content: senter;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>요기요 가게 리스트 flex로 구현</h1>
+        </div>
+        <div class="cell flex-cell card">
+            <div class="image-wrapper">
+                <img src="image/짜장면.jpg" width="100%">
+            </div>
+            <div class="content-wrapper">
+                <div class="title-wrapper cell flex-cell vertical">상하이몽</div>
+                    <div>
+                        <sapn style="color: #ffa900;">
+                            <i class="fa-solid fa-star" style="color: #ffa900;"></i>
+                            4.9
+                        </sapn>
+                        <span style="color: #969094;">| </span>
+                        <span class="review-wrapper">
+                        리뷰 293 
+                        </span>
+                        <span style="color: #969094;">| </span>
+                        <span class="reply-wrapper">
+                        사장님댓글 32
+                        </span>
+                    </div>
+                    <div>
+                        <sapn style="color: #fc014f;">요기서결제 </sapn> 
+                        <sapn style="color: #969094;">| 15,000원 이상 배달</sapn>
+                    </div>
+                    <div class="right">
+                        <span style="color: #969094;">40~45분</span>
+                    </div>
+                </div>
+                
+            
+            </div>
+        </div>
+    </div>
+
+    
+</body>
+</html>
