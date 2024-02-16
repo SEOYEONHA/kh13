@@ -6,7 +6,7 @@
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>
 
 
-<div class="container w-800">
+<div class="container w-1000">
 	<div class="cell center title">
 		<%-- 페이지 제목 --%>
 		<h1>자유게시판</h1>
@@ -92,9 +92,13 @@
 		</form>
 	</div>
 				
-	<div class="cell center mb-20">
-		<a href="list" class="btn pink">목록보기</a>
-		<a href="write" class="btn positive">새 게시글 작성하기</a>
+	<div class="cell floating-cell">
+		<div class="w-50">
+			<a href="list" class="btn pink">목록보기</a>
+		</div>
+		<div class="right">
+			<a href="write" class="btn positive w-100">새 게시글 작성하기</a>
+		</div>
 	</div>
 </div>
 

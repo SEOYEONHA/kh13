@@ -1,15 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-</div>
-		
-		<%--
-			하단 영역
-			- 회사 소개 및 각종 정보들을 제공하는 영역
-		 --%>
-		 <hr>
-		 <div>
-		 	<h2>KH정보교육원 당산지원 C강의장 수업자료</h2>
-		 </div>
-	</body>
+			</div>
+        </div>
+        <hr>
+        <div class="footer">
+			<h2 class="center">KH정보교육원 당산지원 웹개발자과정 수업자료</h2>		
+		</div>
+    </main>
+
+</body>
 </html>

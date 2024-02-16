@@ -78,7 +78,7 @@
     padding: 0.5em 1em;
     outline: none; /*선택 시 자동강조효과 제거*/
     border: 1px solid #636e72;
-    /* border-radius: 0.5em; */
+    border-radius: 0.25em;
 }
 
 /* 입력창은 focus 효과가 발생할 때 테두리를 강조 */
@@ -94,6 +94,14 @@
     padding-left: 0;
     padding-right: 0;
 }
+
+/* 밑줄만 없는 입력창 구현 .tool.underline */
+.tool.nounderline {
+    border-bottom: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
 
 /* 이미지가 들어갈 수 있는 입력창 */
 .tool.tool-image {
@@ -134,7 +142,7 @@
 */
 /* a.btn { a태그를 버튼으로 쓸 경우 */
 .btn { 
-    background-color: antiquewhite;
+    background-color: #f7f1e3;
     color: #2d3436;
     text-decoration: none; /* 밑줄 제거 */
     display: inline-block;
@@ -148,7 +156,7 @@
     color: #FFFFFF; /* white, #FFF, #fff*/
 }
 .btn.negative {
-    background-color: #d63031;
+    background-color: #eb3b5a;
     color: #FFF;
 }
 .btn.pink {
@@ -156,7 +164,7 @@
     color:#FFF
 }
 .btn.purple {
-    background-color: #786fa6;
+    background-color: #cd84f1;
     color:#FFF
 }
 
@@ -728,4 +736,22 @@
     }
     .floating-cell.reverse > * {
         float: right;
+    }
+
+      /* flext layout 디자인 */
+      .flex-cell {
+        display: flex;
+    }
+    .flex-cell >.width-fill {
+        flex-grow: 1;
+    }
+    .flex-cell.auto-width > * {
+        flex-grow: 1;
+    }
+    .flex-cell.vertical {
+        flex-direction: column;
+    }
+    .flex-cell.middle {
+        justify-content: center;
+        align-items: center;
     }

@@ -46,9 +46,9 @@
 			</div>
 			<div>
 				<%-- 다른 페이지로의 링크 --%>
-				<a href="list" class="btn pink">목록보기</a>&nbsp;
-				<a href="edit?studentId=${studentDto.studentId}" class="btn purple">수정</a>&nbsp;
-				<a href="delete?studentId=${studentDto.studentId}" class="btn negative">삭제</a>
+				<a href="list" class="btn pink w-25">목록보기</a>&nbsp;
+				<a href="edit?studentId=${studentDto.studentId}" class="btn purple w-25">수정</a>&nbsp;
+				<a href="delete?studentId=${studentDto.studentId}" class="btn negative w-25">삭제</a>
 			</div>
 		</c:when>
 		<c:otherwise>

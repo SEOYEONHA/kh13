@@ -5,7 +5,7 @@
     
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include>    
 
-<div class="container w-1200">
+<div class="container w-1100">
 	<div class="cell title center">
 		<h1 align="center">마이페이지</h1>
 		<hr class="my-20">
@@ -15,18 +15,18 @@
 		<h2>${memberDto.memberId}님의 회원 정보</h2>
 	</div>
 	
-	<div class="cell floating-cell card">
+	<div class="cell floating-cell">
 		<div class="p-20">
-			<div>
+			<div class="">
 				<img src="image" width="200" height="200">
 			</div>
-			<div class="mt-40">
+			<div class="cell">
 				<a href="/member/password" class="btn pink w-100">비밀번호 변경</a>
 			</div>
-			<div>
+			<div class="cell">
 				<a href="/member/change" class="btn w-100">개인정보 변경</a>
 			</div>
-			<div>
+			<div class="cell">
 				<a href="/member/exit" class="btn negative w-100">회원 탈퇴</a>
 			</div>
 		</div>
@@ -129,12 +129,12 @@
 		
 		
 		<c:if test="${empty buyList}">
-			<div class="cell center">
+			<div class="cell center mt-30">
 				<i class="fa-regular fa-face-sad-tear fa-5x"></i> 
 				<h2>구매내역이 없습니다</h2>
 			</div>
-			<div class="cell my-30">
-				<a href="/point/charge" class="btn positive w-100">구매하러가기</a>
+			<div class="cell my-30 center">
+				<a href="/point/charge" class="btn positive w-50">구매하러가기</a>
 			</div>
 		</c:if>
 	</div>

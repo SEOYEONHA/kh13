@@ -7,7 +7,11 @@
     
 <div class="container w-800">
 	<div class="cell center title">
-		<h1>포켓몬스터 목록</h1>
+		<h1>
+		<img src="/image/pokemon.png" width="25">
+			포켓몬스터 목록
+		<img src="/image/pokemon.png" width="25">
+		</h1>
 	</div>	
 
 	<div class="cell">
