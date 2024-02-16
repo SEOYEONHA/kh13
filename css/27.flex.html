@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexible layout 디자인</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="commons.css">
+    <link rel="stylesheet" type="text/css" href="test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        .area1 {
+            display: flex; /* inline-flex */
+        }
+        .area2 {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+        .area3 {
+            display: flex;
+        }
+        .area > div {
+            flex-grow: 1; /* 잔여 여백에 대한 차지 비율을 설정 */
+        }
+        .area4 {
+            display: flex;
+        }
+
+        /* flext layout 디자인 */
+        .flex-cell {
+            display: flex;
+        }
+        .flex-cell >.width-fill {
+            flex-grow: 1;
+        }
+        .flex-cell.auto-width > * {
+            flex-grow: 1;
+        }
+        .flex-cell.vertical {
+            flex-direction: column;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>Flexible 디자인</h1>
+        </div>
+
+        <div class="cell area1">
+            <div class="w-50">1단</div>
+            <div class="w-50">2단</div>
+        </div>
+
+        <div class="cell area2">
+            <div class="w-50">1단</div>
+            <div class="w-50">2단</div>
+            <div class="w-50">3단</div>
+            <div class="w-50">4단</div>
+        </div>
+
+        <div class="cell area3">
+            <div>1단</div>
+            <div>2단</div>
+            <div>3단</div>
+            <div>4단</div>
+        </div>
+
+        <div class="cell area4">
+            <div>1단</div>
+            <div>2단</div>
+            <div class="width-fill">3단</div>
+            <div>4단</div>
+        </div>
+
+        <div class="cell area4">
+            <div style="height: 200px;">1단</div>
+            <div>2단</div>
+            <div class="width-fill">3단</div>
+            <div>4단</div>
+        </div>
+
+        <div class="cell flex-cell">
+            <div>1단</div>
+            <div>2단</div>
+            <div>3단</div>
+            <div>4단</div>
+        </div>
+    </div>
+
+    
+</body>
+</html>

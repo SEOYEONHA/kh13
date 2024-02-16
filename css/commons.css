@@ -95,6 +95,14 @@
     padding-right: 0;
 }
 
+/* 밑줄만 없는 입력창 구현 .tool.underline */
+.tool.nounderline {
+    border-bottom: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
 /* 이미지가 들어갈 수 있는 입력창 */
 .tool.tool-image {
     padding-left: 2.25em;
@@ -728,4 +736,18 @@
     }
     .floating-cell.reverse > * {
         float: right;
+    }
+
+      /* flext layout 디자인 */
+      .flex-cell {
+        display: flex;
+    }
+    .flex-cell >.width-fill {
+        flex-grow: 1;
+    }
+    .flex-cell.auto-width > * {
+        flex-grow: 1;
+    }
+    .flex-cell.vertical {
+        flex-direction: column;
     }
