@@ -24,10 +24,45 @@
 
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
         <script type="text/javascript">
-        
-        
-        
-        
+            //변수의 값에 따라 홀수,짝수를 출력
+
+            var number = 5;
+
+            if(number % 2 != 0){
+                console.log("홀수");
+            }
+            else{
+                console.log("짝수");
+            }
+
+            //switch - case
+            switch(number % 2) {
+                case 1:
+                    console.log("홀수");
+                    break;
+                case 0:
+                    console.log("짝수");
+                    break;
+            }
+
+            //1부터 10까지 짝수만 출력
+            for(i = 1 ; i <= 10 ; i ++) {
+                if(i % 2 == 0){
+                    console.log(i)
+                }
+            }
+
+            
+            //1부터 100까지 합계 구하여 출력
+            var total = 0;
+            for(i = 1 ; i <= 100 ; i ++){
+                total += i;
+            }
+            console.log(total);
+            
+            
+
+
         </script>
 </head>
 <body>
@@ -36,7 +71,7 @@
 
     <div class="container w-500">
         <div class="cell center">
-            <h1>제목</h1>
+            <h1>자바스크립트 조건과 반복</h1>
         </div>
         <div class="cell">
             
