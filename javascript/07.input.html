@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제목</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            //입력창에 작성된 내용을 p 태그로 복사
+            //- 입력창(input, select, textarea)의 내용은 value 속성이다
+            //- p태그의 내용은 textContent 속성이다
+            function saveContent() {
+                var inputTarget = document.querySelector("[name=test1]");
+                var copyTarget = document.querySelector(".copy");
+
+                copyTarget.textContent = inputTarget.value;
+            }
+        
+        
+        
+        </script>
+</head>
+<body>
+
+    <!-- <script>alert("전")</script> -->
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>입력 태그 제어하기</h1>
+        </div>
+        <div class="cell">
+            <!-- <input name="test1" class="tool w-100"> -->
+            <textarea name="test1" class="tool w-100"></textarea>
+        </div>
+
+        <div class="cell">
+            <button class="btn positive" onclick="saveContent();">
+                <i class="fa-regular fa-floppy-disk"></i>
+                저장
+            </button>
+        </div>
+        <div class="cell">
+            <p class="copy"></p>
+        </div>
+    </div>
+
+    
+
+    
+    <!-- <script>alert("후")</script> -->
+    
+</body>
+</html>
