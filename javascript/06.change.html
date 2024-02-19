@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제목</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+        
+        function changeContent(){
+            //글자를 불러와서 바꿔야한다
+            //= 글자를 콘솔에 출력할 수 있는가?
+            var area1TitleTarget = document.querySelector(".area1-title");
+            // console.log(area1TitleTarget.textContent);
+            var area1Title = area1TitleTarget.textContent; //제목 백업
+
+            var area2TitleTarget = document.querySelector(".area2-title");
+            // console.log(area2TitleTarget.textContent);
+            var area2Title = area2TitleTarget.textContent; //제목 백업
+
+            var area1ContentTarget = document.querySelector(".area1-content");
+            var area1Content = area1ContentTarget.textContent; //내용 백업
+
+            var area2ContentTarget = document.querySelector(".area2-content");
+            var area2Content = area2ContentTarget.textContent; //내용 백업
+
+            //교체
+            area1TitleTarget.textContent = area2Title;
+            area2TitleTarget.textContent = area1Title;
+
+            area1ContentTarget.textContent = area2Content;
+            area2ContentTarget.textContent = area1Content;
+        }
+        
+        
+        
+        
+        
+        </script>
+</head>
+<body>
+
+    <!-- <script>alert("전")</script> -->
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>바꾸기 문제</h1>
+        </div>
+
+        <div class="cell">
+            <h2 class="area1-title">한국어</h2>
+        </div>
+        <div class="cell">
+            <p class="area1-content">집에 가고 싶다</p>
+        </div>
+
+        <div class="center">
+            <button onclick="changeContent();" class="btn positive">
+                <i class="fa-solid fa-up-down"></i>
+            </button>
+        </div>
+
+        <div class="cell">
+            <h2 class="area2-title">영어</h2>
+        </div>
+        <div class="cell">
+            <p class="area2-content">I want to go home</p>
+        </div>
+    </div>
+
+    
+    
+    <!-- <script>alert("후")</script> -->
+    
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>제목</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+        
+        function change(){
+            var target = document.querySelector(".koreanS");
+            target.textContent = "영어";
+            var target2 = document.querySelector(".koreanC");
+            target2.textContent = "I want to go home";
+            var target3 = document.querySelector(".englishS");
+            target3.textContent = "한국어";
+            var target4 = document.querySelector(".englishC");
+            target4.textContent = "집에 가고 싶다";
+        }
+        
+        
+        
+        
+        </script>
+</head>
+<body>
+
+    <!-- <script>alert("전")</script> -->
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>제목</h1>
+        </div>
+        <div class="cell w-50 center">
+            <table class="table table-border">
+                <thead>
+                    <th class="koreanS">한국어</th>
+                </thead>
+                <tbody>
+                    <td class="koreanC">집에 가고 싶다</td>
+                </tbody>
+            </table>
+        </div>
+        <div class="center">
+            <button onclick="change();">변경</button>
+        </div>
+        <div class="cell w-50 center">
+            <table class="table table-border center">
+                <thead>
+                    <th class="englishS">영어</th>
+                </thead>
+                <tbody>
+                    <td class="englishC">I want to go home</td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    
+    
+    <!-- <script>alert("후")</script> -->
+    
+</body>
+</html>
