@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../css/test.css"> -->
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+        .mobile {
+            border: 10px solid rgba(34, 19, 19, 0.781);
+            border-radius: 20px;
+        }
+        .pad{
+            border: 2px solid red;
+            height: 30px;
+            margin: auto;
+            margin-top: 10px;
+        }
+        .circle{
+            border: 1px solid black;
+            border-radius: 100%;
+            background-color: white;
+            width: 50px;
+            height: 50px;
+            margin : 5px;
+            font-size: 17px;
+        }
+        
+
+
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+        
+        function one(){
+            var target = document.querySelector(".display");
+                target.textContent += "1";
+        }
+        function two(){
+            var target = document.querySelector(".display");
+                target.textContent += "2";
+        }
+        function three(){
+            var target = document.querySelector(".display");
+                target.textContent += "3";
+        }
+        function four(){
+            var target = document.querySelector(".display");
+                target.textContent += "4";
+        }
+        function five(){
+            var target = document.querySelector(".display");
+                target.textContent += "5";
+        }
+        function six(){
+            var target = document.querySelector(".display");
+                target.textContent += "6";
+        }
+        function seven(){
+            var target = document.querySelector(".display");
+                target.textContent += "7";
+        }
+        function eight(){
+            var target = document.querySelector(".display");
+                target.textContent += "8";
+        }
+        function nine(){
+            var target = document.querySelector(".display");
+                target.textContent += "9";
+        }
+        function zero(){
+            var target = document.querySelector(".display");
+                target.textContent += "0";
+        }
+        function star(){
+            var target = document.querySelector(".display");
+                target.textContent += "*";
+        }
+        function sharp(){
+            var target = document.querySelector(".display");
+                target.textContent += "#";
+        }
+
+        /*
+            javascript 함수 생성 시 주의사항
+            - 기존 제공되는 함수까지 포함해서 이름이 같은 것이 있으면 안된다
+            - open, close와 같은 흔한 이름은 가급적 피할 것을 권장
+        */
+        function call(){
+            var target = document.querySelector(".display");
+                target.textContent = " ";
+        }
+        
+        </script>
+</head>
+<body>
+
+    <!-- <script>alert("전")</script> -->
+
+    <div class="container w-250">
+        <div class="cell center">
+            <h1>휴대전화 키패드</h1>
+        </div>
+        <div class="cell center mobile">
+            <div class="cell center pad w-75">
+                <span class="display"></span>
+            </div>
+            <div class="cell center">   
+                <div class="cell">
+                    <button class="circle" onclick= "one();">1</button>
+                    <button class="circle" onclick="two();">2</button>
+                    <button class="circle" onclick="three();">3</button>
+                </div>
+                <div class="cell">
+                    <button class="circle" onclick="four();">4</button>
+                    <button class="circle" onclick="five();">5</button>
+                    <button class="circle" onclick="six();">6</button>
+                </div>
+                <div class="cell">
+                    <button class="circle" onclick="seven();">7</button>
+                    <button class="circle" onclick="eight();">8</button>
+                    <button class="circle" onclick="nine();">9</button>
+                </div>
+                <div class="cell">
+                    <button class="circle" onclick="star();">
+                        <i class="fa-solid fa-asterisk"></i>
+                    </button>
+                    <button class="circle" onclick="zero();">0</button>
+                    <button class="circle" onclick="sharp();">
+                        <i class="fa-solid fa-hashtag"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="cell mb-30">
+                <button class="circle" onclick="call();">
+                    <i class="fa-solid fa-phone green"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- <script>alert("후")</script> -->
+    
+</body>
+</html>
