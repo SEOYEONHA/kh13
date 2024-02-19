@@ -24,8 +24,15 @@
 
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
         <script type="text/javascript">
-            function hello()
-        
+            //(중요) 
+            //- 자바스크립트에서 태그를 "선택" 해야 제어가 가능하다
+            //- 선택의 개념은 CSS와 동일하다
+            //- 단, 자바스크립트에서는 'document.querySelector("선택자")'로 선택
+            function hello(){
+                var target = document.querySelector(".q1");
+                //console.log(target);
+                target.textContent = "Hello!"; //대상 태그의 내부 글자를 변경
+            }
         
         
         </script>
@@ -39,8 +46,8 @@
             <h1>자바스크립트 태그 제어</h1>
         </div>
         <div class="cell">
-            <button>안녕하세요!</button>
-            <span></span>
+            <button onclick="hello();">안녕하세요!</button>
+            <span class="q1"></span>
         </div>
     </div>
 
