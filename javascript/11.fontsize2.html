@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        .size-display {
+            font-size: 30px;
+        }
+        .btn.positive {
+            border-radius: 50%;
+        }
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+    <script type="text/javascript">
+        function decreaseFont() {
+            //[1] 글자 크기가 작성된 영역의 값을 읽는다
+            var sizeTarget = document.querySelector(".size-display");
+            var size = parseInt(sizeTarget.textContent);
+
+            //조건을 걸어 원하는 크기가 아닐 경우 차단
+            if(size <= 8) return;
+
+            //[2] 글자 크기를 1 감소시켜 설정 및 글자 표시
+            size--;
+            sizeTarget.textContent = size;
+            var editorTarget = document.querySelector(".editor");
+            editorTarget.style.fontSize = size+"px";
+        }
+
+        function increaseFont() {
+            //[1] 글자 크기가 작성된 영역의 값을 읽는다
+            var sizeTarget = document.querySelector(".size-display");
+            var size = parseInt(sizeTarget.textContent);
+
+            //조건을 걸어 원하는 크기가 아닐 경우 차단
+            if(size >= 40) return;
+
+            //[2] 글자 크기를 1 증가시켜 설정 및 글자 표시
+            size++;
+            sizeTarget.textContent = size;
+            var editorTarget = document.querySelector(".editor");
+            editorTarget.style.fontSize = size+"px";
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>글자 크기 변경 문제</h1>
+        </div>
+        <div class="cell center">
+            <button class="btn positive" onclick="decreaseFont();">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="size-display mx-20">16</span>
+            <button class="btn positive" onclick="increaseFont();">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>  
+        <hr>
+        <div class="cell">
+            <textarea class="editor tool w-100" 
+                        style="min-height: 250px; font-size: 16px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat urna massa, id dictum nibh dignissim id. Mauris in lacinia massa, at eleifend metus. Nulla mollis dictum faucibus. Donec rhoncus tellus lacus, vel pellentesque sapien bibendum in. Nullam malesuada odio eget scelerisque scelerisque. Nam auctor nulla sit amet ipsum faucibus hendrerit. Curabitur accumsan at nisl eu auctor. Quisque gravida mollis neque, eget tempor felis maximus auctor. Suspendisse potenti. Sed placerat est nisi, vitae ullamcorper dui laoreet vitae. Phasellus aliquet cursus sollicitudin. Ut vestibulum nunc ex, a gravida leo vestibulum at. Nam porta quam risus, non lacinia arcu pretium at. Proin sodales, tortor sed egestas ultrices, odio urna suscipit est, nec sollicitudin ligula metus a lorem. In hac habitasse platea dictumst.</textarea>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        .control {
+            border-radius: 15px;
+            background-color: white;
+            border: 1px solid black;
+        }
+        .textFontSize{
+            padding: 0.5em;
+        }
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            function sizeSmaller() {
+                var target = document.querySelector(".dummyText");
+                target.style.fontSize = "12px";
+            }
+            function sizeNormal() {
+                var target = document.querySelector(".dummyText");
+                target.style.fontSize = "16px";
+            }
+            function sizeBigger() {
+                var target = document.querySelector(".dummyText");
+                target.style.fontSize = "24px";
+            }
+            var targetSize = document.fontSize(".dummyText");
+            var textFontSize = textFontSize.parseInt(textFontSize.value);
+            
+            
+
+            function sizeMinus() {
+                var sizeMinus = textFontSize - 1;
+                target.style.fontSize = sizeMinus;
+                textFontSize.textContent = sizeMinus;
+            }
+
+
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>폰트 사이즈 제어</h1>
+        </div>
+        <div class="cell center">
+            <button class="btn" onclick="sizeSmaller();">작게</button>
+            <button class="btn" onclick="sizeNormal();">보통</button>
+            <button class="btn" onclick="sizeBigger();">크게</button>
+        </div>
+        <hr>
+        <div class="cell">
+            <textarea rows="10" class="w-100 dummyText" onload="sizeNormal();">ipsum dolor sit amet, consectetur adipiscing elit. Aliquam feugiat felis ut eros viverra tempus. Quisque justo nulla, porttitor sit amet est sed, ultrices faucibus velit. Cras tincidunt erat eu turpis fermentum egestas. Aenean vitae tellus vitae mauris porttitor dapibus nec eget augue. Donec pulvinar, massa sed molestie mattis, eros erat efficitur ante, sed sagittis nisl massa eu urna. Nulla facilisi. Morbi quam tortor, suscipit ac fermentum vitae, aliquam in neque. Maecenas ac tincidunt sem.</textarea>
+        </div>
+        <div class="cell center">
+            <button class="btn control sizeMinus">-</button>
+            <sapn class="textFontSize">16</sapn>
+            <button class="btn control sizePlus">+</button>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
