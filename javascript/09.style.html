@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            
+            function changeRed() {
+                var target = document.querySelector(".title");
+                // target.style = "color:red"; //인라인 style 전체를 덮어쓴다
+                target.style.color = "red"; //style의 특정 속성을 덮어쓴다
+            }
+            function changeOrage() {
+                var target = document.querySelector(".title");
+                // target.style = "color:orange"; //인라인 style 전체를 덮어쓴다
+                target.style.color = "orange"; //style의 특정 속성을 덮어쓴다
+            }
+            function changeBlue() {
+                var target = document.querySelector(".title");
+                // target.style = "color:blue"; //인라인 style 전체를 덮어쓴다
+                target.style.color = "blue"; //style의 특정 속성을 덮어쓴다
+            }
+            function borderRed(){
+                var target = document.querySelector(".title");
+                // target.style = "border: 1px solid red"; //인라인 style 전체를 덮어쓴다
+                target.style.border = "1px solid red";
+            }
+            function borderOrange(){
+                var target = document.querySelector(".title");
+                target.style.border = "1px solid orange";
+            }
+            function borderBlue(){
+                var target = document.querySelector(".title");
+                target.style.border = "1px solid blue";
+            }
+            
+        
+        
+        
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1 class="title">자바스크립트로 style 제어하기</h1>
+        </div>
+        <div class="cell">
+            <button class="btn" onclick="changeRed();">빨강</button>
+            <button class="btn" onclick="changeOrage();">주황</button>
+            <button class="btn" onclick="changeBlue();">파랑</button>
+        </div>
+        <div class="cell">
+            <button class="btn" onclick="borderRed();">빨강테두리</button>
+            <button class="btn" onclick="borderOrange();">주황테두리</button>
+            <button class="btn" onclick="borderBlue();">파랑테두리</button>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
