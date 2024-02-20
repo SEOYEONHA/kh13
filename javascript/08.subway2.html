@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+    <script type="text/javascript">
+        function calculatePrice() {
+            //입력
+            // - 계산에 필요한 태그와 그 정보를 수집한다
+            // - input 태그와 그 입력값
+            var inputTarget = document.querySelector("input[name=birth]");
+            //var inputValue = inputTarget.value;//(주의) 입력값은 문자열
+            var inputValue = parseInt(inputTarget.value);//정수로 변환
+            //var inputValue = parseFloat(inputTarget.value);//실수로 변환
+
+            //계산
+            //var age = 2024 - inputValue + 1;
+            var age = new Date().getFullYear() - inputValue + 1;
+            //console.log("age = " + age);
+
+            var price;
+            if(age >= 65 || age < 8) {
+                price = 0;
+            }
+            else if(age >= 14) {
+                price = 1500;
+            }
+            else {
+                price = 500;
+            }
+
+            //출력 - 지정된 영역에 글자를 설정하거나 효과를 부여
+            //console.log("price = " + price);
+            var spanTarget = document.querySelector(".result");
+            spanTarget.textContent = price;
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>지하철 요금 계산기</h1>
+        </div>
+        <div class="cell">
+            <!-- <label>생년월일(ex : 1999)</label> -->
+            <input type="text" name="birth" class="tool w-100"
+                                    placeholder="생년월일(ex : 1999)">
+        </div>  
+        <div class="cell">
+            <button class="btn positive w-100" onclick="calculatePrice();">
+                <i class="fa-solid fa-coins"></i>
+                요금 계산하기
+            </button>
+        </div>
+        <div class="cell right">
+            <h2>지불하실 금액은 <span class="result red">0</span>원</h2>
+        </div>
+    </div>
+
+</body>
+</html>

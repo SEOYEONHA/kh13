@@ -30,8 +30,14 @@
         //만 6세미만, 만 65세 이상 노인 무료
         
         function subwayCharge(){
+            //입력
+            //-계산에 필요한 태그와 그 정보를 수집한다
+            //- input태그와 그 입력값
             var inputTarget = document.querySelector("[name=birth]");
-            var age = 2024 - inputTarget.value  + 1; //출생 월,일이 없어서 만 생각 안하고 그냥 한국나이로 계산함
+            //inputTarget.value (주의)입력값은 문자열
+            var inputValue = parseInt(inputTarget.value); //정수로 변환
+            // var age = new Data().getFullYear() - inputValue + 1;
+            var age = 2024 - inputValue + 1; //출생 월,일이 없어서 만 생각 안하고 그냥 한국나이로 계산함
             var chargeTarget = document.querySelector(".charge");
 
             if(age < 6 || age >= 65) {
@@ -64,7 +70,7 @@
         <div class="cell">
             <label>
                 출생년도 4자리
-                <input name="birth" class="tool w-100 right red">
+                <input type="text" name="birth" class="tool w-100 right red">
             </label>
         </div>
         <div class="cell my-30">
