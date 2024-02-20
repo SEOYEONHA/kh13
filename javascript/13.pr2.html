@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        .editor {
+            min-height: 300px !important;
+        }
+        .count {
+            color: blue;
+        }
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+    <script type="text/javascript">
+        function lengthCheck(){
+            //에디터 읽기
+            var editor = document.querySelector(".editor");
+            var count = editor.value.length;
+
+            //심화
+            //- IME 방식의 경우까지 고려해서 글자 수 초과를 막는 방법은 없다
+            //- input 이벤트 발생 시 실제 값을 불러와서 원하는 구간까지 잘라낸 뒤 재설정
+            while(count > 100) {
+                //1글자 자르는 코드
+                var content = editor.value;
+                editor.value = content.substring(0, content.length-1);
+                count--;
+            }
+
+            //글자수 표시
+            var countTarget = document.querySelector(".count");
+            countTarget.textContent = count;
+
+            //글자 수 초과 처리
+            if(count >= 100) {
+                countTarget.style.color = "red";
+            }
+            else {
+                countTarget.style.color = "";//색상제거
+            }
+            
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>자기소개서</h1>
+        </div>
+        <div class="cell">
+            <h2>(Q) 본인이 예상하는 입사 후 20년뒤의 모습은?</h2>
+        </div>  
+        <div class="cell">
+            <textarea class="tool w-100 editor" oninput="lengthCheck();"></textarea>
+        </div>
+        <div class="cell right">
+            <span class="count">0</span> / 100
+        </div>
+    </div>
+
+</body>
+</html>
