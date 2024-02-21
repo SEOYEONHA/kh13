@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            function checkMove() {
+                var choice = window.confirm("정말 이동할거예요...?")
+                //확인은 true, 취소는 false
+                return choice;
+            }
+        
+        
+        
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>기본 이벤트 제어</h1>
+        </div>
+        <div class="cell">
+            <a href="https://www.google.com">구글로 이동</a>
+        </div>
+        <div class="cell">
+            <!-- 
+                a태그처럼 기본이벤트가 존재하는 경우(+form 태그)
+                return true를 쓰면 통과, return false를 쓰면 기본이벤트가 차단된다
+             -->
+            <a href="https://www.google.com" onclick="return checkMove();">
+                확인창 출력 후 구글로 이동
+            </a>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
