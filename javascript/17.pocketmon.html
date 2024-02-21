@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+
+            function checkPocketmonNo() {
+                //입력
+                var inputTarget = document.querySelector("input[name=pocketmonNo]");
+                var pocketmonNo = inputTarget.value;
+
+                //검사
+                var regex = /^[1-9][0-9]{3}$/;
+                var isValid = regex.test(pocketmonNo);
+
+                //출력
+                inputTarget.classList.remove("success", "fail", "fail2");
+
+                if(isValid) {
+                    inputTarget.classList.add("success");
+                    return true;
+                }
+                else if(!pocketmonNo) {
+                    inputTarget.classList.add("fail2");
+                    return false;
+                }
+                else {
+                    inputTarget.classList.add("fail");
+                    return false;
+                }
+            }
+
+            function checkPocketmonName() {
+                //입력
+                var inputTarget = document.querySelector("input[name=pocketmonName]");
+                var pocketmonName = inputTarget.value;
+
+                //검사
+                var regex = /^[가-힣]{10}$/;
+                var isValid = regex.test(pocketmonName);
+
+                //출력
+                inputTarget.classList.remove("success", "fail", "fail2");
+
+                if(isValid) {
+                    inputTarget.classList.add("success");
+                    return true;
+                }
+                else if(!pocketmonName) {
+                    inputTarget.classList.add("fail2");
+                    return false;
+                }
+                else {
+                    inputTarget.classList.add("fail");
+                    return false;
+                }
+            }
+
+            function checkPocketmonType() {
+                //입력
+                var inputTarget = document.querySelector("input[name=pocketmonType]");
+                var pocketmonType = inputTarget.value;
+
+                //검사
+                var regex = /^[가-힣]{3}$/;
+                var isValid = regex.test(pocketmonType);
+
+                //출력
+                inputTarget.classList.remove("success", "fail", "fail2");
+
+                if(isValid) {
+                    inputTarget.classList.add("success");
+                    return true;
+                }
+                else if(!pocketmonType) {
+                    inputTarget.classList.add("fail2");
+                    return false;
+                }
+                else {
+                    inputTarget.classList.add("fail");
+                    return false;
+                }
+            }
+
+            function checkForm() {
+            var noValid = checkPocketmonNo();
+            var nameValid = checkPocketmonName();
+            var typeValid = checkPocketmonType();
+
+            return noValid && nameValid && typeValid;
+        }
+        
+        
+        
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-400">
+        <div class="cell center title">
+            <h1>
+                <img src="image/pokemon.png" width="25">
+                    포켓몬스터 목록
+                <img src="image/pokemon.png" width="25">
+            </h1>
+        </div>
+        <div class="cell">
+            <form autocomplete="off" action="https://www.google.com" method="get"
+                    onsubmit="return checkForm();">
+
+                <div class="cell">
+                    <label>
+                        번호
+                        <i class="fa-solid fa-asterisk red"></i>
+                    </label>
+                    <input name="pocketmonNo" class="tool w-100" onblur="checkPocketmonNo();" placeholder="(ex) 1">
+                    <div class="success-feedback">포켓몬 번호가 정상적으로 입력되었습니다.</div>
+                    <div class="fail-feedback">포켓몬 번호를 확인해주세요.</div>
+                    <div class="fail2-feedback">포켓몬 번호를 입력해주세요.</div>
+                </div>
+
+                <div class="cell">
+                    <label>
+                        이름
+                        <i class="fa-solid fa-asterisk red"></i>
+                    </label>
+                    <input name="pocketmonName" class="tool w-100" onblur="checkPocketmonName();" placeholder="(ex) 이상해씨">
+                    <div class="success-feedback">포켓몬 이름이 정상적으로 입력되었습니다.</div>
+                    <div class="fail-feedback">포켓몬 이름은 한글 10자까지 입력 가능합니다.</div>
+                    <div class="fail2-feedback">포켓몬 이름을 입력해주세요.</div>
+                </div>
+
+                <div class="cell">
+                    <label>
+                        속성
+                        <i class="fa-solid fa-asterisk red"></i>
+                    </label>
+                    <input name="pocketmonType" class="tool w-100" onblur="checkPocketmonType();" placeholder="(ex) 풀">
+                    <div class="success-feedback">포켓몬 속성이 정상적으로 입력되었습니다.</div>
+                    <div class="fail-feedback">포켓몬 속성은 한글 3자까지 입력 가능합니다.</div>
+                    <div class="fail2-feedback">포켓몬 속성을 입력해주세요.</div>
+                </div>
+
+                <hr class="my-20">
+
+                <div class="cell">
+                    <button class="btn positive w-100">
+                        <i class="fa-solid fa-ghost"></i> 포켓몬 등록
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
