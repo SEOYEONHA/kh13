@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    /* .notice{
+        height: 30px;
+        border: none;
+    } */
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+
+            function idCheck() {
+                var regex = /^[a-z][a-z0-9]{7,19}$/;
+
+                var idTarget = document.querySelector("input[name=memberId]");
+                var text = idTarget.value;
+
+                var isValid = regex.test(text);
+
+                // console.log(isValid);
+
+                var idNotice = document.querySelector(".idNotice");
+
+                if(isValid) {
+                    idNotice.textContent = "멋진 아이디네요!";
+                    idNotice.style.color = "#00b894";
+                }
+                else {
+                    idNotice.textContent = "아이디는 소문자 시작, 숫자 포함 8~20자로 작성하세요";
+                    idNotice.style.color = "#d63031";
+                }
+            }
+
+            function pwCheck() {
+                var regex = /^(?=(.*?)[A-Z]+)(?=(.*?)[a-z]+)(?=(.*?)[0-9]+)(?=(.*?)[!@#$]+)[A-Za-z0-9!@#$]{8,16}$/;
+
+                var pwTarget = document.querySelector("input[name=memberPw]");
+                var text = pwTarget.value;
+
+                var isValid = regex.test(text);
+
+                var pwNotice = document.querySelector(".pwNotice");
+
+                if(isValid) {
+                    pwNotice.textContent = "올바른 형식의 비밀번호입니다";
+                    pwNotice.style.color = "#00b894";
+                }
+                else {
+                    pwNotice.textContent = "비밀번호에는 반드시 숫자, 영문 대소문자, 특수문자를 포함하세요";
+                    pwNotice.style.color = "#d63031";
+                }
+            }
+
+            function isPwSame() {
+                var pwTarget = document.querySelector("input[name=memberPw]");
+                var pwTarget2 = document.querySelector("#pw-reinput");
+                // var pwTarget2 = document.getElementById("pw-reinput"); //위보다 훨씬 범용성있는 코드지만 id에만 쓸 수 있어서 까다로움
+                
+
+                var pw = pwTarget.value; //비밀번호
+                var pw2 = pwTarget2.value; //비밀번호 확인
+
+                var isSame = pw === pw2;
+
+                var pwNotice2 = document.querySelector(".pwNotice2");
+
+                //비밀번호가 입력되지 않았으면
+                //if(pw == "") { //자바스크립트는 모든 비교를 == 로 한다
+                // if(pw.length == 0) { //글자수 0이면
+                // if(pw == false) //문자열이 부정적인 값이라면(비어있다면)
+                if(!pw) {
+                    pwNotice2.textContent = "비밀번호를 먼저 입력하세요"; 
+                    pwNotice2,style.color = "#d63031";
+                }
+                
+                else if(isSame) { //비밀번호가 일치하면
+                    pwNotice2.textContent = "비밀번호가 일치합니다";
+                    pwNotice2.style.color = "#00b894";
+                }
+                else { //일치하지 않으면
+                    pwNotice2.textContent = "비밀번호가 일치하지 않습니다";
+                    pwNotice2.style.color = "#d63031";
+                }
+            }
+        
+        
+        
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-400">
+        <div class="cell center">
+            <h1>회원가입 화면</h1>
+        </div>
+        <form autocomplete="off" action="?" method="post">
+            <div class="cell">
+                <label>
+                    아이디
+                    <input name="memberId" type="text" class="tool w-100" oninput="idCheck();" placeholder="영문 소문자 시작, 숫자포함 8~20자">
+                </label>
+                <div class="cell">
+                    <span class="idNotice notice"></span>
+                </div>
+            </div>
+
+            <div class="cell">
+                <label>
+                    비밀번호
+                    <input name="memberPw" type="pasword" class="tool w-100" 
+                                    oninput="pwCheck();" placeholder="영문 대소문자, 숫자, 특수문자 1개이상 포함">
+                </label>
+                <div class="cell">
+                    <span class="pwNotice notice"></span>
+                </div>
+            </div>
+            
+            <div class="cell">
+                <label>
+                    비밀번호 확인
+                    <!-- 비밀번호 확인은 백엔드로 전송되지 않도록 이름을 부여하지 않는다 -->
+                    <input type="pasword" class="tool w-100" oninput="isPwSame();" id="pw-reinput">
+                </label>
+                <div class="cell">
+                    <span class="pwNotice2 notice"></span>
+                </div>
+            </div>
+
+            <div class="cell my-20">
+                <button class="btn positive w-100">
+                    회원가입
+                </button>
+            </div>
+        </form>
+    </div>
+
+    
+    
+</body>
+</html>
