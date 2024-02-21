@@ -24,21 +24,21 @@
 
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
         <script type="text/javascript">
+            function checkName() {
+                var inputTarget = document.querySelector("[name=name]");
+                var studentName = inputTarget.value;
 
-            function checkEmpName() {
-                var inputTarget = document.querySelector("[name=empName]");
-                var empName = inputTarget.value;
-
+                //한글이름인지 검사    
                 var regex = /^[가-힣]{2,7}$/;
-                var isValid = regex.test(empName);
+                var isValid = regex.test(studentName);
 
                 inputTarget.classList.remove("success", "fail", "fail2");
-                
+
                 if(isValid) {
                     inputTarget.classList.add("success");
                     return true;
                 }
-                else if(!empName) {
+                else if(!studentName) {
                     inputTarget.classList.add("fail2");
                     return false;
                 }
@@ -46,44 +46,17 @@
                     inputTarget.classList.add("fail");
                     return false;
                 }
-
-            return isValid;
             }
-            function checkEmpDept() {
-                var inputTarget = document.querySelector("[name=empDept]");
-                var empDept = inputTarget.value;
+            function checkKorean() {
+                var inputTarget = document.querySelector("[name=koreanScore]");
+                // var koreanScore = inputTarget.value;
 
-                //var regex = /^[가-힣a-zA-Z0-9]+$/; //아무거나
-                var isValid = empDept.length > 0;
-
-                inputTarget.classList.remove("success", "fail");
-                inputTarget.classList.add(isValid ? "success" : "fail");
-                return isValid;
-            }
-            function checkEmpDate() {
-                var inputTarget = document.querySelector("[name=empDate]");
-                // var empDate = inputTarget.value;
-
-
-                //날짜형식인지 검사
-                var regex = /^(19[0-9]{2}|20[0-9]{2})-(02-(0[1-9]|1[0-9]|2[0-8])|(0[469]|11)-(0[1-9]|1[0-9]|2[0-9]|30)|(0[13578]|1[02])-(0[1-9]|1[0-9]|2[0-9]|3[01]))$/;
-                var isValid = regex.test(inputTarget.value);
-
-                inputTarget.classList.remove("success", "fail");
-                inputTarget.classList.add(isValid ? "success" : "fail");
-                return isValid;
-
-            }
-            function checkEmpSal() {
-                var inputTarget = document.querySelector("[name=empSal]");
-
-                 //숫자인지 검사
-                var regex = /^[0-9]+$/;
+                var regex = /^([1-9]?[0-9]|100)$/;
                 var isValid = regex.test(inputTarget.value);
 
                 inputTarget.classList.remove("success", "fail", "fail2");
 
-               if(isValid) {
+                if(isValid) {
                     inputTarget.classList.add("success");
                     return true;
                 }
@@ -96,25 +69,59 @@
                     return false;
                 }
             }
+            function checkMath() {
+                var inputTarget = document.querySelector("[name=mathScore]");
 
-            // function checkForm() {
-            //     var nameVaild = checkEmpName();
-            //     var deptValid = checkEmpDept();
-            //     var dateValid = checkEmpDate();
-            //     var salValid = checkEmpSal();
+                var regex = /^([1-9]?[0-9]|100)$/;
+                var isValid = regex.test(inputTarget.value);
 
-            //     return nameVaild && deptValid && dateValid && salValid;
-            // }
+                inputTarget.classList.remove("success", "fail", "fail2");
 
-            function checkForm() {
-                var isValid1 = checkEmpName();
-                var isValid2 = checkEmpDept();
-                var isValid3 = checkEmpDate();
-                var isValid4 = checkEmpSal();
-                return isValid1 && isValid2 && isValid3 && isValid4;
+                if(isValid) {
+                    inputTarget.classList.add("success");
+                    return true;
+                }
+                else if(!inputTarget.value) {
+                    inputTarget.classList.add("fail2");
+                    return false;
+                }
+                else {
+                    inputTarget.classList.add("fail");
+                    return false;
+                }
+            }
+            function checkEnglish() {
+                var inputTarget = document.querySelector("[name=englishScore]");
+
+                var regex = /^([1-9]?[0-9]|100)$/;
+                var isValid = regex.test(inputTarget.value);
+
+                inputTarget.classList.remove("success", "fail", "fail2");
+
+                if(isValid) {
+                    inputTarget.classList.add("success");
+                    return true;
+                }
+                else if(!inputTarget.value) {
+                    inputTarget.classList.add("fail2");
+                    return false;
+                }
+                else {
+                    inputTarget.classList.add("fail");
+                    return false;
+                }
             }
         
         
+        
+
+            function checkForm() {
+                var isValid1 = checkName();
+                var isValid2 = checkKorean();
+                var isValid3 = checkMath();
+                var isValid4 = checkEnglish();
+                return isValid1 && isValid2 && isValid3 && isValid4;
+            }
         
         </script>
 </head>
@@ -123,73 +130,66 @@
 
     <div class="container w-400">
         <div class="cell center">
-            <h1 class="center">
-                <img src="image/emp.png" width="25">
-                사원 등록
-                <img src="image/emp.png" width="25">
+            <h1>
+                <i class="fa-solid fa-user pink"></i>
+                학생 등록
+                <i class="fa-solid fa-user pink"></i>
             </h1>
         </div>
         <div class="cell">
-            <form action="https://google.com" method="get" autocomplete="off" onsubmit="return checkForm();">
-               
+            <form action="add" method="post" autocomplete="off" onsubmit="return checkForm();">
                 <div class="cell">
                     <label>
-                        사원명
+                        이름
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
-                    <input type="text" name="empName" class="tool w-100" placeholder="(ex) 홍길동" onblur="checkEmpName();">
+                    <input type="text" name="name" class="tool w-100" placeholder="(ex)홍길동" onblur="checkName();">
                     <div class="success-feedback"></div>
                     <div class="fail-feedback">이름은 한글 2~7자까지 입력 가능합니다</div>
                     <div class="fail2-feedback">이름을 반드시 작성하세요</div>
                 </div>
-
                 <div class="cell">
                     <label>
-                        부서명
+                        국어점수
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
-                    <select name="empDept" class="tool w-100" oninput="checkEmpDept();">
-                        <option value="">선택하세요</option>
-                        <option value="인사부">인사부</option>
-                        <option value="개발부">개발부</option>
-                        <option value="마케팅부">마케팅부</option>
-                        <option value="영업부">영업부</option>
-                    </select>
+                    <input type="text" name="koreanScore" class="tool w-100" onblur="checkKorean();">
                     <div class="success-feedback"></div>
-                    <div class="fail-feedback">부서를 반드시 선택하세요</div>
+                    <div class="fail-feedback">점수는 숫자만 0~100까지 입력가능합니다</div>
+                    <div class="fail2-feedback">국어점수를 반드시 작성하세요</div>
                 </div>
-
+                </div>
                 <div class="cell">
                     <label>
-                        입사일
+                        수학점수 
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
-                    <input type="date" name="empDate" class="tool w-100" onblur="checkempDate();">
+                    <input type="text" name="mathScore" class="tool w-100" onblur="checkMath();">
                     <div class="success-feedback"></div>
-                    <div class="fail-feedback">입사일을 반드시 작성하세요</div>
+                    <div class="fail-feedback">점수는 숫자만 0~100까지 입력가능합니다</div>
+                    <div class="fail2-feedback">영어점수를 반드시 작성하세요</div>
                 </div>
-
                 <div class="cell">
                     <label>
-                        급여액
+                        영어점수
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
-                    <input type="text" name="empSal" class="tool w-100 right" placeholder="(ex)2000000" onblur="checkEmpSal();">
+                    <input type="text" name="englishScore" class="tool w-100" onblur="checkEnglish();">
                     <div class="success-feedback"></div>
-                    <div class="fail-feedback">급여는 숫자만 입력 가능합니다</div>
-                    <div class="fail2-feedback">급여액을 반드시 작성하세요</div>
+                    <div class="fail-feedback">점수는 숫자만 0~100까지 입력가능합니다</div>
+                    <div class="fail2-feedback">영어점수를 반드시 작성하세요</div>
                 </div>
-                <hr class="my-20">
-
-                <div class="cell center">
+                <div class="cell">
                     <button class="btn positive w-100">
                         <i class="fa-solid fa-plus"></i>
-                        등록하기
+                        학생등록
                     </button>
                 </div>
             </form>
-            <div class="cell center">
-                <a href="https://google.com" class="btn pink w-100">
+            <hr class="my-20">
+            
+            <div class="cell">
+                <a href="list" class="btn pink w-100">
                     <i class="fa-solid fa-list"></i>
                     목록으로
                 </a>

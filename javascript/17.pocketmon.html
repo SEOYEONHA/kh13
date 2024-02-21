@@ -31,7 +31,7 @@
                 var pocketmonNo = inputTarget.value;
 
                 //검사
-                var regex = /^[1-9][0-9]{3}$/;
+                var regex = /^[1-9][0-9]{1,3}$/;
                 var isValid = regex.test(pocketmonNo);
 
                 //출력
@@ -57,7 +57,7 @@
                 var pocketmonName = inputTarget.value;
 
                 //검사
-                var regex = /^[가-힣]{10}$/;
+                var regex = /^[가-힣]{1,10}$/;
                 var isValid = regex.test(pocketmonName);
 
                 //출력
@@ -83,7 +83,7 @@
                 var pocketmonType = inputTarget.value;
 
                 //검사
-                var regex = /^[가-힣]{3}$/;
+                var regex = /^[가-힣]{1,3}$/;
                 var isValid = regex.test(pocketmonType);
 
                 //출력
@@ -111,8 +111,6 @@
             return noValid && nameValid && typeValid;
         }
         
-        
-        
         </script>
 </head>
 <body>
@@ -122,7 +120,7 @@
         <div class="cell center title">
             <h1>
                 <img src="image/pokemon.png" width="25">
-                    포켓몬스터 목록
+                    포켓몬스터 등록
                 <img src="image/pokemon.png" width="25">
             </h1>
         </div>
@@ -136,9 +134,9 @@
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
                     <input name="pocketmonNo" class="tool w-100" onblur="checkPocketmonNo();" placeholder="(ex) 1">
-                    <div class="success-feedback">포켓몬 번호가 정상적으로 입력되었습니다.</div>
-                    <div class="fail-feedback">포켓몬 번호를 확인해주세요.</div>
-                    <div class="fail2-feedback">포켓몬 번호를 입력해주세요.</div>
+                    <div class="success-feedback"></div>
+                    <div class="fail-feedback">포켓몬 번호는 숫자만 입력 가능합니다</div>
+                    <div class="fail2-feedback">포켓몬 번호를 반드시 입력해주세요</div>
                 </div>
 
                 <div class="cell">
@@ -147,9 +145,9 @@
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
                     <input name="pocketmonName" class="tool w-100" onblur="checkPocketmonName();" placeholder="(ex) 이상해씨">
-                    <div class="success-feedback">포켓몬 이름이 정상적으로 입력되었습니다.</div>
+                    <div class="success-feedback"></div>
                     <div class="fail-feedback">포켓몬 이름은 한글 10자까지 입력 가능합니다.</div>
-                    <div class="fail2-feedback">포켓몬 이름을 입력해주세요.</div>
+                    <div class="fail2-feedback">포켓몬 이름을 반드시 입력해주세요</div>
                 </div>
 
                 <div class="cell">
@@ -158,17 +156,25 @@
                         <i class="fa-solid fa-asterisk red"></i>
                     </label>
                     <input name="pocketmonType" class="tool w-100" onblur="checkPocketmonType();" placeholder="(ex) 풀">
-                    <div class="success-feedback">포켓몬 속성이 정상적으로 입력되었습니다.</div>
-                    <div class="fail-feedback">포켓몬 속성은 한글 3자까지 입력 가능합니다.</div>
-                    <div class="fail2-feedback">포켓몬 속성을 입력해주세요.</div>
+                    <div class="success-feedback"></div>
+                    <div class="fail-feedback">포켓몬 속성은 한글 3자까지 입력 가능합니다</div>
+                    <div class="fail2-feedback">포켓몬 속성을 반드시 입력해주세요</div>
                 </div>
 
                 <hr class="my-20">
 
-                <div class="cell">
+                <div class="cell center">
                     <button class="btn positive w-100">
-                        <i class="fa-solid fa-ghost"></i> 포켓몬 등록
+                        <i class="fa-solid fa-ghost"></i>
+                        등록하기
                     </button>
+                </div>
+                <hr class="my-20">
+                <div class="cell center">
+                    <a href="https://google.com" class="btn pink w-100">
+                        <i class="fa-solid fa-list"></i>
+                        목록보기
+                    </a>
                 </div>
             </form>
         </div>
