@@ -24,6 +24,70 @@
 
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
         <script type="text/javascript">
+            function allEssential() {
+                var targetList = document.querySelectorAll(".essential"); //모든 필수 체크박스
+                var target = document.querySelector(".all-essential"); //필수 동의 체크박스
+
+                // console.log(targetList.checked);
+
+                // if(target.checked) { //필수 약관 동의에  체크되어있는지
+                //     for(var i = 0 ; i < targetList.length ; i ++) {
+                //         targetList[i].checked = true;
+                //     }
+                // }
+                
+                // else { //아닌지
+                //     for(var i = 0 ; i < targetList.length ; i ++) {
+                //         targetList[i].checked = false;
+                //     }
+                // }
+
+                for(var i = 0 ; i < targetList.length ; i ++) {
+                    targetList[i].checked = target.checked;
+                }
+
+            }
+
+
+            function allCkbox() {
+                var targetList = document.querySelectorAll(".ckbox"); //모든 체크박스
+                var target = document.querySelector(".all-ckbox"); //전체이용약관 체크박스
+
+                // console.log(target.checked);
+
+                // if(target.checked){ //전체 약관 동의에 체크가 되어있는지
+                //     for(var i = 0 ; i < targetList.length ; i ++) {
+                //         targetList[i].checked = true;
+                //     }
+                // }
+                // else { //아닌지
+                //     for(var i = 0 ; i < targetList.length ; i ++) {
+                //         targetList[i].checked = false;
+                //     }
+                // }
+
+                for(var i = 0 ; i < targetList.length ; i ++) {
+                    targetList[i].checked = target.checked;
+                }
+            }
+
+            function nextStep() {
+                var targetList = document.querySelectorAll(".essential");
+                var allChecked = true;
+
+                targetList.forEach(function(element) {
+                    if (!element.checked) {
+                        allChecked = false;
+                    }
+                });
+
+                if(allChecked) {
+                    location.href = "https://www.naver.com";
+                }
+                else {
+                    alert("필수 이용약관에 동의해주세요");
+                }
+            }
         
         
         
@@ -33,12 +97,45 @@
 <body>
 
 
-    <div class="container w-500">
+    <div class="container w-400">
         <div class="cell center">
-            <h1>제목</h1>
+            <h1>이용약관</h1>
         </div>
         <div class="cell">
-            
+            <div class="cell">
+                <label>
+                    <input type="checkbox" class="ckbox essential">(필수) 개인정보 취급방침에 동의합니다
+                </label>
+            </div>
+            <div class="cell">
+                <label>
+                    <input type="checkbox" class="ckbox essential">(필수) 홈페이지 이용규칙을 준수합니다
+                </label>
+            </div>
+            <div class="cell">
+                <label>
+                    <input type="checkbox" class="ckbox inessential">(선택) 이벤트성 정보 수신에 동의합니다
+                </label>
+            </div>
+            <div class="cell">
+                <label>
+                    <input type="checkbox" class="ckbox inessential">(선택) 개인정보의 제 3자 제공에 대해 동의합니다
+                </label>
+            </div>
+            <hr class="my-20">
+            <div class="cell">
+                <label>
+                    <input type="checkbox" class="all-essential" oninput="allEssential();">필수 이용약관에 동의합니다
+                </label>
+            </div>
+            <div>
+                <label>
+                    <input type="checkbox" class="all-ckbox" oninput="allCkbox();">전체 이용약관에 동의합니다
+                </label>
+            </div>
+        </div>
+        <div class="cell right my-20">
+            <button class="btn pink" onclick="nextStep();">다음 단계로 ></button>
         </div>
     </div>
 

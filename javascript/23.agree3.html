@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+    <script type="text/javascript">
+        function checkboxControl() {
+            //필수체크가 몇개 되었는지 카운트
+            var countRequired = 0;
+            var requiredItemList = document.querySelectorAll(".check-required-item");
+            for(var i=0; i < requiredItemList.length; i++) {
+                if(requiredItemList[i].checked){//체크되었다면
+                    countRequired++;//카운트증가
+                }
+            }
+            
+            //필수체크가 다되었다면 체크박스를 처리
+            var requiredCheckbox = document.querySelector(".check-required");
+            requiredCheckbox.checked = (countRequired == requiredItemList.length);
+
+            //전체선택도 동일하게 처리
+            //- 카운트를 조금 쉽게 세고 싶다면 선택자를 활용
+            var countAll = document.querySelectorAll(".check-all-item:checked").length;
+            var countTotal = document.querySelectorAll(".check-all-item").length;
+            
+            var allCheckbox = document.querySelector(".check-all");
+            allCheckbox.checked = (countAll == countTotal);            
+
+            //(추가) 필수항목이 모두 체크되었다면 버튼을 변경
+            var button = document.querySelector("button");
+            button.classList.remove("negative", "positive");
+            if(countRequired == requiredItemList.length) {
+                button.classList.add("positive");
+                button.disabled = false;
+            }
+            else {
+                button.classList.add("negative");
+                button.disabled = true;
+            }
+        }
+
+        function checkRequired() {
+            //체크상태를 읽는다
+            var checkbox = document.querySelector(".check-required");
+            //console.log(checkbox.checked);
+
+            //필수 항목의 체크상태를 변경
+            var itemList = document.querySelectorAll(".check-required-item");
+            for(var i=0; i < itemList.length; i++) {
+                itemList[i].checked = checkbox.checked;
+            }           
+            
+            //(추가고민) 전체체크박스는 어떻게?
+            checkboxControl();
+        }
+
+        function checkAll() {
+            //전체선택 체크박스의 상태 읽기
+            var checkbox = document.querySelector(".check-all");
+
+            //전체 체크박스의 체크상태를 변경
+            var itemList = document.querySelectorAll(".check-all-item");
+            for(var i=0; i < itemList.length; i++) {
+                itemList[i].checked = checkbox.checked;
+            }
+
+            //(추가고민) 필수체크박스는 어떻게?
+            checkboxControl();
+        }
+    </script>
+</head>
+<body>
+
+    <div class="container w-400">
+        <div class="cell center">
+            <h1>이용 약관</h1>
+        </div>
+        <div class="cell">
+            <label>
+                <input type="checkbox" class="check-all-item check-required-item" oninput="checkboxControl();"> (필수) 개인정보 취급방침에 동의합니다
+            </label>
+        </div>  
+        <div class="cell">
+            <label>
+                <input type="checkbox" class="check-all-item check-required-item" oninput="checkboxControl();"> (필수) 홈페이지 이용규칙을 준수합니다
+            </label>
+        </div>
+        <div class="cell">
+            <label>
+                <input type="checkbox" class="check-all-item " oninput="checkboxControl();"> (선택) 이벤트성 정보 수신에 동의합니다
+            </label>
+        </div>
+        <div class="cell">
+            <label>
+                <input type="checkbox" class="check-all-item " oninput="checkboxControl();"> (선택) 개인정보의 제 3자 제공에 대해 동의합니다
+            </label>
+        </div>
+        
+        <hr>
+
+        <div class="cell">
+            <label>
+                <input type="checkbox" class="check-required" oninput="checkRequired();"> 필수 이용약관에 동의합니다
+            </label>
+        </div>
+        <div class="cell">
+            <label>
+                <input type="checkbox" class="check-all" oninput="checkAll();"> 전체 이용약관에 동의합니다
+            </label>
+        </div>
+
+        <hr>
+
+        <div class="cell">
+            <button class="btn negative w-100" disabled>다음 단계로</button>
+        </div>
+    </div>
+
+</body>
+</html>
