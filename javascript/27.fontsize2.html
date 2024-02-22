@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+    <script type="text/javascript">
+        window.onload = function(){
+            var size = 16;    
+            changeFontSize(size);
+
+            document.querySelector(".btn-increase")
+                        .addEventListener("click", function(){
+                size++;   
+                changeFontSize(size); 
+            });
+            document.querySelector(".btn-decrease")
+                        .addEventListener("click", function(){
+                size--;    
+                changeFontSize(size);
+            });
+
+            function changeFontSize(size) {
+                var editor = document.querySelector(".editor");
+                editor.style.fontSize = size+"px";
+                var display = document.querySelector(".size-display");
+                display.textContent = size;
+            }
+        };
+    </script>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>글자 크기 변경 문제</h1>
+        </div>
+        <div class="cell center">
+            <button class="btn positive btn-decrease">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="size-display mx-20"></span>
+            <button class="btn positive btn-increase">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>  
+        <hr>
+        <div class="cell">
+            <textarea class="editor tool w-100" 
+                        style="min-height: 250px; font-size: 16px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed feugiat urna massa, id dictum nibh dignissim id. Mauris in lacinia massa, at eleifend metus. Nulla mollis dictum faucibus. Donec rhoncus tellus lacus, vel pellentesque sapien bibendum in. Nullam malesuada odio eget scelerisque scelerisque. Nam auctor nulla sit amet ipsum faucibus hendrerit. Curabitur accumsan at nisl eu auctor. Quisque gravida mollis neque, eget tempor felis maximus auctor. Suspendisse potenti. Sed placerat est nisi, vitae ullamcorper dui laoreet vitae. Phasellus aliquet cursus sollicitudin. Ut vestibulum nunc ex, a gravida leo vestibulum at. Nam porta quam risus, non lacinia arcu pretium at. Proin sodales, tortor sed egestas ultrices, odio urna suscipit est, nec sollicitudin ligula metus a lorem. In hac habitasse platea dictumst.</textarea>
+        </div>
+    </div>
+
+</body>
+</html>

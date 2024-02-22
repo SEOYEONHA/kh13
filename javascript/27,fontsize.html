@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+     .size-display {
+            font-size: 28px;
+        }
+    .btn.positive {
+        border-radius: 100%;
+    }
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            window.onload = function() {
+                var sizeButtons = document.querySelectorAll(".font-size");
+                for(var i = 0 ; i < sizeButtons.length ; i ++) {
+                    sizeButtons[i].addEventListener("click", function(){
+                        //this는 이벤트가 발생한 주인공
+                        var result = document.querySelector(".editor");
+                        result.style.fontSize = this.dataset.size + "px";
+
+                        var sizeTarget = document.querySelector(".size-display");
+                        sizeTarget = this.dataset.size;
+                    });
+                }
+
+                var controlButtons = document.querySelectorAll(".size-control");
+                for(var i = 0 ; i < controlButtons.length ; i ++) {
+                    controlButtons[i].addEventListener("click", function(){
+                        
+                        var result = document.querySelector(".editor");
+
+                        var sizeTarget = document.querySelector(".size-display");
+                        var size = parseInt(sizeTarget.textContent);
+
+                        var sizeControl = parseInt(this.dataset.size);
+                        sizeTarget.textContent = size + sizeControl;
+
+                        result.style.fontSize = size + sizeControl +"px";
+                    });
+                }
+            }
+
+
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>글자 크기 변경 문제</h1>
+        </div>
+        <div class="cell center">
+            <button class="btn font-size" data-size="12">작게</button>
+            <button class="btn font-size" data-size="16">보통</button>
+            <button class="btn font-size" data-size="24">크게</button>
+        </div>
+        <hr>
+        <div class="cell">
+            <textarea rows="10" class="w-100 editor" 
+                    style="min-height: 250px; font-size: 16px;">ipsum dolor sit amet, consectetur adipiscing elit. Aliquam feugiat felis ut eros viverra tempus. Quisque justo nulla, porttitor sit amet est sed, ultrices faucibus velit. Cras tincidunt erat eu turpis fermentum egestas. Aenean vitae tellus vitae mauris porttitor dapibus nec eget augue. Donec pulvinar, massa sed molestie mattis, eros erat efficitur ante, sed sagittis nisl massa eu urna. Nulla facilisi. Morbi quam tortor, suscipit ac fermentum vitae, aliquam in neque. Maecenas ac tincidunt sem.</textarea>
+        </div>
+
+        <hr>
+
+        <div class="cell center">
+            <button class="btn positive size-control" data-size="-1">
+                <i class="fa-solid fa-minus"></i>
+            </button>
+            <span class="size-display mx-10">16</span>
+            <button class="btn positive size-control" data-size="+1">
+                <i class="fa-solid fa-plus"></i>
+            </button>
+        </div>  
+        
+    </div>
+
+    
+    
+</body>
+</html>
