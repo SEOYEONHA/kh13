@@ -131,7 +131,7 @@ public class BoardController {
 			model.addAttribute("memberDto", memberDto);
 		}
 		
-		return "/WEB-INF/views/board/detail.jsp";
+		return "/WEB-INF/views/board/detail3.jsp";
 	}
 	
 	//게시글 목록

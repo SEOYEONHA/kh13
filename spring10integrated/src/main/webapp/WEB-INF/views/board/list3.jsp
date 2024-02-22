@@ -46,7 +46,7 @@
 						
 						<%-- 답글일 경우만 이미지를 출력 --%>
 						<c:if test="${boardDto.boardDepth >0}">
-							♥
+							<i class="fa-brands fa-replyd"></i>
 						</c:if>
 					
 						<%-- 제목 출력 --%>
@@ -93,11 +93,11 @@
 	</div>
 				
 	<div class="cell floating-cell">
-		<div class="w-50">
-			<a href="list" class="btn pink">목록보기</a>
+		<div class="w-50 center">
+			<a href="list" class="btn pink w-75">목록보기</a>
 		</div>
-		<div class="right">
-			<a href="write" class="btn positive w-100">새 게시글 작성하기</a>
+		<div class="w-50 center">
+			<a href="write" class="btn positive w-75">새 게시글 작성하기</a>
 		</div>
 	</div>
 </div>

@@ -47,7 +47,7 @@
 		</c:when>
 		<c:otherwise>
 			<h1>존재하지 않는 사원 번호</h1>
-			<a href="list"><button>목록보기</button></a>
+			<a href="list" class="btn pink">목록보기</a>
 		</c:otherwise>
 	</c:choose>
 </div>

@@ -27,11 +27,11 @@
 			입사일 <input type="date" name="empDate" class="tool w-100"  required value="${dto.empDate}"> <br><br>
 			급여액 <input type="number" name="empSal" class="tool w-100"  required value="${dto.empSal}"> <br><br>
 			<button class="btn positive w-100">수정하기</button>
-			<hr>
 		</form>
 	</div>
+	<hr class="my-20">
 	<div>
-		<a href="list" class="btn w-100 mb-20">목록보기</a>
+		<a href="list" class="btn w-100 pink">목록보기</a>
 	</div>
 </div>
 

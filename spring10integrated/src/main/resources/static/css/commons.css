@@ -164,7 +164,7 @@
     color:#FFF
 }
 .btn.purple {
-    background-color: #cd84f1;
+    background-color: #D6A2E8;
     color:#FFF
 }
 
@@ -764,7 +764,10 @@ transform: translate(-50%, -50%);
 .tool.success {
     border-color: #00b894 !important;
 }
-.tool.fail {
+
+.tool.fail, 
+.tool.fail2,
+.tool.fail3 {
     border-color: #d63031 !important;
 }
 

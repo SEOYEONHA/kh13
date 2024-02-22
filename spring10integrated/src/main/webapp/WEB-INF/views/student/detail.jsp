@@ -5,7 +5,7 @@
 <%-- 템플릿 페이지를 불러오는 코드 --%>
 <jsp:include page="/WEB-INF/views/template/header.jsp"></jsp:include> 
 
-<div class="container w-500">
+<div class="container w-400">
 	<div class="cell center">
 	<c:choose>
 		<c:when test="${studentDto != null}">
@@ -42,12 +42,16 @@
 						<th>평균</th>
 						<td>${studentDto.getStudentAverage()}</td>
 					</tr>
+					<tr>
+						<th>석차</th>
+						<td>${rank}</td>
+					</tr>
 				</table>
 			</div>
-			<div>
+			<div class="cell">
 				<%-- 다른 페이지로의 링크 --%>
-				<a href="list" class="btn pink w-25">목록보기</a>&nbsp;
-				<a href="edit?studentId=${studentDto.studentId}" class="btn purple w-25">수정</a>&nbsp;
+				<a href="list" class="btn pink w-25">목록</a>
+				<a href="edit?studentId=${studentDto.studentId}" class="btn purple w-25">수정</a>
 				<a href="delete?studentId=${studentDto.studentId}" class="btn negative w-25">삭제</a>
 			</div>
 		</c:when>

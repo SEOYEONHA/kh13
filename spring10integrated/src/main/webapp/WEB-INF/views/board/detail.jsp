@@ -13,7 +13,7 @@
 	
 	<div class="cell">
 		<table class="table table-border">
-			<tr align="left">
+			<tr class="left">
 				<td>${detailDto.boardTitle}</td>
 			</tr>
 			<tr class="right">
@@ -62,18 +62,18 @@
 	
 	<br>
 	
-	<a href="write?boardTarget=${detailDto.boardNo}"><button>답글쓰기</button></a>
-	<a href="list"><button>목록보기</button></a>
+	<a href="write?boardTarget=${detailDto.boardNo}" class="btn ">답글쓰기</a>
+	<a href="list" class="btn pink">목록보기</a>
 	<%-- 
 		수정과 삭제 링크는 회원이면서 본인글이거나 관리자일 경우만 출력 
 		- 본인글이란 로그인한 사용자 아이디와 게시글 작성자가 같은 경우
 		- 관리자란 로그인한 사용자 등급이 '관리자'인 경우	
 	--%>
 	<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == detailDto.boardWriter || sessionScope.loginLevel == '관리자')}">
-		<a href="edit?boardNo=${detailDto.boardNo}"><button>수정하기</button></a>
-		<a href="delete?boardNo=${detailDto.boardNo}"><button>삭제하기</button></a>
+		<a href="edit?boardNo=${detailDto.boardNo}" class="btn">수정하기</a>
+		<a href="delete?boardNo=${detailDto.boardNo}" class="btn negative">삭제하기</a>
 	</c:if>
-	<a href="write"><button>새 게시글 작성하기</button></a> 
+	<a href="write" class="btn positive">새 게시글 작성하기</a> 
 
 </div>
 

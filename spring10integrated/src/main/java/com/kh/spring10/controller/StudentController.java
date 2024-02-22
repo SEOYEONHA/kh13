@@ -80,6 +80,9 @@ public class StudentController {
 	public String detail(@RequestParam int studentId, Model model) {
 		StudentDto studentDto = studentDao.selectOne(studentId);
 		model.addAttribute("studentDto", studentDto);
+		
+		int rank = studentDao.rank(studentDto.getStudentTotal());
+		model.addAttribute("rank", rank);
 		return "/WEB-INF/views/student/detail.jsp";
 	}
 	
