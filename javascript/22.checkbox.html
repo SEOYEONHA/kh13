@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            function test01 () {
+                var target = document.querySelector(".ckbox");
+                console.log(target);
+
+                //target이 checkbox일 경우 checked라는 속성이 존재한다
+                //- true일 경우 체크된 상태이고, false일 경우 체크해제된 상태이다
+                console.log(target.checked);
+            }
+            function test02 () {
+                //모든 item을 체크하도록 설정
+                var targetList = document.querySelectorAll(".item");
+                //targetList.checked = true; //말 안되는 코드
+                // targetList[0].checked = true; //말 되는 코드
+                for(var i = 0 ; i < targetList.length ; i ++) {
+                    targetList[i].checked = true
+                }
+            }
+        
+        
+        
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>체크박스 다루기</h1>
+        </div>
+        <div class="cell">
+            <input type="checkbox" class="ckbox" 
+                        oninput="test01();" checked="checked">
+            테스트 항목
+        </div>
+
+        <div class="cell">
+            <button class="btn positive" onclick="test02();;">전체선택</button>
+        </div>
+        <div class="cell">
+            <div><input type="checkbox" class="item">항목2</div>
+            <div><input type="checkbox" class="item">항목1</div>
+            <div><input type="checkbox" class="item">항목3</div>
+            <div><input type="checkbox" class="item">항목4</div>
+            <div><input type="checkbox" class="item">항목5</div>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
