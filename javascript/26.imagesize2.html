@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        .target-image {
+            transition-property: width, height;
+            transition-duration: 0.1s;
+            transition-timing-function: ease-out;
+        }
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            // window.onload = function() {
+            //     var smallerButton = document.querySelector(".img-smaller");
+            //     smallerButton.addEventListener("click", function() {
+            //         var result = document.querySelector(".target-image");
+            //         result.style.width = "150px";
+            //         result.style.height = "150px";
+            //     });
+
+            //     var normalButton = document.querySelector(".img-normal");
+            //     normalButton.addEventListener("click", function() {
+            //         var result = document.querySelector(".target-image");
+            //         result.style.width = "300px";
+            //         result.style.height = "300px";
+            //     });
+
+            //     var biggerButton = document.querySelector(".img-bigger");
+            //     biggerButton.addEventListener("click", function() {
+            //         var result = document.querySelector(".target-image");
+            //         result.style.width = "450px";
+            //         result.style.height = "450px";
+            //     });
+            // }
+
+            window.onload = function() {
+                var sizeButtons = document.querySelectorAll(".btn-size");
+                for(var i = 0 ; i < sizeButtons.length ; i ++) {
+                    sizeButtons[i].addEventListener("click", function(){
+                        //this는 이벤트가 발생한 주인공
+                        var result = document.querySelector(".target-image");
+                        result.style.width = this.dataset.size + "px";
+                        result.style.height = this.dataset.size + "px";
+                    });
+                }
+            }
+        
+        
+        
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>이미지 크기조절 문제</h1>
+        </div>
+        <div class="cell center">
+            <!-- 
+                필요하다면 태그에 커스텀 속성을 작성할 수 있다
+                단, 원래 있던 속성과의 구분을 위해 data-로 시작하게 만든다
+                (dataset이라고 부름)
+             -->
+            <button class="btn img-smaller btn-size" data-size="150">작게</button>
+            <button class="btn img-normal btn-size" data-size="300">보통</button>
+            <button class="btn img-bigger btn-size" data-size="400">약간크게</button>
+            <button class="btn img-bigger btn-size" data-size="450">크게</button>
+            <button class="btn img-bigger btn-size" data-size="500">많이크게</button>
+        </div>
+        <hr>
+        <div class="cell center">
+            <img class="target-image" src="image/bg3.jpg" width="300px" height="300px">
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>

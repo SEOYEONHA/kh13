@@ -40,22 +40,23 @@
 
                 //전체선택도 동일하기 처리
                 //- 카운트를 조금 쉽게 세고싶다면 선택자를 활용
-                var countAll = document.querySelectorAll("all-ckbox:checked").length;
-                var countTotal = document.querySelectorAll(".all-ckbox").length;
+                var countAll = document.querySelectorAll(".ckbox:checked").length;
+                var countTotal = document.querySelectorAll(".ckbox").length;
 
                 var allCheckbox = document.querySelector(".all-ckbox");
                 allCheckbox.checked = (countAll == countTotal);
 
                 //(추가) 필수항목이 모두 체크되었다면 버튼을 변경
                 var button = document.querySelector("button");
+
                 button.classList.remove("negative", "positive");
-                if(countRequred == requiredItemList.length) {
+                if(countRequired == requiredItemList.length) {
                     button.classList.add("positive");
-                    button.disabled = false;
+                    // button.disabled = false;
                 }
                 else {
                     button.classList.add("negative");
-                    button.disabled = true;
+                    // button.disabled = true;
                 }
             }
 
@@ -133,7 +134,7 @@
             </div>
         </div>
         <div class="cell right my-20">
-            <button class="btn">다음 단계로 ></button>
+            <button class="btn negative">다음 단계로 ></button>
         </div>
     </div>
 

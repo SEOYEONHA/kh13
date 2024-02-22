@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        .target-image {
+            transition-property: width, height;
+            transition-duration: 0.1s;
+            transition-timing-function: ease-out;
+        }
+    
+
+    </style>
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            // window.onload = function() {
+            //     var smallerButton = document.querySelector(".img-smaller");
+            //     smallerButton.addEventListener("click", function() {
+            //         var result = document.querySelector(".target-image");
+            //         result.style.width = "150px";
+            //         result.style.height = "150px";
+            //     });
+
+            //     var normalButton = document.querySelector(".img-normal");
+            //     normalButton.addEventListener("click", function() {
+            //         var result = document.querySelector(".target-image");
+            //         result.style.width = "300px";
+            //         result.style.height = "300px";
+            //     });
+
+            //     var biggerButton = document.querySelector(".img-bigger");
+            //     biggerButton.addEventListener("click", function() {
+            //         var result = document.querySelector(".target-image");
+            //         result.style.width = "450px";
+            //         result.style.height = "450px";
+            //     });
+            // }
+
+            window.onload = function() {
+                var sizeButtons = document.querySelectorAll(".btn-size");
+                for(var i = 0 ; i < sizeButtons.length ; i ++) {
+                    sizeButtons[i].addEventListener("click", function(){
+                    var result = document.querySelector(".target-image");
+                        if(this.textContent === '작게'){
+                            result.style.width = "150px";
+                            result.style.height = "150px";
+                        }
+                        else if(this.textContent === '보통'){
+                            result.style.width = "300px";
+                            result.style.height = "300px";
+                        }
+                        else if(this.textContent === '크게'){
+                            result.style.width = "450px";
+                            result.style.height = "450px";
+                        }
+                    });
+                }
+            }
+        
+        
+        
+        </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>이미지 크기조절 문제</h1>
+        </div>
+        <div class="cell center">
+            <button class="btn img-smaller btn-size">작게</button>
+            <button class="btn img-normal btn-size">보통</button>
+            <button class="btn img-bigger btn-size">크게</button>
+        </div>
+        <hr>
+        <div class="cell center">
+            <img class="target-image" src="image/bg3.jpg" width="300px" height="300px">
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
