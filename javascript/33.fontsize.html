@@ -18,8 +18,8 @@
 
     <style>
     .size-display {
-            font-size: 28px;
-        }
+        font-size: 28px;
+    }
     .btn.positive {
         border-radius: 100%;
     }
@@ -27,40 +27,30 @@
 
     </style>
 
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
-        <script type="text/javascript">
-            window.onload = function() {
-                var sizeButtons = document.querySelectorAll(".font-size");
-                for(var i = 0 ; i < sizeButtons.length ; i ++) {
-                    sizeButtons[i].addEventListener("click", function(){
-                        //this는 이벤트가 발생한 주인공
-                        var result = document.querySelector(".editor");
-                        result.style.fontSize = this.dataset.size + "px";
+    <script type="text/javascript">
+        $(function(){
+            $(".font-size").click(function(){
+                var size = parseInt($(this).data("size"));
+                $(".editor").css("fontSize", size + "px");
+                $(".size-display").text(size);
+            });
 
-                        var sizeTarget = document.querySelector(".size-display");
-                        sizeTarget = this.dataset.size;
-                    });
-                }
+            $(".size-control").click(function(){
+                var size = parseInt($(this).data("size"));
+                var displaySize = parseInt($(".size-display").text());
+                var controlSize = displaySize + size;
 
-                var controlButtons = document.querySelectorAll(".size-control");
-                for(var i = 0 ; i < controlButtons.length ; i ++) {
-                    controlButtons[i].addEventListener("click", function(){
-                        
-                        var result = document.querySelector(".editor");
-
-                        var sizeTarget = document.querySelector(".size-display");
-                        var size = parseInt(sizeTarget.textContent);
-
-                        var sizeControl = parseInt(this.dataset.size);
-                        sizeTarget.textContent = size + sizeControl;
-
-                        result.style.fontSize = size + sizeControl +"px";
-                    });
-                }
-            }
-
-
-        </script>
+                $(".editor").css("fontSize", controlSize + "px");
+                $(".size-display").text(controlSize);
+            });
+        });
+        
+        
+        
+    </script>
 </head>
 <body>
 
@@ -69,18 +59,17 @@
         <div class="cell center">
             <h1>글자 크기 변경 문제</h1>
         </div>
-        <div class="cell center">
-            <button class="btn font-size" data-size="12">작게</button>
-            <button class="btn font-size" data-size="16">보통</button>
-            <button class="btn font-size" data-size="24">크게</button>
+        <div class="cell">
+            <div class="cell center">
+                <button class="btn pink font-size" data-size="12">작게</button>
+                <button class="btn pink font-size" data-size="16">보통</button>
+                <button class="btn pink font-size" data-size="24">크게</button>
+            </div>
         </div>
-        <hr>
         <div class="cell">
             <textarea rows="10" class="w-100 editor" 
                     style="min-height: 250px; font-size: 16px;">ipsum dolor sit amet, consectetur adipiscing elit. Aliquam feugiat felis ut eros viverra tempus. Quisque justo nulla, porttitor sit amet est sed, ultrices faucibus velit. Cras tincidunt erat eu turpis fermentum egestas. Aenean vitae tellus vitae mauris porttitor dapibus nec eget augue. Donec pulvinar, massa sed molestie mattis, eros erat efficitur ante, sed sagittis nisl massa eu urna. Nulla facilisi. Morbi quam tortor, suscipit ac fermentum vitae, aliquam in neque. Maecenas ac tincidunt sem.</textarea>
         </div>
-
-        <hr>
 
         <div class="cell center">
             <button class="btn positive size-control" data-size="-1">
@@ -91,7 +80,6 @@
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>  
-        
     </div>
 
     
