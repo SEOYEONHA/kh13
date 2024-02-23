@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            //빨강 버튼을 누르면 제목을 빨강으로 변경
+            //- 빨강버튼을 선택한 뒤 클릭 이벤트를 설정한다
+            // $(".btn-red").on("click", function(){});
+            $(".btn-red").click(function(){
+                $(".title").css("color", "red");
+            });
+            //주황버튼을 누르면 제목을 주황으로 변경
+            $(".btn-orange").click(function(){
+                $(".title").css("color", "orange");
+            });
+        });
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1 class="title">테스트 제목</h1>
+        </div>
+        <div class="cell">
+            <button class="btn positive btn-red">빨강</button>
+            <button class="btn positive btn-orange">주황</button>
+            <button class="btn positive btn-yellow">노랑</button>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
