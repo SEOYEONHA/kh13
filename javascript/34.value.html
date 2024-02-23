@@ -26,7 +26,29 @@
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
     <script type="text/javascript">
-        
+        $(function(){
+            //(주의) input 이벤트는 축약 명령이 없다 (나중에 나온 이벤트)
+            //$(".editor").input(function(){}); 이 없다
+
+            $(".editor").on("input", function(){
+                //this == 입력이 발생한 태그
+                
+                // var keyword = this.value; //JS
+                var keyword = $(this).val(); //jQuery
+                // console.log(keyword);
+
+                //JS
+                // var result1 = document.querySelector(".result1");
+                // result1.textContent = keyword;
+                // var result2 = document.querySelector(".result2");
+                // result2.innerHTML = keyword;
+
+                //jQuery
+                $(".result1").text(keyword);
+                // $(".result2").html(keyword); //위험한 명령, 존재하는 명령이지만 사용을 비추천
+                $(".result2").text(keyword.length);
+            });
+        });
         
         
         
@@ -37,11 +59,13 @@
 
     <div class="container w-500">
         <div class="cell center">
-            <h1>제목</h1>
+            <h1>jQuery 입력창 제어</h1>
         </div>
         <div class="cell">
-            
+            <input type="text" class="editor tool w-100">
         </div>
+        <div class="cell result1"></div>
+        <div class="cell result2"></div>
     </div>
 
     
