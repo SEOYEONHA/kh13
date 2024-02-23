@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+
+            //상태 변수를 생성
+            var memberNickValid = false;
+
+            //[name=memberNick]인 항목에 blur가 발생하면 검사한 후 결과 출력
+
+            // $("[name=memberNick]").on("blur", function(){});
+            $("[name=memberNick]").blur(function(){
+                //this == 닉네임 입력창
+                var regex = /^[ㄱ-ㅎㅏ-ㅣ가-힣]{2,10}$/;
+                var value = $(this).val();
+
+                var isValid = regex.test(value);
+                memberNickValid = isValid; //검사결과를 외부 변수에 백업(반영)
+
+                //target.classList.remove("success", "fail");
+                $(this).removeClass("success fail").addClass(isValid ? "success" : "fail");
+            });
+
+            
+
+            //.check-form에 대한 전송이 일어나면 닉네임을 검사한 후 결과처리
+            //$(".check-form").on("submit", function(){});
+            $(".check-form").submit(function(){
+                //외부에 있는 변수인 memberNickValid만 확인하면 전송 가능/불가능 파악
+                // console.log(memberNickValid);
+                // return false
+                return memberNickValid;
+            });
+        });
+        
+        
+        
+    </script>
+</head>
+<body>
+
+    <form action="" method="post" autocomplete="off" class="check-form">
+        <div class="container w-500">
+            <div class="cell center">
+                <h1>닉네임 입력창</h1>
+            </div>
+            <div class="cell">
+                <input type="text" name="memberNick" placeholder="한글 2~10자" class="tool w-100">
+                <div class="success-feedback">멋진 닉네임이네요!</div>
+                <div class="fail-feedback">닉네임을 형식에맞게 입력하세요</div>
+            </div>
+            <div class="cell">
+                <button class="btn positive w-100">설정하기</button>
+            </div>
+        </div>
+    </form>
+    
+    
+</body>
+</html>
