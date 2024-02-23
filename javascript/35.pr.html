@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            $(".editor").on("input", function(){
+                // var keyword = $(this).val(); //입력이 일어난 editor의 값 읽기
+                // var count = keyword.length;
+                var count = $(this).val().length ; //위에거 한번에
+                // var nextCount = keyword.next
+                // console.log(nextCount);
+                
+                //입력창을 현재태그(this) 기준으로 탐색(DOM 탐색)
+                $(this).next("div").children(".count").text(count).removeClass("red");
+                
+                if(count > 1000) {
+                    $(this).next("div").children(".count").addClass("red");
+                }
+            });
+        });
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <div class="container w-400">
+        <div class="cell center">
+            <h1>자기소개서</h1>
+        </div>
+        <div class="cell">
+            <h2>(Q) 질문 테스트 1번</h2>
+            <textarea class="too w-100 editor"></textarea>
+            <div class="right"><span class="count">0</span> / 1000</div>
+        </div>
+        <div class="cell">
+            <h2>(Q) 질문 테스트 2번</h2>
+            <textarea class="too w-100 editor"></textarea>
+            <div class="right"><span class="count">0</span> / 1000</div>
+        </div>
+        <div class="cell">
+            <h2>(Q) 질문 테스트 3번</h2>
+            <textarea class="too w-100 editor"></textarea>
+            <div class="right"><span class="count">0</span> / 1000</div>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
