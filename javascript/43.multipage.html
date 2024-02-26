@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+
+        $(function(){
+            // 초기에는 1페이지만 보이도록 설정
+            $(".page").hide();
+            $(".page:first").show();
+
+            // 다음 버튼 클릭 시
+            $(".btn-next").click(function(){
+                // 현재 보이는 페이지의 다음 페이지를 찾음
+                var currentPage = $(".page:visible");
+                var nextPage = currentPage.next(".page");
+                
+                // 만약 다음 페이지가 존재하면 해당 페이지를 보이도록 설정
+                if(nextPage.length !== 0) {
+                    currentPage.hide();
+                    nextPage.show();
+                }
+
+                // 만약 마지막 페이지에 도달하면 다음 버튼을 숨김
+                if(nextPage.next(".page").length === 0) {
+                    $(".btn-next").hide();
+                }
+
+                // 이전 버튼을 보이도록 설정
+                $(".btn-prev").show();
+            });
+
+            // 이전 버튼 클릭 시
+            $(".btn-prev").click(function(){
+                // 현재 보이는 페이지의 이전 페이지를 찾음
+                var currentPage = $(".page:visible");
+                var prevPage = currentPage.prev(".page");
+                
+                // 만약 이전 페이지가 존재하면 해당 페이지를 보이도록 설정
+                if(prevPage.length !== 0) {
+                    currentPage.hide();
+                    prevPage.show();
+                }
+
+                // 만약 첫 번째 페이지에 도달하면 이전 버튼을 숨김
+                if(prevPage.prev(".page").length === 0) {
+                    $(".btn-prev").hide();
+                }
+
+                // 다음 버튼을 보이도록 설정
+                $(".btn-next").show();
+            });
+        });
+
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>제목</h1>
+        </div>
+        <div class="cell page">
+            <h1>1페이지</h1>
+            <!-- <button class="btn-prev">이전</button> -->
+            <button class="btn-next">다음</button>
+        </div>
+        <div class="cell page">
+            <h1>2페이지</h1>
+            <button class="btn-prev">이전</button>
+            <button class="btn-next">다음</button>
+        </div>
+        <div class="cell page">
+            <h1>3페이지</h1>
+            <button class="btn-prev">이전</button>
+            <button class="btn-next">다음</button>
+        </div>
+        <div class="cell page">
+            <h1>4페이지</h1>
+            <button class="btn-prev">이전</button>
+            <button class="btn-next">다음</button>
+        </div>
+        <div class="cell page">
+            <h1>5페이지</h1>
+            <button class="btn-prev">이전</button>
+            <!-- <button class="btn-next">다음</button> -->
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
