@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            //해야할 일
+            //1. 아이디 입력창에서 입력이 완료될 경우 형식 검사하여 결과 기록
+            //2. 비밀번호 입력창에서 입력이 완료될 경우 형식 검사하여 결과 기록
+            //3. 비밀번호 확인창에서 입력이 완료될 경우 비밀번호와 비교하여 결과 기록
+            //4. form의 전송이 이루어질 때 모든 검사결과가 유효한지 판단하여 전송
+
+            //상태변수(React의 state로 개념이 이어짐)
+            var memberIdValid = false;
+            var memberPwValid = false;
+            var memberPwCheckValid = false;
+
+            $("[name=memberId]").on("blur", function(){
+                var regex = /^[a-z][a-z0-9]{7,19}$/;
+                memberIdValid = regex.test($(this).val());
+                $(this).removeClass("success fail").addClass(memberIdValid ? "success" : "fail");
+            });
+            $("[name=memberPw]").on("blur", function(){
+                var regex = /^[A-Za-z0-9!@#$]{6,15}$/;
+                memberPwValid = regex.test($(this).val());
+                $(this).removeClass("success fail").addClass(memberPwValid ? "success" : "fail");
+            });
+            $("#pw-reinput").blur(function(){
+                var memberPw = $("[name=memberPw]").val();
+                memberPwCheckValid = memberPw == $(this).val();
+                if(memberPw.length == 0){
+                    $(this).removeClass("success fail fail2").addClass("fail2");
+                }
+                else {
+                    $(this).removeClass("success fail fail2").addClass(memberPwCheckValid ? "success" : "fail");
+                }
+            });
+
+            //form 전송시에는 미리 설정해둔 상태변수만 확인하면 된다
+            //- 검사 효과까지 보고싶다면 blur 이벤트를 강제로 발생시킨다
+            //- $(대상).on("blur") 또는 $(대상).blur()
+            $(".check-form").submit(function(){
+                $("[name=memberId]").blur();
+                $("[name=memberPw]").blur();
+                $("#pw-reinput").blur();
+                // console.log(memberIdValid, memberPwValid, memberPwCheckValid);
+                return memberIdValid && memberPwValid && memberPwCheckValid;
+            });
+        });
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <form autocomplete="off" action="?" method="post" class="check-form">
+        <div class="container w-400">
+            <div class="cell center">
+                <h1>회원가입</h1>
+            </div>
+    
+            <div class="cell">
+                <label>
+                    아이디
+                    <i class="fa-solid fa-asterisk red"></i>
+                </label>
+                <input type="text" name="memberId" 
+                                placeholder="영문 소문자시작, 숫자 포함 8~20자" class="tool w-100">
+                <div class="success-feedback">멋진 아이디네요!</div>
+                <div class="fail-feedback">아이디는 소문자 시작, 숫자 포함 8~20자로 작성하세요</div>
+            </div>  
+    
+            <div class="cell">
+                <label>
+                    비밀번호
+                    <i class="fa-solid fa-asterisk red"></i>
+                </label>
+                <input type="password" name="memberPw"
+                                placeholder="영문 대소문자, 숫자, 특수문자 1개 이상 포함 6~15자" class="tool w-100">
+                <div class="success-feedback">비밀번호가 올바른 형식입니다</div>
+                <div class="fail-feedback">비밀번호에는 반드시 영문 대,소문자와 숫자, 특수문자가 포함되어야 합니다</div>
+            </div>
+    
+            <div class="cell">
+                <label>
+                    비밀번호 확인
+                    <i class="fa-solid fa-asterisk red"></i>
+                </label>
+                <!-- 비밀번호 확인은 백엔드로 전송되지 않도록 이름을 부여하지 않는다 -->
+                <input type="password" placeholder=""
+                                id="pw-reinput" class="tool w-100">
+                <div class="fail2-feedback">비밀번호를 먼저 입력하세요</div>
+                <div class="fail-feedback">비밀번호가 일치하지 않습니다</div>
+                <div class="success-feedback">비밀번호가 일치합니다</div>
+            </div>
+            <hr class="my-20">
+            <div class="cell">
+                <button class="btn positive w-100">
+                    <i class="fa-solid fa-user"></i>
+                    회원가입
+                </button>
+            </div>
+        </div>
+        </form>
+
+    
+    
+</body>
+</html>
