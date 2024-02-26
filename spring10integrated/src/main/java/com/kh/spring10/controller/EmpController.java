@@ -123,4 +123,12 @@ public class EmpController {
 		return "redirect:list";
 	}
 	
+	@PostMapping("/deleteAll")
+	public String deleteAll(@RequestParam List<Integer> empNo) {
+		for(int no : empNo) {
+			dao.delete(no);
+		}
+		return "redirect:list";
+	}
+	
 }

@@ -37,7 +37,7 @@
 				<%-- 다른 페이지로의 링크 --%>
 				<a href="list" class="btn pink w-25">목록보기</a>&nbsp;&nbsp;
 				<a href="edit?pocketmonNo=${dto.pocketmonNo}" class="btn purple w-25">수정</a>&nbsp;&nbsp;
-				<a href="delete?pocketmonNo=${dto.pocketmonNo}" class="btn negative w-25">삭제</a>
+				<a href="delete?pocketmonNo=${dto.pocketmonNo}" class="btn negative w-25 link-confirm" data-message="정말 삭제하시겠습니까?">삭제</a>
 			</div>
 		</c:when>
 		<c:otherwise>

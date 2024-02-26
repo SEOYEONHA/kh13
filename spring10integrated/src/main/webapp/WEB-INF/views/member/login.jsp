@@ -23,6 +23,10 @@
 	}
 </style>
 
+
+
+
+
 <div class="container w-400">
 	<div class="cell">
 		<c:if test="${param.error != null}">
@@ -34,21 +38,34 @@
 				<h1>로그인</h1>
 			</div>
 			<div class="cell">
-				<label>아이디</label>
-				<input type="text" name="memberId" class="tool tool-image w-100" required>
+				<label>
+					아이디
+					<input type="text" name="memberId" class="tool tool-image w-100">
+				</label>
 			</div>
+			
 			<div class="cell">
-				<label>비밀번호 </label>
-				<input type="password" name="memberPw" class="tool tool-image w-100" required>
+				<label>
+					비밀번호
+					<input type="password" name="memberPw" class="tool tool-image w-100">
+				</label>
+				 
 			</div>
-			<div class="cell center">
+			
+            
+            <hr class="my-20">
+            
+			<div class="cell ">
 				<button class="btn positive w-100">로그인</button>
 			</div>
 			<hr>
-			<div class="cell">
-				<a href="/join" class="btn w-100 mb-20">회원가입</a>
+			<div class="cell center blue">
+				<p>아직 회원이 아니신가요?</p>
 			</div>
 	</form>
+		<div class="cell center">
+			<a href="/member/join" class="btn w-100 mb-20 pink">회원가입</a>
+		</div>
 </div>
 
 

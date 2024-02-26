@@ -21,11 +21,21 @@
 		</c:otherwise>
 	</c:choose>
 	
+	<div class="cell right">
+		<a href="insert" class="btn positive">신규등록</a> 
+	</div>
+	
+	<form action="deleteAll" method="post">
 	<div class="cell">
 		<%-- 목록 출력 --%>
 		<table class="table table-border table-hover">
 			<thead>
 				<tr>
+					<c:if test="${sessionScope.loginLevel == '관리자'}">
+						<th>
+							<input type="checkbox" class="check-all">
+						</th>
+					</c:if>
 					<th width="11%">사원번호</th>
 					<th>사원명</th>
 					<th>부서명</th>
@@ -36,6 +46,12 @@
 			<tbody align="center">
 				<c:forEach var="dto" items="${list}">
 				<tr>
+					<c:if test="${sessionScope.loginLevel == '관리자'}">
+						<td>
+							<input type="checkbox" class="check-item" 
+										name="empNo" value="${dto.empNo}">
+						</td>
+					</c:if>
 					<td>${dto.empNo}</td>
 					<td><a href="detail?empNo=${dto.empNo}" class="link">${dto.empName}</a></td>
 					<td>${dto.empDept}</td>
@@ -45,7 +61,9 @@
 				</c:forEach>
 			</tbody>
 		</table>
-	</div>
+		
+	
+
 	
 	<%-- 네비게이터 --%>
 	<jsp:include page="/WEB-INF/views/template/navigator.jsp"></jsp:include>
@@ -69,11 +87,23 @@
 		</form>
 		<%-- 검색창 종료지점 --%>
 	</div>
-	<div class="cell center mb-20">
-		<a href="list" class="btn pink">목록보기</a>
-		<a href="insert" class="btn positive">신규등록</a> 
+
+				<!-- 삭제버튼 -->
+	<c:if test="${sessionScope.loginLevel == '관리자'}">	
+		<div class="cell right">
+				<button class="btn negative">선택삭제</button>
+			</form>
+		</div>
+	</c:if>
+	
+	</form>
 	</div>
+
+	
 </div>
+
+
+	
 
 
 

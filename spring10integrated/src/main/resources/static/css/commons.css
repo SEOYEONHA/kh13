@@ -787,3 +787,18 @@ transform: translate(-50%, -50%);
 .tool.fail ~ .fail-feedback, 
 .tool.fail2 ~ .fail2-feedback, 
 .tool.fail3 ~ .fail3-feedback { display: block; }
+
+ /*
+    진행바(progressbar) 디자인
+*/
+
+.progressbar {
+    box-shadow: 0 0 1px 0 #ccc;
+}
+.progressbar > .guage {
+    width: 0%;
+    height: 5px;
+    background: rgb(238,174,202);
+    background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+    transition: width 0.1s ease-in-out;
+}
