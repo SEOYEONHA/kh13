@@ -1,0 +1,141 @@
+
+    </form><!DOCTYPE html>
+    <html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Javascript 예제</title>
+        <!-- 구글 폰트 -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+    
+        <!-- 내가 구현한 스타일 -->
+        <link rel="stylesheet" type="text/css" href="../css/commons.css">
+        <link rel="stylesheet" type="text/css" href="../css/test.css">
+    
+        <!-- font awesome 아이콘 CDN -->
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+        <style>
+        
+        
+    
+        </style>
+    
+        <!-- jquery cdn -->
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+        <!-- 내가 만든 스크립트 추가 -->
+        <script src="commons.js"></script>
+        <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+        <script type="text/javascript">
+            $(function(){
+                //상태객체
+                var state = {
+                    empNameValid : false, 
+                    empDeptValid : false, 
+                    empDateValid : false, 
+                    empSalValid : false, 
+                    ok : function(){
+                        return this.empNameValid && this.empDeptValid && this.empDateValid && this.empSalValid;
+                    }
+                };
+            
+
+                //폼 이벤트(submit)
+                $(".check-form").submit(function(){
+                    $(this).find("[name]").blur();
+                    return state.ok();
+                });
+
+                //개별 입력창 이벤트(input, blur, select, change)
+                $("[name=empName]").blur(function(){
+                    var regex = /^[가-힣]{2,7}$/;
+                    state.empNameValid = regex.test($(this).val());
+                    $(this).removeClass("success fail").addClass(state.empNameValid ? "success" : "fail");
+                });
+                $("[name=empDept]").blur(function(){
+                    state.empDeptValid = $(this).val().length > 0;
+                    $(this).removeClass("success fail").addClass(state.empDeptValid ? "success" : "fail");
+                });
+                $("[name=empDate]").blur(function(){
+                    var regex = /^(19[0-9]{2}|20[0-9]{2})-(02-(0[1-9]|1[0-9]|2[0-8])|(0[469]|11)-(0[1-9]|1[0-9]|2[0-9]|30)|(0[13578]|1[02])-(0[1-9]|1[0-9]|2[0-9]|3[01]))$/;
+                    state.empDateValid = regex.test($(this).val());
+                    $(this).removeClass("success fail").addClass(state.empDateValid ? "success" : "fail");
+                });
+                $("[name=empSal]").blur(function(){
+                    // state.empSalValid = parseInt($(this).val()) > 0;
+                    var regex = /^[0-9]+$/;
+                    state.empDateValid = regex.test($(this).val());
+                    if(!state.empSalValid){
+                    $(this).removeClass("success fail fail2").addClass("fail");
+                    }
+                    else {
+                        $(this).removeClass("success fail fail2").addClass(state.memberPwCheckValid ? "success" : "fail2");
+                    }
+                });
+            });
+            
+            
+        </script>
+    </head>
+    <body>
+    
+    
+    <form action="?" method="post" autocomplete="off" class="check-form">
+        <div class="container w-400">
+            <div class="cell center">
+                <h1>사원 등록</h1>
+            </div>
+
+            <div class="cell">
+                <label>사원명</label>
+                <input type="text" name="empName" placeholder="(ex) 홍길동" class="tool w-100">
+                <div class="success-feedback"></div>
+                <div class="fail-feedback">올바른 이름을 작성하세요</div>
+            </div>
+
+            <div class="cell">
+                <label>
+                    부서명
+                    <i class="fa-solid fa-asterisk red"></i>
+                </label>
+                <select name="empDept" class="tool w-100">
+                    <option value="">선택하세요</option>
+                    <option value="인사부">인사부</option>
+                    <option value="개발부">개발부</option>
+                    <option value="마케팅부">마케팅부</option>
+                    <option value="영업부">영업부</option>
+                </select>
+                <div class="success-feedback"></div>
+                <div class="fail-feedback">부서를 반드시 선택하세요</div>
+            </div> 
+
+            <div class="cell">
+                <label>입사일</label>
+                <input type="date" name="empDate" placeholder="(ex) 영업부" class="tool w-100">
+                <div class="success-feedback"></div>
+                <div class="fail-feedback">잘못된 날짜 형식입니다</div>
+            </div>
+
+            <div class="cell">
+                <label>급여액</label>
+                <input type="text" name="empSal" placeholder="(ex) 5000000" class="tool w-100">
+                <div class="success-feedback"></div>
+                <div class="fail-feedback">급여는 숫자만 입력 가능합니다</div>
+                <div class="fail2-feedback">급여액을 반드시 작성하세요</div>
+            </div>
+
+            <div class="cell mt-30">
+                <button class="btn positive w-100">
+                    <i class="fa-solid fa-plus"></i>
+                    사원 등록
+                </button>
+            </div>        
+        </div>
+        </form>
+    
+        
+        
+    </body>
+    </html>
