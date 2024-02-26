@@ -28,7 +28,33 @@
     <script src="commons.js"></script>
     <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
     <script type="text/javascript">
-        
+        /*
+            전체선택 체크박스에 대한 이벤트 구현
+            - .check-all은 전체 선택 체크박스
+            - .check-item은 개별 항목 체크박스
+            - jquery에서는 태그의 속성을 .props() 명령으로 제어 또는 확인
+        */
+       $(function(){
+            //전체선택 체크박스에 입력이 발생하면 확인하여 개별 항목에 반영
+            // $(".check-all").on("input", function(){});
+            $(".check-all").change(function(){
+                 var checked = $(this).prop("checked"); //jQuery
+                //  console.log(checked);
+
+                $(".check-item").prop("checked", checked); //개별항목 체크변경
+                $(".check-all").prop("checked", checked); //전체항목 체크변경
+            });
+
+            $(".check-item").change(function(){
+                //총 ?개 중 ?개가 선택되었는지를 파악하여 처리
+                var countAll = $(".check-item").length;
+                var countChecked = $(".check-item:checked").length;
+
+                var allChecked = countAll == countChecked;
+
+                $(".check-all").prop("checked", allChecked);
+            });
+       });
         
         
         
