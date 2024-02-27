@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            var state = {
+                pocketmonNoValid : false
+            };
+
+            $("[name=pocketmonNo]").blur(function(){
+                var regex = /^[0-9]+$/;
+                var value = $(this).val();
+
+                if(regex.test($(this).val())){
+                    $.ajax({
+                        url : "http://localhost:8080/checkPocketmonNo" ,
+                        method : "post", 
+                        data : {
+                            pocketmonNo : value
+                        },
+                        success : function(response){
+                            if(response == "NNNNN"){
+                                $("[name=pocketmonNo]").removeClass("success fail fail2").addClass("fail2");
+                                state.pocketmonNoValid = false;
+                            }
+                            else if(response == "NNNNY"){
+                                $("[name=pocketmonNo]").removeClass("success fail fail2").addClass("success");
+                                state.pocketmonNoValid = true;
+                            }
+                        }
+                    });
+                }
+                else{
+                    $("[name=pocketmonNo]").removeClass("success fail fail2").addClass("fail");
+                    state.pocketmonNoValid = false;
+                }
+            })
+        });
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>포켓몬번호 중복검사</h1>
+        </div>
+        <form action = ? method="get" autocomplete="off">
+            <div class="cell">
+                <label>포켓몬번호</label>
+                <input type="number" name="pocketmonNo" class="tool w-100">
+                <div class="success-feedback"></div>
+                <div class="fail-feedback">번호를 반드시 작성하세요(숫자만 입력 가능합니다)</div>
+                <div class="fail2-feedback">이미 등록된 포켓몬 번호입니다</div>
+            </div>
+            <div class="cell">
+                <label>포켓몬이름</label>
+                <input type="number" name="pocketmonNo" class="tool w-100">
+                <div class="success-feedback"></div>
+                <div class="fail-feedback"></div>
+                <div class="fail2-feedback"></div>
+            </div>
+            <div class="cell">
+                <label>포켓몬속성</label>
+                <input type="number" name="pocketmonNo" class="tool w-100">
+                <div class="success-feedback"></div>
+                <div class="fail-feedback"></div>
+                <div class="fail2-feedback"></div>
+            </div>
+            <div class="cell">
+                <button class="btn positive w-100">등록하기</button>
+            </div>
+    </form>
+    </div>
+
+    
+    
+</body>
+</html>
