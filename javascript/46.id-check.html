@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가(jQuery를 사용했으니 jQuery CDN 아래 작성) -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+    <script type="text/javascript">
+        $(function(){
+            var state = {
+                memberIdValid : false
+            };
+
+            $("[name=memberId]").blur(function(){
+                var regex = /^[a-z][a-z0-9]{7,19}$/;
+                var value = $(this).val();
+
+                if(regex.test($(this).val())) {//아이디 형식 검사를 통과했다면
+                    $.ajax({
+                        // url : "http://localhost:8080/checkId?memberId="+value
+                        url : "http://localhost:8080/checkId" , 
+                        method : "post", //전송방식(get/post)
+                        data : {
+                            memberId : value
+                        }, 
+                        success : function(response) {
+                            //console.log(response);
+                            if(response == "NNNNN") {
+                                $("[name=memberId]").removeClass("success fail fail2").addClass("fail2");
+                                state.memberIdValid = false;
+                            }
+                            else if(response == "NNNNY") {
+                                $("[name=memberId]").removeClass("success fail fail2").addClass("success");
+                                state.memberIdValid = true;
+                            }
+                        }
+                    });
+                }
+                else {//아이디가 형식검사를 통과하지 못했다면
+                    $("[name=memberId]").removeClass("success fail fail2").addClass("fail");
+                    state.memberIdValid = false;
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>아이디 중복검사</h1>
+        </div>
+        <div class="cell">
+            <input type="text" name="memberId" class="tool w-100">
+            <div class="success-feedback"></div>
+            <div class="fail-feedback">아이디는 8~20자 영문소문자와 숫자로 작성하세요</div>
+            <div class="fail2-feedback">아이디가 이미 사용중입니다</div>
+        </div>
+    </div>
+
+</body>
+</html>

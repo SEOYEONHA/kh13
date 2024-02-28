@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            var state = {
+            //key : value(function)
+            pocketmonNoValid : false, 
+            pocketmonNameVaild : false, 
+            pocketmonTypeValid : false, 
+            ok : function(){
+                return this.pocketmonNoValid && this.pocketmonNameVaild && this.pocketmonTypeValid;
+                },
+            }
+       
+
+            $("[name=pocketmonNo]").blur(function(){
+                var regex = /^[0-9]+$/; //1이상의 숫자
+
+                //형식 검사를 먼저해야 서버 부하가 적어진다
+                var value = $(this).val();
+                if(regex.test(value)){
+                    //형식에 일치할 경우 비동기통신(ajax)를 수행
+                    $.ajax({
+                        url : "http://localhost:8080/checkPocketmonNo",
+                        method : "post", //특별한 이유가 없다면 get보다는 post로
+                        data : {pocketmonNo : value}, 
+                        success : function(response){
+                            // console.log(response);
+                            if(response){ //사용가능
+                                $("[name=pocketmonNo]").removeClass("success fail fail2").addClass("success");
+                                state.pocketmonNoValid = true;
+                            }
+                            else{ //사용 불가 or 사용중
+                                $("[name=pocketmonNo]").removeClass("success fail fail2").addClass("fail2");
+                                state.pocketmonNoValid = false;
+                            }
+                        }
+                    });
+
+                }
+                else{
+                    $("[name=pocketmonNo]").removeClass("success fail fail2").addClass("fail");
+                    state.pocketmonNoValid = false;
+                }
+            });
+
+            $("[name=pocketmonName]").blur(function(){
+                var regex = /^[가-힣]+$/;
+                state.pocketmonNameVaild =  regex.test($(this).val());
+                $(this).removeClass("success fail").addClass(state.pocketmonNameVaild ? "success" : "fail");
+            });
+
+            $("[name=pocketmonType]").blur(function(){
+                state.pocketmonTypeValid =  $(this).val().length > 0;
+                $(this).removeClass("success fail").addClass(state.pocketmonTypeValid ? "success" : "fail");
+            });
+
+            $(".check-form").submit(function(){
+                // $("[name=pocketmonNo], [name=pocketmonName], [name=pocketmonType]").blur();
+                //find()는 내부에 있는 모든 태그를 탐색한다(후손 선택자와 동일한 효과)
+                $(this).find("[name]").blur();
+                return state.ok();
+            });
+
+        });
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <form action="?" method="post" autocomplete="off" class="check-form">
+    <div class="container w-400">
+        <div class="cell center">
+            <h1>포켓몬스터 등록</h1>
+        </div>
+        <div class="cell">
+            <label>
+                번호
+                <i class="fa-solid fa-asterisk red"></i>
+            </label>
+            <input type="text" name="pocketmonNo" 
+                        placeholder="(ex) 1" class="tool w-100">
+            <div class="success-feedback"></div>
+            <div class="fail-feedback">번호를 반드시 작성하세요(숫자만 입력 가능합니다)</div>
+            <div class="fail2-feedback">이미 등록된 포켓몬 번호입니다</div>
+        </div>  
+        <div class="cell">
+            <label>
+                이름
+                <i class="fa-solid fa-asterisk red"></i>
+            </label>
+            <input type="text" name="pocketmonName" 
+                            placeholder="(ex) 이상해씨" class="tool w-100">
+            <div class="success-feedback"></div>
+            <div class="fail-feedback">이름을 반드시 작성하세요</div>
+        </div>
+        <div class="cell">
+            <label>
+                속성
+                <i class="fa-solid fa-asterisk red"></i>
+            </label>
+            <select name="pocketmonType" class="tool w-100">
+                <option value="">선택하세요</option>
+                <option value="풀">풀</option>
+                <option value="불꽃">불꽃</option>
+                <option value="물">물</option>
+                <option value="전기">전기</option>
+                <option value="독">독</option>
+                <option value="비행">비행</option>
+                <option value="무속성">무속성</option>
+            </select>
+            <div class="success-feedback"></div>
+            <div class="fail-feedback">반드시 속성을 선택해야 합니다</div>
+        </div>
+        <div class="cell">
+            <button class="btn positive w-100">
+                <i class="fa-solid fa-floppy-disk"></i>
+                등록
+            </button>
+        </div>
+    </div>
+    </form>
+
+    
+    
+</body>
+</html>
