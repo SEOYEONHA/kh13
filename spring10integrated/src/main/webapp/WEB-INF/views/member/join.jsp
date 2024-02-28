@@ -42,94 +42,218 @@
 <!-- 이 페이지에서만 사용할 JS 코드 -->
 <script type="text/javascript">
 
-	$(function(){
-		//이전, 다음 버튼을 누르면 표시된 페이지의 순서에 맞게 진행바 변경
-		calculatePercent(1);
-		
-		$(".page").find(".btn-prev").click(function(){
-			//표시되는 페이지가 몇 번째인가?
-			//-> $(대상).index(전체대상)
-			//-> 대상은 :visible 이라고 붙이면 표시된 항목을 찾아준다(jQuery 전용)
-			var index = $(".page:visible").index(".page") + 1;
-			calculatePercent(index);
-		});
-		$(".page").find(".btn-next").click(function(){
-			var index = $(".page:visible").index(".page") + 1;
-			calculatePercent(index);
-		});
-		
-		function calculatePercent(page) {
-			var total = $(".page").length;
-			var percent = page * 100 / total;
-			$(".progressbar > .guage").css("width", percent+"%");
-		}
+$(function(){
+	//이전, 다음 버튼을 누르면 표시된 페이지의 순서에 맞게 진행바 변경
+	calculatePercent(1);
+	
+	$(".page").find(".btn-prev").click(function(){
+		//표시되는 페이지가 몇 번째인가?
+		//-> $(대상).index(전체대상)
+		//-> 대상은 :visible 이라고 붙이면 표시된 항목을 찾아준다(jQuery 전용)
+		var index = $(".page:visible").index(".page") + 1;
+		calculatePercent(index);
 	});
+	$(".page").find(".btn-next").click(function(){
+		var index = $(".page:visible").index(".page") + 1;
+		calculatePercent(index);
+	});
+	
+	function calculatePercent(page) {
+		var total = $(".page").length;
+		var percent = page * 100 / total;
+		$(".progressbar > .guage").css("width", percent+"%");
+	}
+});
 
+$(function(){
+    //상태객체(React의 state로 개념이 이어짐)
+    var state = {
+        //key : value
+        memberIdValid : false,
+        memberPwValid : false,
+        memberPwCheckValid : false,
+        memberNickValid : false,
+        memberEmailValid : false,
+        memberBirthValid : true, //선택항목
+        memberContactValid : true, //선택항목
+        memberAddressValid : true,//선택항목
+        //객체에 함수를 변수처럼 생성할 수 있다
+        //- this는 객체 자신(자바와 동일하지만 생략이 불가능)
+        ok : function(){
+            return this.memberIdValid 
+                    && this.memberPwValid && this.memberPwCheckValid
+                    && this.memberNickValid && this.memberEmailValid
+                    && this.memberBirthValid && this.memberContactValid
+                    && this.memberAddressValid;
+        },
+    };
 
+    $("[name=memberId]").blur(function(){
+        var regex = /^[a-z][a-z0-9]{7,19}$/;
+        var value = $(this).val();
+
+        if(regex.test(value)) {//아이디 형식 검사를 통과했다면
+            $.ajax({
+                //url : "http://localhost:8080/checkId?memberId="+value,
+                url : "/rest/member/checkId",
+                method : "post",//전송방식(get/post)
+                data: {
+                    memberId : value
+                },
+                success : function(response) {
+                    //console.log(response);
+                    if(response == "NNNNN") {
+                        $("[name=memberId]").removeClass("success fail fail2").addClass("fail2");
+                        state.memberIdValid = false;
+                    }
+                    else if(response == "NNNNY") {
+                        $("[name=memberId]").removeClass("success fail fail2").addClass("success");
+                        state.memberIdValid = true;
+                    }
+                }
+            });
+        }
+        else {//아이디가 형식검사를 통과하지 못했다면
+            $("[name=memberId]").removeClass("success fail fail2").addClass("fail");
+            state.memberIdValid = false;
+        }
+    });
+    $("[name=memberPw]").on("blur", function(){
+    	var regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$])[a-zA-Z\d!@#$]{6,15}$/;
+    	state.memberPwValid = regex.test($(this).val());
+        $(this).removeClass("success fail")
+                    .addClass(state.memberPwValid ? "success" : "fail");
+    });
+    $("#pw-reinput").blur(function(){
+        var memberPw = $("[name=memberPw]").val();
+        state.memberPwCheckValid = memberPw == $(this).val();
+        
+        if(memberPw.length == 0) {
+            $(this).removeClass("success fail fail2").addClass("fail2");
+        }
+        else {
+            $(this).removeClass("success fail fail2")
+                        .addClass(state.memberPwCheckValid ? "success" : "fail");
+        }
+    });
+    $("[name=memberNick]").blur(function(){
+        var regex = /^[가-힣0-9]{2,10}$/;
+        var value = $(this).val();
+
+        if(regex.test(value)) {
+            $.ajax({
+                url : "/rest/member/checkMemberNick",
+                method : "post",
+                data : { memberNick : value },
+                success:function(response){
+                    if(response) {//사용 가능한 경우 - success
+                        state.memberNickValid = true;
+                        $("[name=memberNick]")
+                            .removeClass("success fail fail2")
+                            .addClass("success");
+                    }
+                    else {//이미 사용중인 경우 - fail2
+                        state.memberNickValid = false;
+                        $("[name=memberNick]")
+                            .removeClass("success fail fail2")
+                            .addClass("fail2");
+                    }
+                }
+            });
+        }
+        else {//형식이 맞지 않는 경우 - fail
+            state.memberNickValid = false;
+            $("[name=memberNick]")
+                .removeClass("success fail fail2")
+                .addClass("fail");
+        }
+    });
+    $("[name=memberEmail]").blur(function(){
+        var regex = /^[a-z0-9]{8,20}@[a-z0-9\.]{1,20}$/;
+        var value = $(this).val();
+        state.memberEmailValid = regex.test(value);
+        $(this).removeClass("success fail")
+                    .addClass(state.memberEmailValid ? "success" : "fail");
+    });
+    $("[name=memberContact]").blur(function(){
+        var regex = /^010[1-9][0-9]{7}$/;
+        var value = $(this).val();
+        state.memberContactValid = value.length == 0 || regex.test(value);
+        $(this).removeClass("success fail")
+                    .addClass(state.memberContactValid ? "success" : "fail");
+    });
+    $("[name=memberBirth]").blur(function(){
+        var regex = /^(19[0-9]{2}|20[0-9]{2})-(02-(0[1-9]|1[0-9]|2[0-8])|(0[469]|11)-(0[1-9]|1[0-9]|2[0-9]|30)|(0[13578]|1[02])-(0[1-9]|1[0-9]|2[0-9]|3[01]))$/;
+        var value = $(this).val();
+        state.memberBirthValid = value.length == 0 || regex.test(value);
+        $(this).removeClass("success fail")
+                    .addClass(state.memberBirthValid ? "success" : "fail");
+    });
+
+    //주소는 세 개의 입력창이 모두 입력되거나 안되거나 둘 중 하나
+    $("[name=memberAddress2]").blur(function(){
+        var post = $("[name=memberPost]").val();
+        var address1 = $("[name=memberAddress1]").val();
+        var address2 = $("[name=memberAddress2]").val();
+
+        var isClear = post.length == 0 && address1.length == 0 && address2.length == 0;
+        var isFill = post.length > 0 && address1.length > 0 && address2.length > 0;
+
+        state.memberAddressValid = isClear || isFill;
+
+        $("[name=memberPost], [name=memberAddress1], [name=memberAddress2]")
+                .removeClass("success fail")
+                .addClass(state.memberAddressValid ? "success" : "fail");
+    });
+
+    //form 전송
+    $(".check-form").submit(function(){
+        //$(this).find("[name], #pw-reinput").blur();
+        //$(this).find(".tool").blur();//모든 창
+        
+        //입력창 중에서 success fail fail2가 없는 창
+        $(this).find(".tool").not(".success, .fail, .fail2").blur();
+        return state.ok();
+    });
+});
+</script>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
     $(function(){
-        //해야할 일
-        //1. 아이디 입력창에서 입력이 완료될 경우 형식 검사하여 결과 기록
-        //2. 비밀번호 입력창에서 입력이 완료될 경우 형식 검사하여 결과 기록
-        //3. 비밀번호 확인창에서 입력이 완료될 경우 비밀번호와 비교하여 결과 기록
-        //4. form의 전송이 이루어질 때 모든 검사결과가 유효한지 판단하여 전송
+        $(".btn-address-search").click(function(){
+            new daum.Postcode({
+                oncomplete: function(data) {
+                    // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
-        //상태객체(React의 state로 개념이 이어짐)
-        var state = {
-            //key : value
-            memberIdValid : false, 
-            memberPwValid : false, 
-            memberPwCheckValid : false,
-            memberNickValid : false,
-            //객체에 함수를 변수처럼 생성할 수 있다
-            //- this는 객체 자신(자바와 동일하지만 생략이 불가능)
-            ok : function(){
-                return this.memberIdValid && this.memberPwValid && this.memberPwCheckValid
-                 && this.memberNickValid;
-            },
-        };
-        // var memberIdValid = false;
-        // var memberPwValid = false;
-        // var memberPwCheckValid = false;
+                    // 각 주소의 노출 규칙에 따라 주소를 조합한다.
+                    // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                    var addr = ''; // 주소 변수
 
-        $("[name=memberId]").on("blur", function(){
-            var regex = /^[a-z][a-z0-9]{7,19}$/;
-            state.memberIdValid = regex.test($(this).val());
-            $(this).removeClass("success fail").addClass(state.memberIdValid ? "success" : "fail");
-        });
-        $("[name=memberPw]").on("blur", function(){
-            var regex = /^[A-Za-z0-9!@#$]{6,15}$/;
-            state.memberPwValid = regex.test($(this).val());
-            $(this).removeClass("success fail").addClass(state.memberPwValid ? "success" : "fail");
-        });
-        $("#pw-reinput").blur(function(){
-            var memberPw = $("[name=memberPw]").val();
-            state.memberPwCheckValid = memberPw == $(this).val();
-            if(memberPw.length == 0){
-                $(this).removeClass("success fail fail2").addClass("fail2");
-            }
-            else {
-                $(this).removeClass("success fail fail2").addClass(state.memberPwCheckValid ? "success" : "fail");
-            }
-        });
-         $("[name=memberNick]").blur(function(){
-        	var regex = /^[가-힣][가-힣0-9]{1,9}$/
-        	state.memberNickValid = regex.test($(this).val());
-        	$(this).removeClass("success fail").addClass(state.memberNickValid ? "success" : "fail");
-         });
+                    //사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+                    if (data.userSelectedType === 'R') { // 사용자가 도로명 주소를 선택했을 경우
+                        addr = data.roadAddress;
+                    } else { // 사용자가 지번 주소를 선택했을 경우(J)
+                        addr = data.jibunAddress;
+                    }
 
-        //form 전송시에는 미리 설정해둔 상태변수만 확인하면 된다
-        //- 검사 효과까지 보고싶다면 blur 이벤트를 강제로 발생시킨다
-        //- $(대상).on("blur") 또는 $(대상).blur()
-        $(".check-form").submit(function(){
-            $("[name=memberId]").blur();
-            $("[name=memberPw]").blur();
-            $("#pw-reinput").blur();
-            $("[name=memberNick]").blur();
-            // console.log(memberIdValid, memberPwValid, memberPwCheckValid);
-            // return memberIdValid && memberPwValid && memberPwCheckValid;
-            return state.ok();
+                    // 우편번호와 주소 정보를 해당 필드에 넣는다.
+                    $("[name=memberPost]").val(data.zonecode);
+                    $("[name=memberAddress1]").val(addr);
+
+                    // 커서를 상세주소 필드로 이동한다.
+                    $("[name=memberAddress2]").focus();
+                }
+            }).open();
+        });
+        $(".btn-address-clear").click(function(){
+        	$("[name=memberPost]").val("");
+        	$("[name=memberAddress1]").val("");
+        	$("[name=memberAddress2]").val("");
         });
     });
+
+
 </script>
 
 
@@ -226,14 +350,16 @@
 			<div class="cell">
 				<label>
 					연락처
-					<input name="memberContact" class="tool tool-image w-100" type="tel">
 				</label>
+				<input name="memberContact" class="tool tool-image w-100" type="tel">
 			</div>
 			<div class="cell">
 				<label>
 					이메일 <i class="fa-solid fa-asterisk"></i>
-					<input name="memberEmail" class="tool tool-image w-100" type="email" required>
 				</label>
+                <input type="email" name="memberEmail" 
+                                    placeholder="test1234@kh.com" class="tool tool-image w-100">
+                <div class="fail-feedback">잘못된 이메일 형식입니다</div>
 			</div>
 		
 			<div class="flex-cell">
@@ -254,7 +380,12 @@
 			</div>
 			<div class="cell">
 				<input name="memberPost" class="tool tool-image w-50" placeholder="우편번호"  type="text">
-				<button type="button" class="btn">검색</button>
+				<button type="button" class="btn positive btn-address-search">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</button>
+				<button type="button" class="btn negative btn-address-clear">
+					<i class="fa-solid fa-xmark"></i>
+				</button>
 			</div>
 			<div class="cell">
 				<input name="memberAddress1" class="tool tool-image w-100" placeholder="기본주소" type="text">
