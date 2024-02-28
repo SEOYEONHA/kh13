@@ -168,4 +168,13 @@ public class MemberDao {
 		return jdbcTemplate.update(sql, data) > 0;
 	}
 	
+	//닉네임으로 조회
+	public MemberDto selectOneByMemberNick(String memberNick) {
+		String sql = "select * from member where member_nick = ?";
+		Object[] data = {memberNick};
+		List<MemberDto> list = jdbcTemplate.query(sql, mapper, data);
+		
+		return list.isEmpty() ? null : list.get(0);
+	}
+	
 }
