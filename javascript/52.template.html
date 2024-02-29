@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            //삭제 버튼을 누르면 아이템 항목 1개를 삭제
+            $(document).on("click", ".btn-delete", function(){
+                $(this).parents(".item").remove();
+            });
+            //수정 버튼을 누르면 수정용 템플릿을 불러와서 값을 옮겨 추가
+            $(document).on("click", ".btn-edit", function(){
+                var templateText = $("#todo-item-edit").text();//수정용 템플릿 글자 불러오기
+                var templateHtml = $.parseHTML(templateText);//HTML로 해석
+
+                var value = $(this).parents(".item").find(".title").text();//현재창의 타이틀을 불러와서
+                $(templateHtml).find(".title-edit").val(value);//수정창의 입력창에 설정
+
+                $(this).parents(".item").hide().after(templateHtml);//현재창 숨기고 뒤에 수정창 추가
+            });
+            //저장버튼(this) 누르면 작성한 값을 복사한 뒤 수정창 제거하고 기존창 표시
+            $(document).on("click", ".btn-save", function(){
+                var value = $(this).parents(".item-edit").find(".title-edit").val();//작성값 불러오기
+                $(this).parents(".item-edit").prev(".item").find(".title").text(value);
+
+                $(this).parents(".item-edit").prev(".item").show();//기존창 표시(먼저)
+                $(this).parents(".item-edit").remove();//수정창 삭제(나중)
+            });
+            //취소버튼(this) 누르면 수정창 제거하고 기존창 표시
+            $(document).on("click", ".btn-cancel", function(){
+                $(this).parents(".item-edit").prev(".item").show();//기존창 표시(먼저)
+                $(this).parents(".item-edit").remove();//수정창 삭제(나중)
+            });
+            
+            //추가 버튼을 클릭하면 #todo-item의 내용을 불러와 변경 후 추가
+            $(".btn-add").click(function(){
+                var inputText = $(".todo-input").val();
+                if(inputText.length == 0) return;
+
+                var templateText = $("#todo-item").text();
+                var templateHtml = $.parseHTML(templateText);
+                
+                $(templateHtml).find(".title").text(inputText);
+                $(".result").append(templateHtml);
+
+                $(".todo-input").val("");
+            });
+        });
+
+
+        $(function(){
+            //추가 버튼을 클릭하면 #todo-item의 내용을 불러와 변경 후 추가
+            $(".btn-add").click(function(){
+                var inputText = $(".todo-input").val();
+                if(inputText.length == 0) return;
+
+                var templateText = $("#todo-item").text();
+                var templateHtml = $.parseHTML(templateText);
+
+                $(templateHtml).find(".title").text(inputText);
+                $(".result").append(templateHtml);
+            });
+        });
+        
+    </script>
+    <!--  
+        앞으로 사용할 화면의 조각을 보관
+        1. 항목을 추가했을 때 화면에 표시될 조각
+        2. 항목을 수정할 때 화면에 표시될 조각
+    -->
+    <script type="text/template" id="todo-item">
+        <div class="item cell flex-cell">
+            <h3 class="title w-50">샘플 텍스트</h3>
+            <button class="btn pink ms-20 btn-edit">
+                <i class="fa-solid fa-edit"></i>
+            </button>
+            <button class="btn negative ms-10 btn-delete">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </script>
+
+    <script type="text/template" id="todo-item-edit">
+        <div class="item-edit cell flex-cell">
+            <!-- value쓰나 마나인데 있다는 상징적 느낌 -->
+            <input type="text" class="tool title-edit w-50" value="">
+            <button class="btn positive ms-20 btn-save">
+                <i class="fa-solid fa-floppy-disk"></i>
+            </button>
+            <button class="btn negative ms-10 btn-cancel">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </script>
+
+
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>DOM 제어</h1>
+        </div>
+        <div class="cell">
+            <input type="text" class="todo-input tool">
+            <button class="btn positive btn-add">추가</button>
+        </div>
+        <div class="cell result">
+
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
