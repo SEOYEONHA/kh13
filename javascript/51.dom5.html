@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            //삭제버튼 이벤트
+            $(document).on("click", ".fa-xmark", function(){
+                $(this).parent("h3").remove();
+            });
+
+            //수정버튼 이벤트
+            //- 입력창을 만들어 값을 옮겨적고 완료, 취소버튼까지 만들어 추가
+            //- 기존 입력창은 숨김
+            $(document).on("click", ".fa-edit", function(){
+                var value = $(this).parent("h3").text();
+                
+                var input = $("<input>").val(value);
+                var save = $("<i>").addClass("fa-solid fa-floppy-disk green");
+                var cancel = $("<i>").addClass("fa-solid fa-ban red");
+                var div = $("<div>");
+
+                div.append(input).append(save).append(cancel);
+                $(this).parent("h3").hide().after(div); //h3 숨기고 뒤에 추가
+            });
+
+            //수정 화면의 완료, 취소에 대한 이벤트
+            $(document).on("click", ".fa-floppy-disk", function(){
+                var value = $(this).prev("input").val();
+                var x = $("<i>").addClass("fa-solid fa-xmark red");
+                var edit = $("<i>").addClass("fa-solid fa-edit blue");//수정버튼
+                $(this).parent("div").prev("h3").text(value); //글자표시
+                $(this).parent("div").prev("h3").show(); //기존것 표시
+                $(this).parent("div").remove(); //수정영역 삭제               
+            });
+            $(document).on("click", ".fa-ban", function(){
+                $(this).parent("div").prev("h3").show(); //기존것 표시
+                $(this).parent("div").remove(); //수정영역 삭제
+            });
+            
+            $(".btn-add").click(function(){ //.btn-add를 클릭할 때
+                var value = $(".todo-input").val(); //.todo-input의 값을 읽음
+
+                if(value.length == 0) return; //미입력 차단
+
+                //삭제 아이콘을 누르면 h3가 삭제되도록 구현
+                //[1] x 태그의 객체에 이벤트를 설정(개별 설정)
+                //[2] 문서 전체에 x태그에 대한 이벤트를 설정(일괄 설정)
+                var tag = $("<h3>").text(value); //<h3>태그 만들어 글자 설정
+                var x = $("<i>").addClass("fa-solid fa-xmark red");
+                var edit = $("<i>").addClass("fa-solid fa-edit blue"); //수정버튼
+                
+                tag.append(edit); //태그의 안쪽 마지막에 수정버튼을 추가
+                tag.append(x); //태그의 안쪽 마지막에 삭제버튼을 추가
+                    
+
+                $(".result").append(tag); //.result 맨 마지막에 추가하기
+                $(".todo-input").val(""); //입력값 삭제
+                
+                });
+            });
+
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>DOM 제어</h1>
+        </div>
+        <div class="cell">
+            <input type="text" class="todo-input tool">
+            <button class="btn positive btn-add">추가</button>
+        </div>
+        <div class="cell result">
+
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>

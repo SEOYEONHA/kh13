@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            var state = { memberNickValid : false };
+
+            $("[name=memberNick]").blur(function(){
+                var regex = /^[가-힣][가-힣0-9]{1,9}$/;
+
+                //형식검사
+                var value = $(this).val();
+                if(regex.test(value)){
+                    //형식 일치할경우 비동기통신(ajax) 수행
+                    $.ajax({
+                        url : "http://localhost:8080/checkMemberNick", 
+                        method : "post", 
+                        data : {memberNick : value}, 
+                        success : function(response){
+                            if(response){//사용 가능
+                                $("[name=memberNick]").removeClass("success fail fail2").addClass("success");
+                                state.memberNickValid = true;                            
+                            }
+                            else{ //사용불가 or 사용중
+                                $("[name=memberNick]").removeClass("success fail fail2").addClass("fail2");
+                                state.memberNickValid = false;
+                            }
+                        }
+                    });
+                }
+                else{
+                    $("[name=memberNick]").removeClass("success fail fail2").addClass("fail");
+                    state.memberNickValid = false;
+                }
+            })
+        })
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>멤버 닉네임 중복검사</h1>
+        </div>
+        <div class="cell">
+            <label>닉네임</label>
+            <input name="memberNick" type="text" class="tool w-100">
+            <div class="success-feedback"></div>
+            <div class="fail-feedback">닉네임은 한글 또는 숫자 2~10자리로 작성하세요</div>
+            <div class="fail2-feedback">이미 사용중인 닉네임입니다</div>
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>
