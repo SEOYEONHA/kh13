@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+    <!-- ChartJS cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function () {
+            const ctx = document.querySelector(".custom-chart")
+
+            //new Chart(캔버스태그, 차트옵션객체);
+            new Chart(ctx, {
+                type: 'bar', //차트 유형(bar, line, doughnut, pie 등등)
+                data: { //차트에 표시될 정보
+                    //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                    labels: ['월', '화', '수', '목', '금'], //하단 항목명
+                    datasets: [
+                        {
+                        //label: '# of Votes', //범례
+                        label: '1주차',
+                        data: [12, 19, 3, 5, 2, 3], //실제 값
+                        borderWidth: 1
+                        },
+                        {
+                        //label: '# of Votes', //범례
+                        label: '2주차',
+                        data: [5, 15, 19, 7, 10, 9], //실제 값
+                        borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true //0을 차트의 시작점으로 할 것인가?
+                        }
+                    }
+                }
+            });
+        });
+
+    </script>
+</head>
+
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>Chart JS</h1>
+        </div>
+        <div class="cell">
+            <!-- 차트 표시 영역 -->
+            <canvas class="custom-chart"></canvas>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
