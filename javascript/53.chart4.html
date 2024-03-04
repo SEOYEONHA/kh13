@@ -42,13 +42,15 @@
                 type: 'bar', //차트 유형(bar, line, doughnut, pie 등등)
                 data: { //차트에 표시될 정보
                     //labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                    labels: ['전기', '물', '불', '바람',], //하단 항목명
+                    labels: ['전기', '물', '불', '바람', '노말'], //하단 항목명
                     datasets: [
                         {
                         //label: '# of Votes', //범례
-                        label: '몬스터',
-                        data: [5, 6, 2, 4], //실제 값
-                        borderWidth: 1
+                        label: '포켓몬스터 수',
+                        data: [5, 6, 2, 4, 7], //실제 값
+                        borderWidth: 1, 
+                        backgroundColor:["#ff797944", "#ffbe7644", "#f6e58d44", "#55E6C144", "#3498db44", "#2980b944", "#9b59b644"], 
+                        borderColor:["#ff7979", "#ffbe76", "#f6e58d", "#55E6C1", "#3498db", "#2980b9", "#9b59b6"],
                         }
                     ]
                 },
