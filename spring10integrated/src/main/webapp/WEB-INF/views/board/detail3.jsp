@@ -12,7 +12,9 @@
         white-space: pre-line;
         valign="top"
     }
-   	.reply-list-wrapper > .reply-item {
+   	.reply-list-wrapper > .reply-item, 
+   	.reply-list-wrapper > .reply-edit
+   	 {
 	padding-bottom:10px;
 	margin-bottom: 10px;
 	border-bottom: 1px solid #b2bec3;
@@ -31,6 +33,25 @@
 		<pre class="reply-content">댓글 내용</pre>
 		<div class="reply-time">yyyy-MM-dd HH:mm:ss</div>
 	</div>
+
+</script>
+
+
+<script type="text/template" id="reply-item-edit-wrapper">
+		<div class="reply-item-edit">
+			<div class="reply-item-eidt mx-20">
+			<textarea class="tool w-100 reply-editor2" style="min-height: 100px"></textarea>
+			<div class="right">
+				<button class="btn positive btn-reply-save">
+					<i class="fa-solid fa-check"></i>
+					변경
+				</button>
+				<button class="btn negative btn-reply-cancel">
+					<i class="fa-solid fa-xmark"></i>
+					취소
+				</button>
+			</div>
+		</div>
 </script>
 
 <script type="text/javascript">
@@ -40,7 +61,11 @@
 		
 		//파라미터에서 게시글 번호를 읽는다
 		var params = new URLSearchParams(location.search);
-		var boardNo = params.get("boardNo");
+		var boardNo = params.get("boardNo")
+
+		//현재 사용자의 정보를 저장한다
+		var loginId = "${sessionScope.loginId}";
+		var isLogin = loginId.length > 0;
 		
 		//페이지 로딩 완료 시 댓글 목록을 불러와서 출력
 		$.ajax({
@@ -68,7 +93,18 @@
 					//화면에 필요한 정보	를 추가(ex : 삭제버튼에 번호 설정)
 					//- data라는 명령으로는 읽기만 가능
 					//- 태그에 글자를 추가하고 싶다면 .attr() 명령 사용
-					$(templateHtml).find(".btn-reply-delete").attr("data-reply-no", response[i].replyNo);
+					//- 현재 로그인한 사용자의 댓글에만 버튼을 표시(나머진 삭제)
+					//if(내가 작성한 댓글인 경우){
+					//if(현재 사용자ID == 댓글의 작성자) {	
+					//if("${sessionScope.loginId}" == response[i].replyWriter){
+					if(isLogin && loginId == response[i].replyWriter){
+						$(templateHtml).find(".btn-reply-edit").attr("data-reply-no", response[i].replyNo);
+						$(templateHtml).find(".btn-reply-delete").attr("data-reply-no", response[i].replyNo);
+					}
+					else{ //아닌경우
+						$(templateHtml).find(".btn-reply-edit").remove();
+						$(templateHtml).find(".btn-reply-delete").remove();
+					}
 					
 					//화면에 추가
 					$(".reply-list-wrapper").append(templateHtml);
@@ -80,7 +116,7 @@
 	$(function(){
 		//최초에 목록 불러오기
 		loadList();
-	});
+	
 	
 	//문서에 댓글 삭제 이벤트 등록
 	//- 화면을 지우는 것이 아니라 서버에 지워달라고 요청
@@ -100,12 +136,85 @@
 			}
 		});
 	});
-	
-	//문서에 댓글 수정 이벤트 등록
-	$(document).on("click", ".btn-reply-edit", function(){});
-	$(document).on("click", ".btn-reply-save", function(){});
-	$(document).on("click", ".btn-reply-cancel", function(){});
-
+		
+		//댓글 등록 이벤트
+		$(".btn-reply-insert").click(function(){
+			//등록에 필요한 정보(내용, 소속글번호)를 구해온다
+			var replyContent = $(".reply-editor").val();
+			if(replyContent.length == 0) return; // 비어있는 경우만 차단
+			//if(replyContent.trim()length == 0) return; //공백만 있는 경우도 차단
+			
+			//파라미터에서 게시글 번호를 읽는다
+			var params = new URLSearchParams(location.search);
+			var boardNo = params.get("boardNo");
+			
+			$.ajax({
+				url : "/rest/reply/insert", 
+				method : "post", 
+				data : {
+					replyContent : replyContent, 
+					replyOrigin : boardNo
+				},
+				success : function(response){ //항상 비동기통신은 성공하고 난 후에 어떻게할지 작성해야함
+					$(".reply-editor").val(""); //에디터 내용 삭제
+					loadList(); //등록 완료 시 목록 갱신
+				}
+			});
+			
+		});
+		
+		//문서에 댓글 수정 이벤트 등록
+		//- 수정용 템플릿을 불러와서 출력용 템플릿의 내용을 복사한 뒤 추가
+		//- (네이버) 하나의 글만 수정이 가능하던데....
+		$(document).on("click", ".btn-reply-edit", function(){
+			//(네이버) 열려있는 모든 수정화면을 되돌린다
+			$(".reply-item-edit").prev(".reply-item").show();
+			$(".reply-item-edit").remove();
+			
+			//템플릿 불러와서 해석
+			var templateText = $("#reply-item-edit-wrapper").text();
+			var templateHtml = $.parseHTML(templateText);
+			
+			//댓글 내용을 템플릿의 textarea에 설정
+			var replyContent = $(this).parents(".reply-item").find(".reply-content").text();
+			$(templateHtml).find(".reply-editor2").val(replyContent);
+			
+			//(추가) 변경버튼을 눌렀을 때 글번호를 알 수 있도록 설정
+			var replyNo = $(this).data("reply-no");
+			$(templateHtml).find(".btn-reply-save").attr("data-reply-no", replyNo);
+			
+			//화면에 추가
+			$(this).parents(".reply-item").hide().after(templateHtml)
+			
+		});
+		$(document).on("click", ".btn-reply-save", function(){
+			//서버에 변경요청을 비동기로 보내고나서 목록을 갱신
+			//전송에 필요한 정보 - 글번호, 글내용
+			
+			var replyNo = $(this).data("reply-no");
+			var replyContent = $(this).parents(".reply-item-edit").find(".reply-editor2").val();
+			if(replyContent.length == 0) return;
+			
+			$.ajax({
+				url: "/rest/reply/edit",
+				method: "post",
+				data: {
+					replyNo : replyNo,
+					replyContent : replyContent
+				},
+				success: function(response) {
+					loadList();//수정 완료 시 목록 갱신
+				}
+			});
+		});
+		
+		$(document).on("click", ".btn-reply-cancel", function(){
+			//수정용 화면을 제거하고 출력용 화면을 출력
+			$(this).parents(".reply-item-edit").prev(".reply-item").show();
+			$(this).parents(".reply-item-edit").remove();
+		});
+		
+	});
 </script>
 
 
@@ -172,6 +281,7 @@
 	<div class="cell center">
 		<h1>${detailDto.boardTitle}</h1>
 	</div>
+	<hr>
 	<div class="cell floating-cell mx-10">
 		<div class="cell w-50 left">
 			<span>
@@ -201,12 +311,12 @@
 		</span>
 		</div>
 	</div>
-	<hr>
+	<hr class="my-20">
 	<div class="cell w-1000 mx-50 temp">
 		<span>${detailDto.boardContent}</span>
 	</div>
-	<hr>
-	<div class="cell center">
+	<hr class="">
+	<div class="cell right">
 		<a href="write?boardTarget=${detailDto.boardNo}" class="btn">답글쓰기</a>
 		<a href="list" class="btn pink">목록보기</a>
 	
@@ -220,13 +330,49 @@
 			<a href="delete?boardNo=${detailDto.boardNo}" class="btn negative">삭제하기</a>
 		</c:if>
 		<a href="write" class="btn positive">새 게시글 작성하기</a> 
+		<hr class="">
 	</div>
 	
+	
+	
+	
+
+	
+	
 		<!-- 댓글 작성창 + 댓글 목록 -->
-	<div class="cell reply-list-wrapper"></div>
-	<div class="cell">
-		댓글작성창
-	</div>
+	<div class="cell reply-list-wrapper mx-20"></div>
+	
+
+	
+	<%--로그인이 된 경우만 댓글 작성란이 활성화되도록 구분 --%>
+	<c:choose>
+		<c:when test="${sessionScope.loginId != null}">
+			<div class="cell mx-20">
+				<textarea class="tool w-100 reply-editor" style="min-height: 100px"
+					placeholder="댓글을 입력하세요"></textarea>
+			</div>
+			<div class="cell right mx-20">
+				<button class="btn pink w-33 btn-reply-insert">
+				<i class="fa-solid fa-pen"></i>
+				댓글 작성
+				</button>
+			</div>
+		</c:when>
+		<c:otherwise>
+			<div class="cell mx-20">
+				<textarea class="tool w-100 reply-editor" style="min-height: 100px"
+					placeholder="로그인 후 댓글 작성이 가능합니다" disabled></textarea>
+			</div>
+			<div class="cell right mx-20">
+				<button class="btn pink w-33 btn-reply-insert" disabled>
+				<i class="fa-solid fa-pen"></i>
+				댓글 작성
+				</button>
+			</div>
+		</c:otherwise>
+	</c:choose>
+
+
 	
 </div> 
 

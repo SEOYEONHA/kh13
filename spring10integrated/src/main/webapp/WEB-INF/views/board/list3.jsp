@@ -11,9 +11,9 @@
 		<%-- 페이지 제목 --%>
 		<h1>자유게시판</h1>
 	</div>
-	<div class="cell">
+	<div class="cell red">
 		<p>
-			타인에 대한 무분별한 비방 또는 욕설은 환영합니다.
+			타인에 대한 무분별한 비방 또는 욕설을 환영합니다.
 		</p>
 	</div>
 	
@@ -92,7 +92,7 @@
 		</form>
 	</div>
 				
-	<div class="cell floating-cell">
+	<div class="cell floating-cell my-20">
 		<div class="w-50 center">
 			<a href="list" class="btn pink w-75">목록보기</a>
 		</div>
