@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+
+    <!-- ChartJS cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- 내가 만든 스크립트 추가 -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+  $(function () {
+            //목표 : 서버에서 실제 데이터를 불러와서 그에 따른 차트를 구현
+            $.ajax({
+                url : "http://localhost:8080/rest/stat/member",
+                method : "get",
+                // data : {},
+                success : function(response){
+                    // 차트에 들어갈 수 있도록 데이터 구조 변경
+                    // - JS의 배열은 자동 증가하며 추가명령은 .push()이다.
+                    var labelList = [];
+                    var dataList = [];
+
+                    for(var i=0; i< response.length; i++) {
+                        labelList.push(response[i].title);
+                        dataList.push(response[i].count);
+                    }
+
+                    // 완성된 labelList와 dataList를 이용하여 차트 생성하는 구문
+                    var ctx = document.querySelector(".custom-chart")
+        
+                    // new Chart(캔버스태그, 차트옵션객체); [] 배열, {} 객체
+                    new Chart(ctx, {
+                        type: 'bar', // 차트 유형(bar, line, doughnut, pie)
+                        data: { // 차트에 표시될 정보
+                            labels: labelList, //하단 항목명
+                            datasets: [{
+                                label: '', //범례  (label : 제목)
+                                data: dataList, //실제 값
+                                borderWidth: 2,
+                                backgroundColor:["#d6303155","#fdcb6e77","#ffeaa777","#00b89477","#74b9ff77","#3742fa77","#5352ed77"],
+                                borderColor:["#d63031","#fdcb6e","#ffeaa7","#00b894","#74b9ff","#3742fa","#5352ed"],
+                            }]
+                        },
+                        options: {
+                            //데이터 범례(라벨)을 표시되지 않도록 하는 속성
+                            plugins: {
+                                legend: {
+                                    display : false
+                                }
+                            },
+                            // scales: {
+                            //     y: {
+                            //         beginAtZero: true // 0을 차트의 시작점으로 할 것인가?
+                            //     }
+                            // }
+                        }
+                    });
+                }
+            });
+        });
+      
+
+    </script>
+</head>
+
+<body>
+
+
+    <div class="container w-400">
+        <div class="cell center">
+            <h1>Chart JS</h1>
+        </div>
+        <div class="cell">
+            <!-- 차트 표시 영역 -->
+            <canvas class="custom-chart"></canvas>
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
