@@ -286,12 +286,12 @@
 		<div class="cell w-50 left">
 			<span>
 				<fmt:formatDate value="${detailDto.boardWtime}" 
-					pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate> (${detailDto.boardWtimeDiff})
+					pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate> (${detailDto.boardWtimeDiff})<span> | </span>
 					<c:if test="${detailDto.boardEtime != null}">
 						(수정됨)<fmt:formatDate value="${detailDto.boardEtime}" 
-							pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate>
+							pattern="yyyy-MM-dd HH:mm:ss"></fmt:formatDate><br>
 					</c:if>
-					<span> | </span>
+					
 				<c:choose>
 					<c:when test="${detailDto.boardWriter == null}">
 						${boardDto.boardWriterStr}
@@ -313,7 +313,7 @@
 	</div>
 	<hr class="my-20">
 	<div class="cell w-1000 mx-50 temp">
-		<span>${detailDto.boardContent}</span>
+		${detailDto.boardContent}
 	</div>
 	<hr class="">
 	<div class="cell right">

@@ -28,7 +28,7 @@
 		</a> 
 	</div>
 	
-		<%--검색창 --%>
+	<%--검색창 --%>
 	<div class="cell center">
 		<form action="list" method="get" autocomplete="off">
 			<div class="cell">
@@ -38,11 +38,14 @@
 					<option value="menu_type" ${param.column == 'menu_type' ? 'selected' : ' '}>타입</option>
 				</select>
 				<input type="text" name="keyword" placeholder="검색어를 입력하세요" required class="tool" value="${param.keyword}">
-				<button class="btn">검색</button>
+				<button class="btn">
+					<i class="fa-solid fa-magnifying-glass"></i>
+					검색
+				</button>
 			</div>
-		<%-- 검색창 종료지점 --%>
 		</form>
 	</div>
+	<%-- 검색창 종료지점 --%>
 
 <form action="deleteAll" method="post">
 	<div class="cell">

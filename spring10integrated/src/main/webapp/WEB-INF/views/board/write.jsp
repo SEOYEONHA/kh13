@@ -23,10 +23,10 @@
 				<c:choose>
 					<c:when test="${param.boardTarget != null}">
 						<input type="hidden" name="boardTarget" value="${param.boardTarget}" >
-					<input type="text" name="boardTitle" placeholder="게시글 제목" class="w-75" required value="RE: ${targetDto.boardTitle}">
+					<input type="text" name="boardTitle" placeholder="게시글 제목" class="tool w-75" required value="RE: ${targetDto.boardTitle}">
 					</c:when>
 					<c:otherwise>
-						<input type="text" name="boardTitle" placeholder="게시글 제목" required class="w-75">
+						<input type="text" name="boardTitle" placeholder="게시글 제목" required class="tool w-75">
 					</c:otherwise>
 				</c:choose>
 			</div>
