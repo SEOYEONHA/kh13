@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .map {
+            width: 100%;
+            height: 400px;
+        }
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가(jQuery를 사용했으니 jQuery CDN 아래 작성) -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현-->
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=44051ef145f6b735ac8da5c7428992fc&libraries=services"></script>
+    <script type="text/javascript">
+        $(function () {
+            $(".map").each(function () {
+                var container = this;
+                var address = $(this).data("address");
+                var info = $(this).data("info");
+
+                // 주소를 좌표로 변환
+                var geocoder = new kakao.maps.services.Geocoder();
+                geocoder.addressSearch(address, function (result, status) {
+                    if (status === kakao.maps.services.Status.OK) {
+                        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                        // 지도 생성
+                        var map = new kakao.maps.Map(container, {
+                            center: coords,
+                            level: 3,
+                            draggable: false
+                        });
+
+                        // 마커 생성 및 정보 창 표시
+                        var marker = new kakao.maps.Marker({
+                            map: map,
+                            position: coords
+                        });
+                        if (info != null) {
+                            var infowindow = new kakao.maps.InfoWindow({
+                                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + info + '</div>'
+                            });
+                        }
+                        else {
+                            var infowindow = new kakao.maps.InfoWindow({
+                                content: '<div style="width:150px;text-align:center;padding:6px 0;">' + address + '</div>'
+                            });
+                        }
+
+                        infowindow.open(map, marker);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>모든 map에 대한 지도를 표시</h1>
+        </div>
+        <div class="cell my-30">
+            <div class="map" data-address="선유로 43나길 16" data-info="우리집"></div>
+        </div>
+        <div class="cell my-30">
+            <div class="map" data-address="용문로 149" data-info="제주집"></div>
+        </div>
+        <div class="cell my-30">
+            <div class="map" data-address="영등포구 선유동2로 57"></div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
