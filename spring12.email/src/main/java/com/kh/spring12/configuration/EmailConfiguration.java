@@ -2,6 +2,7 @@ package com.kh.spring12.configuration;
 
 import java.util.Properties;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -10,14 +11,17 @@ import org.springframework.mail.javamail.JavaMailSenderImpl;
 @Configuration //설정파일로 등록하는 구문
 public class EmailConfiguration {
 	
+	@Autowired
+	private EmailProperties emailProperties;
+	
 	@Bean //스프링 빈(객체)으로 등록하는 구문
 	public JavaMailSenderImpl sender() {
 		//이메일을 전송하려면 전송도구가 필요하다
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 		sender.setHost("smtp.gmail.com"); //업체의 호스트 정보
 		sender.setPort(587); //업체의 포트번호
-		sender.setUsername("hwangtest135"); //계정
-		sender.setPassword("niprhifmkbqtgrxv"); //비밀번호
+		sender.setUsername(emailProperties.getId()); //계정
+		sender.setPassword(emailProperties.getPw()); //비밀번호
 		
 		//통신과 관련된 추가 설정
 		Properties props = new Properties(); //자바에서 제공하는 문자열 Map
