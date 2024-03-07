@@ -22,8 +22,8 @@ public class SendMailTest01 {
 		JavaMailSenderImpl sender = new JavaMailSenderImpl();
 		sender.setHost("smtp.gmail.com"); //업체의 호스트 정보
 		sender.setPort(587); //업체의 포트번호
-		sender.setUsername("yeonhaseo570@gmail.com"); //계정
-		sender.setPassword("Yeonhaseo570!@"); //비밀번호
+		sender.setUsername("hwangtest135"); //계정
+		sender.setPassword("niprhifmkbqtgrxv"); //비밀번호
 		
 		//통신과 관련된 추가 설정
 		Properties props = new Properties(); //자바에서 제공하는 문자열 Map
