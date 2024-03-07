@@ -17,6 +17,7 @@ import com.kh.spring10.dao.BuyDao;
 import com.kh.spring10.dao.MemberDao;
 import com.kh.spring10.dto.MemberDto;
 import com.kh.spring10.service.AttachService;
+import com.kh.spring10.service.EmailService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -36,6 +37,9 @@ public class MemberController {
 	@Autowired
 	private BuyDao buyDao;
 	
+	@Autowired
+	private EmailService emailService; 
+	
 	
 	//회원가입
 	@GetMapping("/join")
@@ -47,12 +51,17 @@ public class MemberController {
 									@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
 		memberDao.insert(memberDto);
 		
+		//첨부파일 등록
 		if(!attach.isEmpty()) {
 			int attachNo = attachService.save(attach); //파일저장 + DB저장
 			
 			//주인공이 되는곳에 구현하는게 좋음
 			memberDao.connect(memberDto.getMemberId(), attachNo); //연결
 		}
+		
+		//가입 환영 메일 발송
+		emailService.sendWelcomeMail(memberDto.getMemberEmail());
+		
 		return "redirect:joinFinish";
 	}
 	@RequestMapping("/joinFinish")
