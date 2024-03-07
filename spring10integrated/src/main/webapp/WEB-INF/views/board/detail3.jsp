@@ -327,7 +327,8 @@
 		--%>
 		<c:if test="${sessionScope.loginId != null && (sessionScope.loginId == detailDto.boardWriter || sessionScope.loginLevel == '관리자')}">
 			<a href="edit?boardNo=${detailDto.boardNo}" class="btn purple">수정하기</a>
-			<a href="delete?boardNo=${detailDto.boardNo}" class="btn negative">삭제하기</a>
+			<a class="btn negative link-confirm" data-message="정말 삭제하시겠습니까?"
+					href="delete?boardNo=${detailDto.boardNo}" >삭제하기</a>
 		</c:if>
 		<a href="write" class="btn positive">새 게시글 작성하기</a> 
 		<hr class="">

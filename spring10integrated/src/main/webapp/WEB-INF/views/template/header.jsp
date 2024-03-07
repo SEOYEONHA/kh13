@@ -91,11 +91,14 @@
 	
 	                        for(var i = 0 ; i < response.length ; i++) {
 	                            //response[i] == 이미지 번호 1개
-	                            var tag = $("<img>").attr("src", "/download?attachNo="+response[i]);
+	                            var tag = $("<img>")
+	                            			.attr("src", "/download?attachNo=" + response[i])
+	                            			.attr("data-key", response[i])
+	                            			.addClass("server-img");
 	                            $(editor).summernote("insertNode", tag[0]);
-	                        }
-                           }
-                        });
+	                        	}
+                          	}
+                       });
                     }
                 }
 
