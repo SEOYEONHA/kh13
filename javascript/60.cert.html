@@ -86,9 +86,11 @@
                         // console.log(response);
                         $(".cert-input").removeClass("success fail")
                                             .addClass(response === true ? "success" : "fail");
-                        $(".btn-check=cert").off("click");
-                        // $(".btn-check-cert").remove();
-                        // $(".btn-check-cert").prop("disabled", true);
+                        if(response === true){
+                            $(".btn-check=cert").off("click");
+                            // $(".btn-check-cert").remove();
+                            // $(".btn-check-cert").prop("disabled", true);
+                        }
                     }, 
                     error: function(){
                         alert("확인 과정에서 오류가 발생했습니다");
