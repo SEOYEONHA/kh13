@@ -1,5 +1,6 @@
 package com.kh.spring10.service;
 
+import java.text.DecimalFormat;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,7 +8,9 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.stereotype.Service;
 
+import com.kh.spring10.dao.CertDao;
 import com.kh.spring10.dao.MemberDao;
+import com.kh.spring10.dto.CertDto;
 import com.kh.spring10.dto.MemberDto;
 
 @Service
@@ -91,5 +94,42 @@ public class EmailService {
 		sender.send(message);
 	}
 	
-	//인증번호 발송
+	@Autowired
+	private CertDao certDao;
+	
+	//인증번호 발송 - 주어진 이메일에 무작위 6자리 숫자를 전송
+	public void sendCert(String memberEmail) {
+		Random r = new Random();
+		int number = r.nextInt(1000000); //000000~999999
+		DecimalFormat fmt = new DecimalFormat("000000");
+		
+		//인증번호 저장 - 기존 내역 삭제 후 저장
+		certDao.delete(memberEmail);
+		CertDto certDto = new CertDto();
+		certDto.setCertEmail(memberEmail);
+		certDto.setCertNumber(fmt.format(number));
+		certDao.insert(certDto);
+		
+		
+		//메일 발송
+		SimpleMailMessage message = new SimpleMailMessage();
+		message.setTo(memberEmail);
+		message.setSubject("[KH정보교육원] 인증번호 안내");
+		message.setText("인증번호는 [" + fmt.format(number) + "] 입니다");
+		
+		sender.send(message);
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
