@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../css/test.css"> -->
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+
+
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가(jQuery를 사용했으니 jQuery CDN 아래 작성) -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function () {
+            //인증 메일 보내기 이벤트
+            var memberEmail;
+            $(".btn-send-cert").click(function () {
+                var btn = this;
+                // $(btn).find("span").text("전송중");
+                $(btn).find("i").removeClass("fa-paper-plane fa-regular")
+                    .addClass("fa-solid fa-spinner fa-spin");
+                $(btn).prop("disabled", true);
+
+                //이메일 불러오기
+                var email = $("[name=memberEmail]").val();
+                if (email.length == 0) return;
+
+                $.ajax({
+                    url: "http://localhost:8080/rest/member/sendCert",
+                    method: "post",
+                    data: { memberEmail: email },
+                    success: function (response) {
+                        //템플릿을 불러와서 인증번호 입력창을 추가
+                        var templateText = $("#cert-template").text();
+                        var templateHtml = $.parseHTML(templateText);
+
+                        $(".cert-wrapper").empty().append(templateHtml);
+                        //$(".cert-wrapper").html(templateHtml);
+
+                        //이메일 정보를 저장
+                        memberEmail = email;
+                    },
+                    error: function () {
+                        alert("잠시 후 이용해주세요");
+                    },
+                    complete: function () {
+                        // $(btn).find("span").text("보내기");
+                        $(btn).find("i").removeClass("fa-solid fa-spinner fa-spin")
+                            .addClass(" fa-regular fa-paper-plane");
+                        $(btn).prop("disabled", false);
+                    },
+                });
+            });
+            
+            //인증번호 확인버튼 이벤트
+            $(document).on("click", ".btn-check-cert", function(){
+                // var email = $("[name=memberEmail]").val(); //이메일
+                var number = $(".cert-input").val(); //인증번호
+                if(memberEmail == undefined || number.length == 0) return;
+
+                $.ajax({
+                    url: "http://localhost:8080/rest/member/checkCert", 
+                    method: "post", 
+                    data: { certEmail : memberEmail, certNumber : number }, 
+                    success: function(response){
+                        //response는 true 아니면 false이므로 상태를 갱신하도록 처리
+                        // console.log(response);
+                        $(".cert-input").removeClass("success fail")
+                                            .addClass(response === true ? "success" : "fail");
+                        if(response === true){
+                            $(".btn-check=cert").off("click");
+                            // $(".btn-check-cert").remove();
+                            // $(".btn-check-cert").prop("disabled", true);
+                        }
+                    }, 
+                    error: function(){
+                        alert("확인 과정에서 오류가 발생했습니다");
+                    }, 
+                    // complete: function(){}
+                });
+            });
+        });
+
+    </script>
+
+    <script type="text/template" id="cert-template">
+        <div>
+            <input type="text" class="tool cert-input" placeholder="인증번호">
+            <button class="btn btn-check-cert">
+                <i class="fa-solid fa-check"></i>
+            </button>
+            <div class="success-feedback">이메일 인증 완료</div>
+            <div class="fail-feedback">인증번호를 확인해주세요</div>
+        </div>
+    </script>
+
+</head>
+
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>이메일 인증</h1>
+        </div>
+        <div class="cell flex-cell">
+            <input type="email" name="memberEmail" class="tool w-100" placeholder="이메일 입력">
+            <buttom class="btn pink btn-send-cert">
+                <i class="fa-regular fa-paper-plane"></i>
+            </buttom>
+        </div>
+
+        <div class="cell cert-wrapper">
+
+        </div>
+    </div>
+
+
+
+</body>
+
+</html>
