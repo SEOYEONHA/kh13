@@ -188,15 +188,16 @@ public class BoardController {
 	// paging 처리를 별도의 VO 클래스로 구현
 	// (참고) @ModelAtrribute에 옵션을 주면 자동으로 모델에 첨부된다 
 	@RequestMapping("/list")
-	public String list(@ModelAttribute PageVO vo, 
+	public String list(@ModelAttribute PageVO vo,
 							Model model) {
 		//세부 계산은 클래스에서 수행하도록 하고 count, list만 처리
 		int count = boardDao.count(vo);
 		vo.setCount(count);
 		
 		List<BoardDto> boardList = boardDao.selectListByPaging(vo);
+//		List<BoardDto> boardList = boardDao.selectList();
 		model.addAttribute("boardList", boardList);
-		//vo.setList(list); //위에거나 이거나 둘중하나
+//		vo.setList(list); //위에거나 이거나 둘중하나
 		
 		return "/WEB-INF/views/board/list3.jsp";
 	}
