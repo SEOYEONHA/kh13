@@ -1,7 +1,11 @@
 package com.kh.spring10.vo;
 
+import org.springframework.stereotype.Service;
+
 //페이징에 필요한 값들을 전달받아 계산을 수행하는 클래스
 //필요한 값 - column, keyword, page, size, count
+
+@Service
 public class PageVO {
 	private String column, keyword; //검색항목, 검색어
 	private int page = 1; //현재 페이지

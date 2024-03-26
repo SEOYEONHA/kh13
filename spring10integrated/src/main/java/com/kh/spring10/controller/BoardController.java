@@ -1,7 +1,13 @@
 package com.kh.spring10.controller;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -18,6 +24,7 @@ import com.kh.spring10.dao.BoardDao;
 import com.kh.spring10.dao.MemberDao;
 import com.kh.spring10.dto.BoardDto;
 import com.kh.spring10.dto.MemberDto;
+import com.kh.spring10.service.AttachService;
 import com.kh.spring10.vo.PageVO;
 
 import jakarta.servlet.http.HttpSession;
@@ -38,6 +45,9 @@ public class BoardController {
 	
 	@Autowired
 	private MemberDao memberDao;
+	
+	@Autowired
+	private AttachService attachService;
 	
 	
 //	//게시글 등록
@@ -178,15 +188,16 @@ public class BoardController {
 	// paging 처리를 별도의 VO 클래스로 구현
 	// (참고) @ModelAtrribute에 옵션을 주면 자동으로 모델에 첨부된다 
 	@RequestMapping("/list")
-	public String list(@ModelAttribute PageVO vo, 
+	public String list(@ModelAttribute PageVO vo,
 							Model model) {
 		//세부 계산은 클래스에서 수행하도록 하고 count, list만 처리
 		int count = boardDao.count(vo);
 		vo.setCount(count);
 		
 		List<BoardDto> boardList = boardDao.selectListByPaging(vo);
+//		List<BoardDto> boardList = boardDao.selectList();
 		model.addAttribute("boardList", boardList);
-		//vo.setList(list); //위에거나 이거나 둘중하나
+//		vo.setList(list); //위에거나 이거나 둘중하나
 		
 		return "/WEB-INF/views/board/list3.jsp";
 	}
@@ -202,17 +213,63 @@ public class BoardController {
 	
 	@PostMapping("/edit")
 	public String edit(@ModelAttribute BoardDto boardDto) {
-		if(boardDao.editBoard(boardDto)){
-			return "redirect:detail?boardNo=" + boardDto.getBoardNo();
+		//수정 전,후를 비교하여 사라진 이미지를 찾아 삭제
+		//- 수정 전 이미지 그룹과 수정 후 이미지의 차집합(Set 사용)
+		
+		//기존 글 조회하여 수정 전 이ㅣ지 그룹을 조사
+		Set<Integer> before = new HashSet<>();
+		BoardDto findDto = boardDao.selectOne(boardDto.getBoardNo());
+		Document doc = Jsoup.parse(findDto.getBoardContent()); //해석
+		for(Element el : doc.select(".server-img")){ //태그 찾아서 반복
+			String key = el.attr("data-key"); //data-key 추출
+			int attachNo = Integer.parseInt(key); //숫자로 변환
+			before.add(attachNo); //저장
 		}
-		else {
-			return "redirect:edit?error";
+		
+		//수정한 글 조사하여 수정 후 이미지 그룹을 조사
+		Set<Integer> after = new HashSet<>();
+		doc = Jsoup.parse(boardDto.getBoardContent()); //해석
+		for(Element el : doc.select(".server-img")) { //태그 찾아서 반복
+			String key = el.attr("data-key"); //data-key 추출
+			int attachNo =  Integer.parseInt(key); //숫자로 변환
+			after.add(attachNo); //저장
 		}
+		
+		//before에만 있는 번호를 찾아서 모두 삭제
+		before.removeAll(after);
+		
+		//before에 남은 번호에 대한 이미지를 모두 삭제
+		for(int attachNo : before) {
+			attachService.remove(attachNo);
+		}
+		
+		boardDao.editBoard(boardDto);
+		return "redirect:detail?boardNo=" + boardDto.getBoardNo();
+		
 	}
 	
 	//게시물 삭제
 	@GetMapping("/delete")
 	public String delete(@RequestParam int boardNo) {
+		//(summernote 관련 추가할 내용)
+		//- 글을 지우면 첨부파일이 좀비가 된다
+		//- 글과 첨부파이링 연결되어 있지 않다
+		//- 글 내용을 찾아서 사용된 이미지 번호를 뽑아 모두 삭제하도록 구현
+		//- DB를 활용하는 것이 아닌 프로그래밍으로 처리하는 방식(DB로 처리하려면 처음부터 연결해놨어야함)
+		//- 글 안에 있는 <img> 중에 .server-img를 찾아서 data-key를 읽어 삭제
+		//- (문제점) Java에서 HTML 구조를 탐색(해석)할 수 있나? ==> OK(Jsoup)
+		
+		BoardDto boardDto = boardDao.selectOne(boardNo);
+		
+		//Jsoup으로 내용을 탐색하는 과정
+		Document document = Jsoup.parse(boardDto.getBoardContent());
+		Elements elements = document.select(".server-img"); //태그찾기
+		for(Element element : elements) {//반복문으로 한 개씩 처리
+			String key = element.attr("data-key"); //data-key 속성을 읽어라
+			int attachNo = Integer.parseInt(key); //숫자로 변환
+			attachService.remove(attachNo); //파일삭제 + DB삭제
+		}
+		
 		boardDao.delete(boardNo);
 		//return "redirect:/board/list";//절대경로
 		return "redirect:list";

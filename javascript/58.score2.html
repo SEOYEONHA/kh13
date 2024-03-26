@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <!-- <link rel="stylesheet" type="text/css" href="../css/test.css"> -->
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+
+    <style>
+        .btn{
+            background-color: #FD7272;
+            color: white;
+        }
+    
+
+    </style>
+
+    <!-- jquery CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- score CDN -->
+    <script src="https://cdn.jsdelivr.net/gh/hiphop5782/score@latest/score.min.js"></script>
+    <!-- 내가 만든 스크립트 추가(jQuery를 사용했으니 jQuery CDN 아래 작성) -->
+    <script src="commons.js"></script>
+
+
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            $(".score").score({
+                starColor: "#D6A2E8", //별 색상
+                display: {//표시 옵션
+                    showNumber: true, //숫자 표시 여부
+                    textColor: "#82589F", //글자색상
+                    placeLimit: 2, //표시할 소수점 자리수
+                },
+            });
+
+                //작성용
+                $(".score-edit").score({
+                starColor: "#FD7272", //별 색상
+                editable: true, //편집 가능 설정
+                integerOnly: true, //정수만 선택 가능
+
+                send: {
+                    sendable: true, //전송허용
+                    name: "score", //전송할 파라미터 명
+                },
+
+                display: {//표시 옵션
+                    showNumber: true, //숫자 표시 여부
+                    textColor: "#FD7272", //글자색상
+                    placeLimit: 1, //표시할 소수점 자리수
+                },
+
+                point: {//점수 옵션
+                    max: 10, //최대점수
+                    rate: 1, //최초점수
+                },
+            });
+        });
+    
+        
+        
+        
+    </script>
+</head>
+<body>
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>평점 라이브러리</h1>
+        </div>
+        <div class="cell">
+            <h2>표시할 때</h2>
+        </div>
+        <div class="cell">
+            <div class="score" data-max="5.0" data-rate="3.5"></div>
+        </div>
+
+        <div class="cell">
+            <h2>작성할 때</h2>
+        </div>
+        <div class="cell">
+            <div class="score-edit"></div>
+        </div>
+        <div class="cell">
+            <button class="btn" type="submit">전송</button>
+        </div>
+    </div>
+
+
+    
+    
+</body>
+</html>

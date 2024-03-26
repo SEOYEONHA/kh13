@@ -17,6 +17,7 @@ import com.kh.spring10.dao.BuyDao;
 import com.kh.spring10.dao.MemberDao;
 import com.kh.spring10.dto.MemberDto;
 import com.kh.spring10.service.AttachService;
+import com.kh.spring10.service.EmailService;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -36,6 +37,9 @@ public class MemberController {
 	@Autowired
 	private BuyDao buyDao;
 	
+	@Autowired
+	private EmailService emailService; 
+	
 	
 	//회원가입
 	@GetMapping("/join")
@@ -47,12 +51,17 @@ public class MemberController {
 									@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
 		memberDao.insert(memberDto);
 		
+		//첨부파일 등록
 		if(!attach.isEmpty()) {
 			int attachNo = attachService.save(attach); //파일저장 + DB저장
 			
 			//주인공이 되는곳에 구현하는게 좋음
 			memberDao.connect(memberDto.getMemberId(), attachNo); //연결
 		}
+		
+		//가입 환영 메일 발송
+		emailService.sendWelcomeMail(memberDto.getMemberEmail());
+		
 		return "redirect:joinFinish";
 	}
 	@RequestMapping("/joinFinish")
@@ -273,6 +282,67 @@ public class MemberController {
 		}
 	}
 	
+	//아이디 찾기
+	@GetMapping("/findId")
+	public String findId() {
+		return "/WEB-INF/views/member/findId.jsp";
+	}
+	
+	@PostMapping("/findId")
+	public String findId(@RequestParam String memberNick) {
+		boolean result =  emailService.sendMemberId(memberNick);
+		if(result) {
+			return "redirect:findIdSuccess";
+		}
+		else {
+			return "redirect:findIdFail";
+		}
+	}
+	@RequestMapping("/findIdSuccess")
+	public String findIdSuccess() {
+		return "/WEB-INF/views/member/findIdSuccess.jsp";
+	}
+	@RequestMapping("/findIdFail")
+	public String findIdFail() {
+		return "/WEB-INF/views/member/findIdFail.jsp";
+	}
+	
+	//비밀번호 찾기
+	
+	@GetMapping("/findPw")
+	public String findPw() {
+		return "/WEB-INF/views/member/findPw.jsp";
+	}
+	
+	@PostMapping("/findPw")
+	public String findPw(@ModelAttribute MemberDto memberDto) {
+		
+		MemberDto findDto = memberDao.selectOne(memberDto.getMemberId());
+		
+		//아이디 있는지
+//		boolean isMember =  findDto != null;
+//		
+//		//이메일이 일치한지
+//		boolean isEmailCheck = findDto.getMemberEmail().equals(memberDto.getMemberEmail());
+		
+		//아이디가 있으면서 이메일까지 일치
+		boolean sendPwOk = findDto != null && findDto.getMemberEmail().equals(memberDto.getMemberEmail());
+		if(sendPwOk) {
+			emailService.sendTempPassword(findDto);
+			return "redirect:findPwSuccess";
+		}
+		else {
+			return "redirect:findPwFail";
+		}
+	}
+	@RequestMapping("/findPwSuccess")
+	public String findPwSuccess() {
+		return "/WEB-INF/views/member/findPwSuccess.jsp";
+	}
+	@RequestMapping("/findPwFail")
+	public String findPwFail() {
+		return "/WEB-INF/views/member/findPwFail.jsp";
+	}
 	
 	
 	

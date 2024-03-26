@@ -30,7 +30,7 @@
 
     <!-- 내가 구현한 스타일 -->
     <link rel="stylesheet" type="text/css" href="/css/commons.css">
-    <link rel="stylesheet" type="text/css" href="/css/test.css">
+    <!--<link rel="stylesheet" type="text/css" href="/css/test.css"> -->
     <link rel="stylesheet" type="text/css" href="/css/layout.css">
 
     <!-- font awesome 아이콘 CDN -->
@@ -39,6 +39,74 @@
 
     <!-- jQuery CDN -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    
+    <!-- summernote cdn -->
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    <style>
+	    .note-editor {
+	        border: 1px solid #636e72 !important;
+	    }
+    </style>
+    <script>
+    	$(function(){
+    		var options = {toolbar: [
+                // [groupName, [list of button]]
+                ['style', ['bold', 'italic', 'underline']],
+                // ['font', ['strikethrough', 'superscript', 'subscript']],
+                ['fontsize', ['fontname', 'fontsize']],
+                ['color', ['forecolor', 'backcolor']],
+                ['para', ['style', 'ul', 'ol', 'paragraph']],
+                // ['height', ['height']]
+                ['insert', ['picture', 'link', 'hr']],
+            ],
+
+            //기본높이 설정(단위 : px)
+            height: 200, 
+            minHeight: 200, 
+            maxHeight: 300,
+
+            //안내문구 설정
+            //placeholder: "내용을 입력하세요", 
+            callbacks: {
+	            onImageUpload: function (files) {
+	            	var editor = this;
+	               
+	                var formData = new FormData();
+	                //formData.append("이름", 값);
+	                for(var i = 0 ; i < files.length ; i ++){
+	                    formData.append("attachList", files[i]);
+	                }
+	                
+	
+	                $.ajax({
+	                    url: "/rest/board_attach/upload", 
+	                    method: "post", 
+	                    data: formData, 
+	                    processData: false, 
+	                    contentType: false, 
+	                    success: function(response){
+	                        // console.log(response);
+	                        if(response == null) return;
+	
+	                        for(var i = 0 ; i < response.length ; i++) {
+	                            //response[i] == 이미지 번호 1개
+	                            var tag = $("<img>")
+	                            			.attr("src", "/download?attachNo=" + response[i])
+	                            			.attr("data-key", response[i])
+	                            			.addClass("server-img");
+	                            $(editor).summernote("insertNode", tag[0]);
+	                        	}
+                          	}
+                       });
+                    }
+                }
+
+        	};
+    		
+    		$("[name=boardContent]").summernote(options);
+    	});
+    </script>
     
     <!-- 내가 만든 JS -->
     <script src="/js/commons.js"></script>    

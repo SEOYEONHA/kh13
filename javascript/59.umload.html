@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Javascript 예제</title>
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- 내가 구현한 스타일 -->
+    <link rel="stylesheet" type="text/css" href="../css/commons.css">
+    <link rel="stylesheet" type="text/css" href="../css/test.css">
+
+    <!-- font awesome 아이콘 CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+    
+    
+
+    </style>
+
+    <!-- jquery cdn -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <!-- 내가 만든 스크립트 추가(jQuery를 사용했으니 jQuery CDN 아래 작성) -->
+    <script src="commons.js"></script>
+    <!-- javascript를 의도적으로 head 자리에 배치해서 가장 먼저 실행되도록 구현 -->
+    <script type="text/javascript">
+        $(function(){
+            //창에 beforeunload 이벤트 설정
+            $(window).on("beforeunload", function(){
+                return false;
+            });
+
+            //<form>에 .free-pass가 붙어있으면 submit시 beforeunload 제거
+            $("form.free-pass").submit(function(){
+                $(window).off("beforeunload");
+                return true;
+            });
+            //<a>에 .free-pass가 붙어있으면 click시 beforeunload 제거
+            $("a.free-pass").click(function(){
+                $(window).off("beforeunload");
+                return true;
+            });
+        });
+        
+        
+        
+    </script>
+</head>
+<body>
+
+
+    <div class="container w-500">
+        <div class="cell center">
+            <h1>페이지 이탈 방지 처리</h1>
+        </div>
+        <div class="cell">
+            게시글 작성 등 한 화면에서 오래 작업을 하는 경우
+            내용이 실수로 없어지는 것을 방지하기 위해서
+            페이지를 이탈 하는 행위를 할 때 확인창을 출력하는 것을 의미
+        </div>
+
+        <form class="free-pass">
+            <div class="cell">
+                <textarea class="tool w-100" name="dummy"></textarea>
+            </div>
+            <div class="cell">
+                <button type="submit" class="btn pink w-100">등록</button>
+            </div>
+        </form>
+
+        <div class="cell">
+            <h2><a href="http://www.google.com" class="link">그냥 링크</a></h2>
+            <h2><a href="http://www.google.com" class="link free-pass">메세지 안뜨는 링크</a></h2>
+
+        </div>
+    </div>
+
+    
+    
+</body>
+</html>

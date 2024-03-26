@@ -48,8 +48,10 @@
 						- 상용 에디터를 쓰면 알아서 글자를 보정해주기 때문에 문제가 없다
 						- 기본 textarea를 쓰면 문제가 발생한다
 						- <pre>태그를 사용하면 글자를 있는그대로 출력한다
+						- Rich Text Editor를 사용하면 문제가 해결된다(ex : summernote)
+						<pre>${detailDto.boardContent}</pre>
 					 --%>
-					<pre>${detailDto.boardContent}</pre>
+					 {detailDto.boardContent}
 				</td>
 			</tr>
 			<tr>

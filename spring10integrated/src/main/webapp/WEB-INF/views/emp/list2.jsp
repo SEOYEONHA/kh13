@@ -26,7 +26,7 @@
 	</div>
 	
 	<form action="deleteAll" method="post">
-	<div class="cell">
+		<div class="cell">
 		<%-- 목록 출력 --%>
 		<table class="table table-border table-hover">
 			<thead>

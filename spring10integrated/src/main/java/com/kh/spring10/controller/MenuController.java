@@ -30,6 +30,9 @@ public class MenuController {
 	@Autowired
 	private MenuDao dao;
 	
+	@Autowired
+	private PageVO pageVO;
+	
 	//등록 페이지
 	@GetMapping("/insert")
 	public String insert() {
@@ -117,6 +120,16 @@ public class MenuController {
 	public String delete(@RequestParam int menuNo) {
 		dao.delete(menuNo);
 		return "redirect:list";
+	}
+	
+	@PostMapping("/deleteAll")
+	public String deleteAll(@RequestParam List<Integer> menuNo) {
+		for(int no : menuNo) {
+			dao.delete(no);
+		}
+//		return "redirect:list?page=" + pageVO.getPage() + "&size=" + pageVO.getSize()
+//								+ "&column=" + pageVO.getColumn() + "&keyword=" + pageVO.getKeyword();
+		return "redirect:list?page=" + pageVO.getPage() + "&" + pageVO.getQueryString();
 	}
 	
 }
