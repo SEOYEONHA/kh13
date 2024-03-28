@@ -2,10 +2,13 @@ package com.kh.spring10.vo;
 
 import org.springframework.stereotype.Service;
 
+import lombok.Data;
+
 //페이징에 필요한 값들을 전달받아 계산을 수행하는 클래스
 //필요한 값 - column, keyword, page, size, count
 
 @Service
+@Data
 public class PageVO {
 	private String column, keyword; //검색항목, 검색어
 	private int page = 1; //현재 페이지
@@ -13,48 +16,18 @@ public class PageVO {
 	private int count; //전체 개수(게시글, 상품, 회원 ....)
 	private int blockSize = 10; //블럭 표시 개수
 	
+
 	
-	public PageVO() {
-		super();
-	}
 	public String getColumn() {
 		if(column == null) return "";
 		return column;
 	}
-	public void setColumn(String column) {
-		this.column = column;
-	}
+
 	public String getKeyword() {
 		if(keyword == null) return "";
 		return keyword;
 	}
-	public void setKeyword(String keyword) {
-		this.keyword = keyword;
-	}
-	public int getPage() {
-		return page;
-	}
-	public void setPage(int page) {
-		this.page = page;
-	}
-	public int getSize() {
-		return size;
-	}
-	public void setSize(int size) {
-		this.size = size;
-	}
-	public int getCount() {
-		return count;
-	}
-	public void setCount(int count) {
-		this.count = count;
-	}
-	public int getBlockSize() {
-		return blockSize;
-	}
-	public void setBlockSize(int blockSize) {
-		this.blockSize = blockSize;
-	}
+
 	
 	//계산을 위한 가상의 Getter 메소드 추가
 	public boolean isSearch() {
