@@ -2,6 +2,9 @@ package com.kh.spring10.dto;
 
 import java.sql.Date;
 
+import lombok.Data;
+
+@Data
 public class BuyDto {
 	private int buySerial;
 	private String memberId;
@@ -10,52 +13,5 @@ public class BuyDto {
 	private Date buyTime;
 	private int buyQty;
 	private int buyTotal;
-	public BuyDto() {
-		super();
-	}
-	
-	public int getBuySerial() {
-		return buySerial;
-	}
 
-	public void setBuySerial(int buySerial) {
-		this.buySerial = buySerial;
-	}
-
-	public String getMemberId() {
-		return memberId;
-	}
-	public void setMemberId(String memberId) {
-		this.memberId = memberId;
-	}
-	public int getItemNo() {
-		return itemNo;
-	}
-	public void setItemNo(int itemNo) {
-		this.itemNo = itemNo;
-	}
-	public String getItemName() {
-		return itemName;
-	}
-	public void setItemName(String itemName) {
-		this.itemName = itemName;
-	}
-	public Date getBuyTime() {
-		return buyTime;
-	}
-	public void setBuyTime(Date buyTime) {
-		this.buyTime = buyTime;
-	}
-	public int getBuyQty() {
-		return buyQty;
-	}
-	public void setBuyQty(int buyQty) {
-		this.buyQty = buyQty;
-	}
-	public int getBuyTotal() {
-		return buyTotal;
-	}
-	public void setBuyTotal(int buyTotal) {
-		this.buyTotal = buyTotal;
-	}
 }
