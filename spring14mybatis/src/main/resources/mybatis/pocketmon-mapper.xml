@@ -21,12 +21,14 @@
 	<update id="edit">
 		update pocketmon 
 		set 
-			pocketmon_name=#{pocketmonName}, 
-			pocketmon_type=#{pocketmonType} 
-		where pocketmon_no=#{pocketmonNo}
+			pocketmon_name = #{pocketmonName}, 
+			pocketmon_type = #{pocketmonType} 
+		where pocketmon_no = #{pocketmonNo}
 	</update>
 	
-	
+	<delete id="remove">
+		delete pocketmon where pocketmon_no = #{pocketmonNo}
+	</delete>
 		
 	
 </mapper>
