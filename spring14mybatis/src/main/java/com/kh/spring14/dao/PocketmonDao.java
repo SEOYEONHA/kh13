@@ -21,6 +21,14 @@ public class PocketmonDao {
 		//return pocketmon 영역의 list라는 구문을 실행해서 나온 결과;
 		return sqlSession.selectList("pocketmon.list");
 	}
+	
+	public void insert(PocketmonDto pocketmonDto) {
+		sqlSession.insert("pocketmon.add", pocketmonDto);
+	}
+	
+	public boolean update(PocketmonDto pocketmonDto) {
+		return sqlSession.update("pocketmon.edit", pocketmonDto) > 0;
+	}
 }
 
 
