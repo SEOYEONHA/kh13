@@ -30,8 +30,21 @@ public class PocketmonDao {
 		return sqlSession.update("pocketmon.edit", pocketmonDto) > 0;
 	}
 	
-	public boolean delte(int pocketmonNo) {
+	public boolean delete(int pocketmonNo) {
 		return sqlSession.delete("pocketmon.remove", pocketmonNo) > 0;
+	}
+	
+	//상세조회를 구현하는 방법은 두가지
+	//1. selectList를 사용해서 목록으로 처리 - 여러개 나와도 에러가 안남(안좋은 방법)
+	//2. selectOne을 사용해서 상세조회 처리 - 여러개 나오면 에러발생(좋은 방법)
+	public PocketmonDto selectOne(int pocketmonNo) {
+		//1
+//		List<PocketmonDto> list = sqlSession.selectList("pocketmon.find", pocketmonNo);
+//		return list.isEmpty() ? null : list.get(0);
+		
+		//2
+		return sqlSession.selectOne("pocketmon.find", pocketmonNo);
+		
 	}
 }
 

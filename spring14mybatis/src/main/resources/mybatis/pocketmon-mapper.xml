@@ -29,6 +29,15 @@
 	<delete id="remove">
 		delete pocketmon where pocketmon_no = #{pocketmonNo}
 	</delete>
+	
+	<!-- 
+		상세(단일)조회
+		- 구문은 목록때와 동일하게 생성
+		- 차이는 호출할 때 selectList로 부르냐, selectOne으로 부르냐의 차이
+	 -->
+	 <select id="find" resultType="PocketmonDto">
+	 	select * from pocketmon where pocketmon_no = #{pocketmonNo}
+	 </select>
 		
 	
 </mapper>
