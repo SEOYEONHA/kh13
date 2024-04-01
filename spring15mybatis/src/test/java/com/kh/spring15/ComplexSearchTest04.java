@@ -23,8 +23,14 @@ public class ComplexSearchTest04 {
 	@Test
 	public void test() {
 		Map<String, Object> data = new HashMap<>();
-		data.put("memberId", "test");
-		data.put("memberNick", "테스트");
+//		data.put("memberId", "test");
+//		data.put("memberNick", "테스트");
+//		data.put("memberContact", "01031233123");
+//		data.put("minPoint", 10000);
+//		data.put("maxPoint", 50000);
+//		data.put("memberJoin", "2024-02-28");
+//		data.put("minLoginDate", "2024-02-15");
+//		data.put("maxLoginDate", "2024-03-15");
 		
 		List<MemberDto> list = sqlSession.selectList("member.complex", data);
 		for(MemberDto memberDto : list) {
