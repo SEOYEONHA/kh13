@@ -46,6 +46,10 @@
 	 	- 유사검색, 일치검색, 구간검색 중 적절한 것을 선택
 	  -->
 	  <select id="complex" resultType="MemberDto">
+	  
+	  <!--  top n query header 삽입 -->
+	  <include refid="top-n-header"></include>
+	  
 	  	select * from member 
 	  	<where>
 	  		<!-- 아이디(시작검사) -->
@@ -117,8 +121,63 @@
 		  			]]>
 		  		</when>
 		  	</choose>
+		  	
+		  	<!--  회원등급 - 여러 개 선택 가능하도록 구현 (memberLevelList) -->
+		  	<if test="memberLevelList != null and memberLevelList.size() > 0">
+		  		and member_level in 
+				<foreach collection="memberLevelList" item="memberLevel" 
+									open="(" separator="," close=")">
+					#{memberLevel}
+				</foreach>
+		  	</if>
 	  	</where>
+	  	
+	  	<!-- 
+	  		정렬
+	  		- 사용자가 원하는 순서에 맞게 정렬하도록 구현
+	  		- 여러개 있을 수 있다는 전제조건 하에 구현
+	  		- 넘어오는 데이터의 이름은 orderList로 설정
+	  		- List.of("member_id asc", "member_nick desc", .....)
+	  		- ?로 안찍던데가 $, 물음표로 찍던데가 #
+	  	 -->
+	  	 <choose>
+	  	 	<when test="orderList != null and orderList.size() > 0">
+	  	 		order by 
+	  	 		<foreach collection="orderList" item="orderItem" separator=",">
+	  	 			${orderItem}
+	  	 		</foreach>
+	  	 	</when>
+	  	 	<otherwise>
+	  	 		order by member_id asc
+	  	 	</otherwise>
+	  	 </choose>
+	  	 
+		<!--  top n query footer 삽입 -->
+		<include refid="top-n-footer"></include>
 	  </select>
-	 
+	  
+	 <!-- 
+	 	Top N Query 적용
+	  	- 결국 홈페이지의 목록에는 페이징이라는 개념이 포함된다
+	  	- 어떻게 구현하느냐에 따라서 네비게이터나 무한스크롤 형태가 됨
+	  	- 모든 조회에 똑같이 들어가는 구문이므로 어딘가에 보관해두고 불러온다면 좋겠다!!!!
+	  -->
+	  
+	<!-- 상단 -->
+	<sql id="top-n-header">
+		<if test="beginRow != null and endRow != null">
+		select * from (
+			select rownum rn, TMP.* from (
+		</if>
+	</sql>
+	
+	<!-- 하단 -->
+	<sql id="top-n-footer">
+		<if test="beginRow != null and endRow != null">
+			)TMP
+		) where rn between #{beginRow} and #{endRow}
+		</if>
+	</sql>
+	
 </mapper>    
  
