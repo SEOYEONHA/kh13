@@ -14,5 +14,15 @@ public class MemberComplexVO {
 	private String minLoginDate, maxLoginDate;
 	private List<String> memberLevelList;
 	private List<String> orderList;
-	private Integer beginRow, endRow;
+	
+	
+	private int page=1, size=10;
+	//private Integer beginRow, endRow;
+	
+	public int getBeginRow() {
+		return page * size - (size-1);
+	}
+	public int getEndRow() {
+		return page * size;
+	}
 }
