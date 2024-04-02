@@ -27,5 +27,36 @@ public class SecretMemberDao {
 		secretMemberDto.setMemberPw(result); //비밀번호 재설정
 		sqlSession.insert("secretMember.join", secretMemberDto);
 	}
+	
+	public SecretMemberDto selectOne(String memberId) {
+		return sqlSession.selectOne("secretMember.find", memberId);
+	}
+	
+	public SecretMemberDto selectOneByMemberPw(SecretMemberDto secretMemberDto) {
+		
+		//사용자가 입력한 아이디로 DB에서 정보를 조회
+		SecretMemberDto findDto = sqlSession.selectOne("secretMember.find", secretMemberDto.getMemberId());
+		
+		//조회 결과가 없다면 아이디가 없는것이므로 중단
+		if(findDto == null) return null;
+		
+		//비밀번호를 "암호화" 고려하여 비교
+		boolean isValid = encoder.matches(secretMemberDto.getMemberPw(), findDto.getMemberPw());
+		
+		//isValid결과에 따라 반환
+		return isValid ? findDto : null;
+	}
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
