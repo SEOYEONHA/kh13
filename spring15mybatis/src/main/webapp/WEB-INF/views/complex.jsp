@@ -68,7 +68,30 @@
 
 <%-- 결과 --%>
 <h2>결과 수 : ${list.size()}</h2>
-<c:forEach var="memberDto" items="${list}">
-	${memberDto}
-	<hr>
-</c:forEach>
+<table border="1" width="1000">
+	<thead>
+		<tr>
+			<th>아이디</th>
+			<th>닉네임</th>
+			<th>연락처</th>
+			<th>등급</th>
+			<th>포인트</th>
+			<th>가입일</th>
+			<th>로그인일시</th>
+		</tr>
+	</thead>
+	<tbody>
+		<c:forEach var="memberDto" items="${list}">
+		<tr>
+			<td>${memberDto.memberId}</td>
+			<td>${memberDto.memberNick}</td>
+			<td>${memberDto.memberContact}</td>
+			<td>${memberDto.memberLevel}</td>
+			<td>${memberDto.memberPoint}</td>
+			<td>${memberDto.memberJoin}</td>
+			<td>${memberDto.memberLogin}</td>
+		</tr>		
+		</c:forEach>
+	</tbody>
+</table>
+	
