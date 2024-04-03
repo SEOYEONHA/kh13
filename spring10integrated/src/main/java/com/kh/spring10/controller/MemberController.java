@@ -19,6 +19,7 @@ import com.kh.spring10.dto.MemberDto;
 import com.kh.spring10.service.AttachService;
 import com.kh.spring10.service.EmailService;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -48,7 +49,7 @@ public class MemberController {
 	}
 	@PostMapping("/join")
 	public String join(@ModelAttribute MemberDto memberDto, 
-									@RequestParam MultipartFile attach) throws IllegalStateException, IOException {
+									@RequestParam MultipartFile attach) throws IllegalStateException, IOException, MessagingException {
 		memberDao.insert(memberDto);
 		
 		//첨부파일 등록
@@ -60,7 +61,8 @@ public class MemberController {
 		}
 		
 		//가입 환영 메일 발송
-		emailService.sendWelcomeMail(memberDto.getMemberEmail());
+		//emailService.sendWelcomeMail(memberDto.getMemberEmail());
+		emailService.sendWelcomeMail(memberDto);
 		
 		return "redirect:joinFinish";
 	}
