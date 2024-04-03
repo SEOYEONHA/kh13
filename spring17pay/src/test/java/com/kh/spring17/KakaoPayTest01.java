@@ -27,12 +27,15 @@ public class KakaoPayTest01 {
 		RestTemplate template = new RestTemplate();
 		
 		//주소 생성
-		URI uri = new URI("https://open-api.kakaopay.com//online/v1/payment/ready");
+//		URI uri = new URI("https://open-api.kakaopay.com//online/v1/payment/ready");
+		URI uri = new URI("https://kapi.kakao.com/v1/payment/ready");
 		
 		//헤더 생성
 		HttpHeaders header = new HttpHeaders();
-		header.add("Authorization", "SECRET_KEY f2c0de5d2206127997e9ec6c420f9bb4");
-		header.add("Content-Type", "application/json");
+//		header.add("Authorization", "SECRET_KEY f2c0de5d2206127997e9ec6c420f9bb4");
+//		header.add("Content-Type", "application/json");
+		header.add("Authorization", "KakaoAK f2c0de5d2206127997e9ec6c420f9bb4");
+		header.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");		
 		
 		//바디 생성
 		MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
@@ -51,6 +54,8 @@ public class KakaoPayTest01 {
 		HttpEntity entity = new HttpEntity(body, header); //헤더 + 바디
 		
 		Map response = template.postForObject(uri, entity, Map.class);
+//		log.debug("response = {}", response);
+		log.debug("주소 = {}", response.get("next_redirect_pc_url"));
 		
 	}
 }
