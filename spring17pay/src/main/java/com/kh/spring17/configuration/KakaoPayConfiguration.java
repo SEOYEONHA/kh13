@@ -20,7 +20,7 @@ public class KakaoPayConfiguration {
 	@Bean
 	public HttpHeaders header() {
 		HttpHeaders header = new HttpHeaders();
-		header.add("Authorization", "SECRET_KEY" + kakaoPayProperties.getKey());
+		header.add("Authorization", "SECRET_KEY " + kakaoPayProperties.getKey());
 		header.add("Content-Type", "application/json");
 		return header;
 	}

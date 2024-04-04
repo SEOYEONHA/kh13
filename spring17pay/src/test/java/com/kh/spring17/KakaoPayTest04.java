@@ -44,11 +44,11 @@ public class KakaoPayTest04 {
 		RestTemplate template = new RestTemplate();
 		
 		//주소 생성
-		URI uri = new URI("https://open-api.kakaopay.com/online/v1/payment/approve");
+		URI uri = new URI("https://open-api.kakaopay.com/online/v1/payment/ready");
 		
 		//헤더 생성
 		HttpHeaders header = new HttpHeaders();
-		header.add("Authorization", "SECRET_KEY" + kakaoPayProperties.getKey());
+		header.add("Authorization", "SECRET_KEY " + kakaoPayProperties.getKey());
 		header.add("Content-Type", "application/json");
 		
 		//바디 생성
