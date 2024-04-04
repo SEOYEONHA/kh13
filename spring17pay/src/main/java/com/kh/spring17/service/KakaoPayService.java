@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.kh.spring17.configuration.KakaoPayProperties;
 import com.kh.spring17.vo.KakaoPayApproveRequestVO;
@@ -44,9 +45,12 @@ public class KakaoPayService {
 		body.put("quantity", "1");
 		body.put("total_amount", String.valueOf(requestVO.getTotalAmount()));
 		body.put("tax_free_amount", "0");
-		body.put("approval_url", "http://localhost:8080/success");
-		body.put("cancel_url", "http://localhost:8080/cancel");
-		body.put("fail_url", "http://localhost:8080/fail");
+		
+		//구매페이지 주소의 뒤에 /success, /cancel, /fail을 붙여서 처리하도록 구현
+		String page = ServletUriComponentsBuilder.fromCurrentRequestUri().build().toUriString();
+		body.put("approval_url", page + "/success");
+		body.put("cancel_url", page + "/cancel");
+		body.put("fail_url", page + "/fail");
 		
 		//통신 요청
 		HttpEntity entity = new HttpEntity(body, header);//헤더+바디
