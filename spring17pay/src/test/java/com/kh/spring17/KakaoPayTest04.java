@@ -15,7 +15,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kh.spring17.configuration.KakaoPayProperties;
-import com.kh.spring17.vo.KaKaoPayReadyRequestVO;
+import com.kh.spring17.vo.KakaoPayReadyRequestVO;
 import com.kh.spring17.vo.KakaoPayReadyResponseVO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,7 @@ public class KakaoPayTest04 {
 		//신버전 코드(카카오페이 개발자센터가 따로 생김)
 		
 		//결제에 필요한 정보를 미리 생성
-		KaKaoPayReadyRequestVO requestVO = KaKaoPayReadyRequestVO
+		KakaoPayReadyRequestVO requestVO = KakaoPayReadyRequestVO
 																		.builder().partnerOrderId(UUID.randomUUID().toString())
 																		.partnerUserId("testuser1")
 																		.itemName("자바 하루 무료 수강권")
