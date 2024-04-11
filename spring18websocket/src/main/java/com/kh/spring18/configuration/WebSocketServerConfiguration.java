@@ -7,6 +7,7 @@ import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 import com.kh.spring18.websocket.BasicWebSocketServer;
+import com.kh.spring18.websocket.ChatbotWebSocketServer;
 import com.kh.spring18.websocket.SimpleWebSocketServer;
 
 @EnableWebSocket //웹소켓을 사용할 것임을 표시(활성화설정)
@@ -18,6 +19,9 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 	
 	@Autowired
 	private SimpleWebSocketServer simpleWebSocketServer;
+	
+	@Autowired
+	private ChatbotWebSocketServer chatbotWebSocketServer;
 
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
@@ -25,7 +29,8 @@ public class WebSocketServerConfiguration implements WebSocketConfigurer{
 		//- 반드시 웹페이지처럼 주소가 부여되어야 함
 		//- (중요) 절대로 다른 주소와 겹치면 안된다
 		registry.addHandler(basicWebSocketServer, "/ws/basic")
-						.addHandler(simpleWebSocketServer, "ws/simple");
+						.addHandler(simpleWebSocketServer, "/ws/simple")
+						.addHandler(chatbotWebSocketServer, "/ws/chatbot");
 		//registry.addHandler(simpleWebSocketServer, "ws/simple");
 	}
 	

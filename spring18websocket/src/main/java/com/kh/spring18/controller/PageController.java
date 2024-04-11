@@ -16,5 +16,10 @@ public class PageController {
 	public String simple() {
 		return "simple";
 	}
+	
+	@RequestMapping("/chatbot")
+	public String chatbot() {
+		return "chatbot";
+	}
 
 }
