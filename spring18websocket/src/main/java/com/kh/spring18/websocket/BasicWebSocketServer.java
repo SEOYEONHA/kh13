@@ -7,7 +7,7 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import lombok.extern.slf4j.Slf4j;
 
-/*
+/**
  * 웹소켓 접속 및 메세지 전송을 중계하는 서버
  * - 상속을 받아서 자격을 획득 (WebSocketHandler : 부모 / 자식 TextWebSocketHandler : 글자주고받 / BinaryWebSocketHandler : 파일주고받)
  * - @Service 로 등록하여 사용
