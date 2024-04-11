@@ -1,6 +1,7 @@
 package com.kh.spring17.controller;
 
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,10 @@ import com.kh.spring17.dto.ProductDto;
 import com.kh.spring17.service.KakaoPayService;
 import com.kh.spring17.vo.KakaoPayApproveRequestVO;
 import com.kh.spring17.vo.KakaoPayApproveResponseVO;
+import com.kh.spring17.vo.KakaoPayCancelRequestVO;
+import com.kh.spring17.vo.KakaoPayCancelResponseVO;
+import com.kh.spring17.vo.KakaoPayOrderRequestVO;
+import com.kh.spring17.vo.KakaoPayOrderResponseVO;
 import com.kh.spring17.vo.KakaoPayReadyRequestVO;
 import com.kh.spring17.vo.KakaoPayReadyResponseVO;
 import com.kh.spring17.vo.PurchaseListVO;
@@ -151,6 +156,108 @@ public class Pay3Controller {
 		session.removeAttribute("tid");
 		session.removeAttribute("vo");
 		return "pay3/fail";
+	}
+	
+	//결제 목록 - 카카오페이 아니고 payment의 목록을 보겠다는 뜻
+	@RequestMapping("/list")
+	public String list(Model model) {
+		model.addAttribute("list", paymentDao.paymentList());
+		return "pay3/list";
+	}
+	
+	@RequestMapping("/detail")
+	public String detail(@RequestParam int paymentNo, Model model) throws URISyntaxException {
+		//DB의 상세내역 첨부
+		List<PaymentDetailDto> detailList = 
+							paymentDao.paymentDetailList(paymentNo);
+		model.addAttribute("detailList", detailList);
+		
+		//카카오페이의 상세조회내역 첨부
+		PaymentDto paymentDto = paymentDao.selectOne(paymentNo);
+		model.addAttribute("paymentDto", paymentDto);
+		KakaoPayOrderRequestVO requestVO = 
+					KakaoPayOrderRequestVO.builder()
+						.tid(paymentDto.getPaymentTid())
+					.build();
+		KakaoPayOrderResponseVO responseVO = 
+												kakaoPayService.order(requestVO);
+		model.addAttribute("responseVO", responseVO);
+		return "pay3/detail";
+	}
+	
+	//부분취소(항목취소)
+	//- 데이터베이스 변경 + KakaoAPI 취소요청
+	//- 데이터베이스는 payment_detail과 payment 조회 및 변경이 필요
+	//- payment에서는 잔여금액을 차감하고 TID를 조회해야함
+	//- payment_detail에서는 상품상태를 취소로 변경하고 금액을 조회해야함
+	@GetMapping("/cancelItem")
+	public String cancelItem(@RequestParam int paymentDetailNo) throws URISyntaxException {
+		//[1] 결제 상세 정보를 모두 불러온다(취소시킬 금액을 알 수 있다)
+		PaymentDetailDto paymentDetailDto = paymentDao.paymentDetailFind(paymentDetailNo);
+		int amount = paymentDetailDto.getTotalPrice();
+		
+		//(+추가) 상품이 취소 상태라면 예외를 발생시켜 실행을 막는다
+		if(paymentDetailDto.getPaymentDetailStatus().equals("취소")) {
+			throw new RuntimeException("이미 취소된 상품");
+		}
+		
+		//[2] 결제 대표 정보를 모두 불러온다(거래번호와 잔여금액을 알 수 있다)
+		PaymentDto paymentDto = 
+				paymentDao.selectOne(paymentDetailDto.getPaymentNo());
+		int paymentNo = paymentDto.getPaymentNo();
+		int paymentRemain = paymentDto.getPaymentRemain();
+		
+//		if(paymentRemain < amount) {//잔여금액이 더 작은경우
+//			return "redirect:에러페이지";
+//		}
+		
+		//[3] 불러온 정보들을 이용하여 카카오페이 취소 요청을 한다(Test07)
+		KakaoPayCancelRequestVO requestVO = 
+										KakaoPayCancelRequestVO.builder()
+											.tid(paymentDto.getPaymentTid())
+											.cancelAmount(amount)
+										.build();
+				
+		KakaoPayCancelResponseVO responseVO = 
+										kakaoPayService.cancel(requestVO);
+		
+		//[4] 취소가 성공한 경우 데이터베이스 값을 변화시킨다
+		paymentDao.paymentRemainDecrease(paymentNo, amount);
+		paymentDao.paymentDetailCancel(paymentDetailNo);
+		
+		return "redirect:detail?paymentNo="+paymentNo;
+	}
+	
+	//전체취소
+	//- 결제 대표정보를 조회하여 남은금액을 모두 취소하는 것
+	//- 결제 대표정보에 소속된 상세정보의 상태를 모두 취소로 변경해야함
+	@GetMapping("/cancelAll")
+	public String cancelAll(@RequestParam int paymentNo) throws URISyntaxException {
+		//[1] 결제 대표정보를 모두 불러온다(잔여금액이 존재)
+		PaymentDto paymentDto = paymentDao.selectOne(paymentNo);
+		
+		//(+추가) 잔여금액이 0원이라면 차단
+		if(paymentDto.getPaymentRemain() == 0) {
+			throw new RuntimeException("이미 취소 완료된 결제건");
+		}
+		
+		//[2] 결제 취소
+		KakaoPayCancelRequestVO requestVO = 
+								KakaoPayCancelRequestVO.builder()
+									.tid(paymentDto.getPaymentTid())
+									.cancelAmount(paymentDto.getPaymentRemain())
+								.build();
+		KakaoPayCancelResponseVO responseVO = 
+										kakaoPayService.cancel(requestVO);
+		
+		//[3] DB상태 변경
+		//(1) payment 테이블의 해당 항목 잔여금액 모두 차감
+		//(2) payment_detail 테이블의 해당 payment_no에 대한 항목을 모두 취소
+		paymentDao.paymentRemainDecrease(
+							paymentNo, paymentDto.getPaymentRemain());
+		paymentDao.paymentDetailCancelAll(paymentNo);
+		
+		return "redirect:detail?paymentNo="+paymentNo;
 	}
 
 }

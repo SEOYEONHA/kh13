@@ -36,4 +36,43 @@
 			#{paymentDetailPrice}, #{paymentDetailStatus}, #{paymentNo}
 		)
 	</insert>
+	
+		<!-- 결제 정보 조회 -->
+	<select id="paymentList" resultType="PaymentDto">
+		select * from payment order by payment_no desc
+	</select>
+	<select id="paymentFind" resultType="PaymentDto">
+		select * from payment where payment_no = #{paymentNo}
+	</select>
+	
+	<!-- 결제 상세 정보 조회 -->
+	<select id="paymentDetailList" resultType="PaymentDetailDto">
+		select * from payment_detail 
+		where payment_no = #{paymentNo} 
+		order by payment_detail_no asc
+	</select>
+	<select id="paymentDetailFind" resultType="PaymentDetailDto">
+		select * from payment_detail 
+		where payment_detail_no = #{paymentDetailNo}
+	</select>
+	
+	<!-- payment 잔여금액을 차감 -->
+	<update id="paymentRemainDecrease">
+		update payment 
+		set payment_remain = payment_remain - #{amount}
+		where payment_no = #{paymentNo}
+	</update>
+	<!-- payment_detail 상태를 취소로 변경 -->
+	<update id="paymentDetailCancel">
+		update payment_detail 
+		set payment_detail_status = '취소'
+		where payment_detail_no = #{paymentDetailNo}
+	</update>
+	<update id="paymentDetailCancelAll">
+		update payment_detail 
+		set payment_detail_status = '취소'
+		where payment_no = #{paymentNo} 
+		<!-- 성능 향상을 위해 추가한 최적화 구문 -->
+		and payment_detail_status='승인'
+	</update>
 </mapper>
