@@ -41,4 +41,20 @@ public class ChatbotWebSocketServer extends TextWebSocketHandler{
 		session.sendMessage(message);
 	}
 	
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
+		//사용자가 보내는 메세지를 받아서 처리하는 메소드
+		//- 사용자는 질문번호를 보낸다
+		//- 질문번호를 받아서 상세조회한 뒤 나오는 정보를 전송하면된다
+		int chatbotNo = Integer.parseInt(message.getPayload());
+		ChatbotDto chatbotDto = chatbotDao.selectOne(chatbotNo);
+		
+		ObjectMapper mapper = new ObjectMapper();
+		String json = mapper.writeValueAsString(chatbotDto); //JSON 변환
+		TextMessage response = new TextMessage(json); //포장
+		
+		session.sendMessage(response); //전송
+	}
+	
+	
 }
