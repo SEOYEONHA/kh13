@@ -23,7 +23,7 @@
 	
 	<!-- 목록 -->
 	<select id="list" resultType="MessageDto">
-		select * from message order by message_no desc;
+		select * from message order by message_no asc
 	</select>
 
 	<!-- 상세 -->
