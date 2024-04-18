@@ -18,4 +18,19 @@ public class PocketmonDao {
 	public List<PocketmonDto> selectList(){
 		return sqlSession.selectList("pocketmon.list");
 	}
+	
+	//등록
+	public void insert(PocketmonDto pocketmonDto) {
+		sqlSession.insert("pocketmon.save", pocketmonDto);
+	}
+	
+	//수정
+	public boolean update(PocketmonDto pocketmonDto) {
+		return sqlSession.update("pocketmon.edit", pocketmonDto) > 0;
+	}
+	
+	//삭제
+	public boolean delete(int pocketmonNo) {
+		return sqlSession.delete("pocketmon.delete", pocketmonNo) > 0;
+	}
 }

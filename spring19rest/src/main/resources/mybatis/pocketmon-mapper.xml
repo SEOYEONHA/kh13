@@ -10,7 +10,7 @@
 
 	<!-- Create  -->
 	<insert id="save">
-		insert into pocketmon(pocketmon_no, pocketmon_name, pokcetmon_type) 
+		insert into pocketmon(pocketmon_no, pocketmon_name, pocketmon_type) 
 		values(#{pocketmonNo}, #{pocketmonName}, #{pocketmonType})
 	</insert>
 	
