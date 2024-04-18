@@ -39,6 +39,7 @@
 		where
 			pocketmon_no = #{pocketmonNo}
 	</update>
+	
 	<!-- Delete  -->
 	<delete id="delete">
 		delete pocketmon where pocketmon_no = #{pocketmonNo}

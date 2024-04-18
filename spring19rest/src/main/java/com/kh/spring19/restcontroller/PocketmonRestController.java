@@ -60,4 +60,28 @@ public class PocketmonRestController {
 		return pocketmonDao.delete(pocketmonNo);
 	}
 	
+	//상세조회
+	//- 과거에는 detail?pocketmonNo=5 와 같이 구현했었음(파라미터 방식)
+	//- ? 뒷부분은 주소라고 보지 않기 때문에 지금 구조에 적합하지 않다
+	//- 경로변수로 대체하여 사용
+	@GetMapping("/{pocketmonNo}")
+	public PocketmonDto find(@PathVariable int pocketmonNo) {
+		PocketmonDto pocketmonDto = pocketmonDao.selectOne(pocketmonNo);
+		return pocketmonDto;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
