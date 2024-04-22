@@ -14,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kh.spring19.dao.StudentDao;
-import com.kh.spring19.dto.EmpDto;
-import com.kh.spring19.dto.StudentDto;
+import com.kh.spring19.dao.MenuDao;
+import com.kh.spring19.dto.MenuDto;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -27,25 +26,24 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
-//학생 REST API - 전부 다 ResponseEntity 형태로 처리
-@Tag(name = "학생 관리")
+@Tag(name = "메뉴 관리")
 
 @CrossOrigin
 @RestController
-@RequestMapping("/student")
-public class StudentRestController {
-
+@RequestMapping("/menu")
+public class MenuRestController {
+	
 	@Autowired
-	private StudentDao studentDao;
+	private MenuDao menuDao;
 	
 	//등록
 	@Operation(
-		description = "학생 정보 등록",
+		description = "메뉴 등록",
 		responses = {
-			@ApiResponse(responseCode = "200",description = "학생 등록 완료",
+			@ApiResponse(responseCode = "200",description = "메뉴 등록 완료",
 				content = @Content(
 					mediaType = "application/json",
-					schema = @Schema(implementation = StudentDto.class)
+					schema = @Schema(implementation = MenuDto.class)
 				)
 			),
 			@ApiResponse(responseCode = "500",description = "서버 오류",
@@ -59,23 +57,24 @@ public class StudentRestController {
 	)
 	
 	@PostMapping("/")
-	public ResponseEntity<StudentDto> insert(
-			@Parameter(description = "생성할 학생 정보에 대한 입력값", required = true, schema = @Schema(implementation = StudentDto.class))
-			@RequestBody StudentDto studentDto) {
-		int sequence = studentDao.sequence();
-		studentDto.setStudentId(sequence);
-		studentDao.insert(studentDto);
-		return ResponseEntity.ok().body(studentDao.selectOne(sequence));
+	public ResponseEntity<MenuDto> insert(
+			@Parameter(description = "등록할 메뉴에 대한 입력값", required = true, schema = @Schema(implementation = MenuDto.class)) 
+			@RequestBody MenuDto menuDto){
+			
+		int sequence = menuDao.sequence();
+		menuDto.setMenuNo(sequence);
+		menuDao.insert(menuDto);
+		return ResponseEntity.ok().body(menuDao.selectOne(sequence));
 	}
 	
 	//목록
 	@Operation(
-		description = "학생 목록 조회",
+		description = "메뉴 목록 조회",
 		responses = {
 			@ApiResponse(responseCode = "200",description = "조회 완료",
 				content = @Content(
 						mediaType = "application/json",
-						array = @ArraySchema(schema = @Schema(implementation = StudentDto.class))
+						array = @ArraySchema(schema = @Schema(implementation = MenuDto.class))
 				)
 			),
 			@ApiResponse(responseCode = "500",description = "서버 오류",
@@ -89,22 +88,22 @@ public class StudentRestController {
 	)
 	
 	@GetMapping("/")
-	public ResponseEntity<List<StudentDto>> list() {
-		List<StudentDto> list = studentDao.selectList();
+	public ResponseEntity<List<MenuDto>> list() {
+		List<MenuDto> list = menuDao.selectList();
 		return ResponseEntity.ok().body(list);
 	}
 	
 	//상세
 	@Operation(
-		description = "학생 상세 정보 조회",
+		description = "메뉴 상세 정보 조회",
 		responses = {
 			@ApiResponse(responseCode = "200",description = "조회 완료",
 					content = @Content(
 						mediaType = "application/json",
-						schema = @Schema(implementation = StudentDto.class)
+						schema = @Schema(implementation = MenuDto.class)
 					)
 			),
-			@ApiResponse(responseCode = "404",description = "학생 정보 없음",
+			@ApiResponse(responseCode = "404",description = "메뉴 정보 없음",
 				content = @Content(
 						mediaType = "text/plain",
 						schema = @Schema(implementation = String.class), 
@@ -120,51 +119,50 @@ public class StudentRestController {
 			),
 		}
 	)
-	
-	@GetMapping("/{studentId}")
-	public ResponseEntity<StudentDto> find(@PathVariable int studentId) {
-		StudentDto studentDto = studentDao.selectOne(studentId);
-		if(studentDto == null) return ResponseEntity.notFound().build();
-		return ResponseEntity.ok().body(studentDto);
+	@GetMapping("/{menuNo}")
+	public ResponseEntity<MenuDto> find(@PathVariable int menuNo){
+		MenuDto menuDto = menuDao.selectOne(menuNo);
+		if(menuDto == null) return ResponseEntity.notFound().build();
+		return ResponseEntity.ok().body(menuDto);
 	}
 	
 	//수정
 	@Operation(
-		description = "학생 정보 변경",
-		responses = {
-			@ApiResponse(responseCode = "200",description = "변경 완료",
-				content = @Content(
-					mediaType = "application/json",
-					schema = @Schema(implementation = StudentDto.class)
-				)
-			),
-			@ApiResponse(responseCode = "404",description = "학생 정보 없음",
-				content = @Content(
-						mediaType = "text/plain",
-						schema = @Schema(implementation = String.class), 
-						examples = @ExampleObject("not found")
-				)
-			),
-			@ApiResponse(responseCode = "500",description = "서버 오류",
-				content = @Content(
-						mediaType = "text/plain",
-						schema = @Schema(implementation = String.class), 
-						examples = @ExampleObject("server error")
-				)
-			),
-		}
-	)
+			description = "메뉴 정보 변경",
+			responses = {
+				@ApiResponse(responseCode = "200",description = "변경 완료",
+					content = @Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = MenuDto.class)
+					)
+				),
+				@ApiResponse(responseCode = "404",description = "메뉴 정보 없음",
+					content = @Content(
+							mediaType = "text/plain",
+							schema = @Schema(implementation = String.class), 
+							examples = @ExampleObject("not found")
+					)
+				),
+				@ApiResponse(responseCode = "500",description = "서버 오류",
+					content = @Content(
+							mediaType = "text/plain",
+							schema = @Schema(implementation = String.class), 
+							examples = @ExampleObject("server error")
+					)
+				),
+			}
+		)
 	
 	@PatchMapping("/")
-	public ResponseEntity<StudentDto> edit(@RequestBody StudentDto studentDto) {
-		boolean result = studentDao.edit(studentDto);
+	public ResponseEntity<MenuDto> edit(@RequestBody MenuDto menuDto){
+		boolean result = menuDao.edit(menuDto);
 		if(result == false) return ResponseEntity.notFound().build();
-		return ResponseEntity.ok().body(studentDao.selectOne(studentDto.getStudentId()));//수정 완료된 결과를 조회하여 반환
+		return ResponseEntity.ok().body(menuDao.selectOne(menuDto.getMenuNo()));
 	}
 	
 	//삭제
 	@Operation(
-		description = "학생 정보 삭제",
+		description = "메뉴 정보 삭제",
 		responses = {
 			@ApiResponse(responseCode = "200",description = "삭제 완료",
 				content = @Content(
@@ -173,7 +171,7 @@ public class StudentRestController {
 						examples = @ExampleObject("ok")
 				)
 			),
-			@ApiResponse(responseCode = "404",description = "학생 정보 없음",
+			@ApiResponse(responseCode = "404",description = "메뉴 정보 없음",
 				content = @Content(
 						mediaType = "text/plain",
 						schema = @Schema(implementation = String.class), 
@@ -190,11 +188,16 @@ public class StudentRestController {
 		}
 	)
 	
-	@DeleteMapping("/{studentId}")
-	public ResponseEntity<?> delete(@PathVariable int studentId) {
-		boolean result = studentDao.delete(studentId);
+	@DeleteMapping("/{menuNo}")
+	public ResponseEntity<?> delete(@PathVariable int menuNo) {
+		boolean result = menuDao.delete(menuNo);
 		if(result == false) return ResponseEntity.notFound().build();
 		return ResponseEntity.ok().build();
 	}
 	
+	
+	
+	
 }
+
+

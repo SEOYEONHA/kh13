@@ -12,7 +12,7 @@
 	</select>
 	<insert id="save">
 		insert into student(student_id, name, korean_score, english_score, math_score)
-		values(#{studentId}, #{name}, #{koreanScore}, #{englishScore}, #{mathScore})
+		values (#{studentId}, #{name}, #{koreanScore}, #{englishScore}, #{mathScore})
 	</insert>
 	
 	<!-- Read -->
@@ -30,7 +30,7 @@
 	<update id="edit">
 		update student
 		<set>
-			<if test="studentName != null">student_name = #{studentName},</if>
+			<if test="name != null">name = #{name},</if>
 			<if test="koreanScore != null">korean_score = #{koreanScore},</if>
 			<if test="englishScore != null">english_score = #{englishScore},</if>
 			<if test="mathScore != null">math_score = #{mathScore},</if>
