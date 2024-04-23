@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 
 import com.kh.spring19.configuration.JwtProperties;
 import com.kh.spring19.dto.MemberDto;
+import com.kh.spring19.vo.MemberLoginVO;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 
@@ -44,5 +46,25 @@ public class JwtService {
 				.compact();
 
 		return token;
+	}
+	
+	public MemberLoginVO parse(String token) {
+		//1. 해석을 위한 key 생성
+		String keyStr = jwtProperties.getKeyStr();
+		SecretKey key = Keys.hmacShaKeyFor(keyStr.getBytes(StandardCharsets.UTF_8));
+		
+		//2. 토큰 해석
+		Claims claims = (Claims) Jwts.parser() //해석도구(parser) 준비해서
+				.verifyWith(key) //열쇠 설정하고
+				.requireIssuer(jwtProperties.getIssuer()) //발행자 정보를 확인하도록
+				.build() //만든다음
+				.parse(token) //토큰 해석하고
+				.getPayload(); //내용 가져와!
+		
+		//3. 해석된 결과를 객체로 반환
+		return MemberLoginVO.builder()
+					.memberId((String)claims.get("loginId"))
+					.memberLevel((String)claims.get("loginLevel"))
+				.build();
 	}
 }

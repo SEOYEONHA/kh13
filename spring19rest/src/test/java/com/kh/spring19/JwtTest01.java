@@ -41,7 +41,7 @@ public class JwtTest01 {
 					.expiration(expire) //만료시각
 					.signWith(key) //서명
 					.claim("loginId", "testuser1") //사용자에게 보낼 내용(key=value)
-					.claim("loginLevel", "일반회원") //사용자에게 보낼 내용(key=value)
+					.claim("loginLevel", "우수회원") //사용자에게 보낼 내용(key=value)
 				.compact();
 		
 		//4. 결과 확인
